@@ -1,4 +1,7 @@
+<p>Search near you:</p>
+<button id="get-loc">Get my location</button>
 
+<p>or search another location:</p>
 <%= form_tag("/search", method: "get", :id => 'search') do %>
 
   <%= label_tag :query, "Search for a location" %>
@@ -7,3 +10,5 @@
   <%= submit_tag "Search", id: "button" %>
   
 <%end%>
+
+<div id="results"></div>

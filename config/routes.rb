@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get '/' => 'site#index'
   get '/search' => 'site#search'
+  post '/coords' => 'site#coords'
  
   resources :users do
 
