@@ -1,10 +1,11 @@
-<p>Search near you:</p>
-<button id="get-loc">Get my location</button>
+<h1>Wiki To Go!</h1>
+
+<p>Search near you: <button id="get-loc">Get my location</button> </p>
+
 
 <p>or search another location:</p>
 <%= form_tag("/search", method: "get", :id => 'search') do %>
 
-  <%= label_tag :query, "Search for a location" %>
   <%= text_field_tag :query %>
 
   <%= submit_tag "Search", id: "button" %>

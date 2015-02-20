@@ -2,7 +2,9 @@ $(function() {
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 	console.log("let's go!")
-	getLocation();
+
+	$("#get-loc").bind("click", getLocation)
+	
 		
 	function onError (error) {
 		console.log("Error getting geolocation. ", error);
