@@ -1,0 +1,7 @@
+
+<%= form_for @search, url: new_search_path, method: 'get' do |f| %>
+  <div class="form-group">
+    <%= f.text_field :query %>
+  </div>
+  <%= f.submit "Search" %>
+<% end %>

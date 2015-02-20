@@ -1,13 +1,17 @@
 class SearchesController < ApplicationController
 
-	def new
-		@user = User.find params[:id]
-		@search = @user.searches.new
+	def index
+		# @user = User.find params[:id]
+		# @search = @user.searches.new
+		@search = Search.new
 	end
 
 	def create
-		@user = User.find params[:id]
-		@search = @user.searches.new(search_params)
+		# @user = User.find params[:id]
+		# @search = @user.searches.new(search_params)
+
+		@search = Search.new
+
 		if @search.save
 			flash[:message] = "Your search is being processed by tiny wikipedia elves"
 			redirect_to '/'

@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
-  get '/' => 'site#home'
+  get '/' => 'site#index'
 
   resources :users do
-    resources :search do
-    end
+
+  end
+
+  resources :searches do
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
