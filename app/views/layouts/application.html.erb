@@ -7,6 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<% flash.map do |key, msg| %>
+    <%= content_tag :div, msg, id: key %>
+  <% end %>
+
 
 <%= yield %>
 
