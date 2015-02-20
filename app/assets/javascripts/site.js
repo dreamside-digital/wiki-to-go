@@ -16,41 +16,43 @@ $(function() {
 // }
 
 
-function pageSearchWiki(query) {
+// function pageSearchWiki(query) {
 
-	APIurl = '/search/'+ query
+// 	var APIurl = '/search/'+ query;
 
-	$.ajax( {
-	    url: APIurl,
-	    data: "",
-	    dataType:'html',
-	    type:'GET',
-	    headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
-	    success: function(data) {
-	    	console.log(data);
-	    	showResults(data);
-	    },
-	    error: showError
-	} );
-
-
-
-}
-
-function showResults (data) {
-	console.log(data);
-}
-
-function showError () {
-	alert('boo error');
-}
-
-$("#search").submit( function() {
-	pageSearchWiki($('#query').val());
-});
+// 	$.ajax( {
+// 	    url: APIurl,
+// 	    data: "",
+// 	    dataType:'html',
+// 	    type:'GET',
+// 	    headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
+// 	    success: function(data) {
+// 	    	console.log(data);
+// 	    	showResults(data);
+// 	    },
+// 	    error: showError
+// 	} );
 
 
-});
+
+// }
+
+// function showResults (data) {
+// 	console.log(data);
+// }
+
+// function showError () {
+// 	alert('boo error');
+// }
+
+// $("#search").submit( function(e) {
+// 	e.preventDefault();
+// 	debugger;
+// 	pageSearchWiki($('#query').val());
+// });
+
+
+// });
 
 
 
