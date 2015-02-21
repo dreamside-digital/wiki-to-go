@@ -13,8 +13,8 @@ class SiteController < ApplicationController
 		results = JSON.parse(response.body)
 		@results_array = results["query"]["geosearch"]
 		render layout:false
-
 	end
+
 
 	def coords
 
