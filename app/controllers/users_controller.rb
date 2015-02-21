@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 			redirect_to user_path(@user)
 		else
 			redirect_to '/'
+		end
 	end
 
 	def edit
@@ -32,9 +33,8 @@ class UsersController < ApplicationController
 
 	private
 
-	def user_params
-		params.require(:user).permit(:name, :email, :password, :password_confirmation)
-	end
-	end
+		def user_params
+			params.require(:user).permit(:name, :email, :password, :password_confirmation)
+		end
 
 end
