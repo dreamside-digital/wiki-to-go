@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   post '/coords' => 'site#coords'
  
   resources :users do
-
+    resources :personalwiki do
+    end
   end
 
   resources :searches do

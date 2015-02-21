@@ -1,0 +1,2 @@
+module PersonalWikisHelper
+end
