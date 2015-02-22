@@ -1,6 +1,7 @@
 <ul>
-  <% @results_array.each do |place| %>
-	<li><%= place["title"] %></li>
+  <% @full_results.each do |result| %>
+	<% link = result[1]["fullurl"] %>
+	<% title = result[1]["title"] %>
+	<li><%= link_to(title, link) %></li>
   <%end%>
 </ul>
-	
