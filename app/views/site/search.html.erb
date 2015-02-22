@@ -1,10 +1,10 @@
-<%= content_tag :div, class: "results_array", data: {results_array: @results_array} do %>
+<%= content_tag :div, class: "markers", data: {markers: @markers} do %>
 <% end %>
 
 <ul>
   <% @results_array.each do |result| %>
-	<% link = result[1]["fullurl"] %>
-	<% title = result[1]["title"] %>
+	<% link = 'http://en.wikipedia.org/?curid=' + result["pageid"].to_s %>
+	<% title = result["title"] %>
 	<li><%= link_to(title, link) %></li>
   <%end%>
 </ul>

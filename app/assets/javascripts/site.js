@@ -2,6 +2,10 @@ $(function() {
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+	var LAT;
+	var LON;
+	var MAP;
+
 	$("#get-loc").bind("click", getLocation)
 
 		
@@ -11,12 +15,12 @@ $(function() {
 
 	function onSuccess(position) {
 
-		var lat = position.coords.latitude;
-		var lon = position.coords.longitude;
-		var location = lat+'|'+lon
+		LAT = position.coords.latitude;
+		LON = position.coords.longitude;
+		var location = LAT+'|'+LON
 
 		searchCoords(location);
-		initialize(lat,lon);
+		initialize(LAT,LON);
 	}
 
 	function searchCoords(location) {
@@ -54,6 +58,7 @@ $(function() {
 
 	function showResults (data) {
 		$("#results").html(data);
+		putMarkers();
 	}
 
 	function showError () {
@@ -65,19 +70,35 @@ $(function() {
 
 
 	function initialize(lat, lon) {
+
         var mapOptions = {
           center: { lat: lat, lng: lon },
           zoom: 8
         };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
+
+        MAP = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
 
-        var markers = [
-        	item = $(".results_array").data("results_array").
-        ]
+    };
 
-      }
+    function putMarkers() {
 
+    	var markers = $(".markers").data("markers");
+
+        for( i = 0; i < markers.length; i++ ) {
+
+	        var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
+	        // bounds.extend(position);
+	        marker = new google.maps.Marker({
+	            position: position,
+	            map: MAP,
+	            title: markers[i][2]
+	        });
+
+        };
+    };
+
+    $("#drop-markers").bind('click', putMarkers)
 
 });
 
