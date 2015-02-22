@@ -41,7 +41,7 @@ class SiteController < ApplicationController
 			flash[:search_error] = results["error"]["info"]
 		else
 			@results_array = results["query"]["pages"]
-			render layout:false
+			# render layout:false
 		end
 	end
  
