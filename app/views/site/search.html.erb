@@ -1,3 +1,6 @@
+<%= content_tag :div, class: "results_array", data: {results_array: @results_array} do %>
+<% end %>
+
 <ul>
   <% @results_array.each do |result| %>
 	<% link = result[1]["fullurl"] %>
@@ -5,3 +8,5 @@
 	<li><%= link_to(title, link) %></li>
   <%end%>
 </ul>
+
+

@@ -1,10 +1,10 @@
 class SiteController < ApplicationController
 	include HTTParty
 
-	attr_accessor :full_results
+	attr_accessor :results_array
 
 	def index
-
+		@results_array
 	end
 
 	def search
@@ -17,6 +17,7 @@ class SiteController < ApplicationController
 			"hmmmm what?"
 		end
 		process_response(response)
+		render layout:false
 
 	end
 
@@ -41,7 +42,6 @@ class SiteController < ApplicationController
 			flash[:search_error] = results["error"]["info"]
 		else
 			@results_array = results["query"]["pages"]
-			# render layout:false
 		end
 	end
  
