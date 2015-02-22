@@ -2,10 +2,9 @@ $(function() {
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-	var LAT;
-	var LON;
-	var MAP;
-	var MARKERS;
+	var lat;
+	var lon;
+	var map;
 
 	$("#get-loc").bind("click", getLocation)
 
@@ -16,12 +15,12 @@ $(function() {
 
 	function onSuccess(position) {
 
-		LAT = position.coords.latitude;
-		LON = position.coords.longitude;
-		var location = LAT+'|'+LON
+		lat = position.coords.latitude;
+		lon = position.coords.longitude;
+		var location = lat+'|'+lon
 
 		searchCoords(location);
-		initialize(LAT,LON);
+		initialize(lat,lon);
 	}
 
 	function searchCoords(location) {
@@ -59,8 +58,9 @@ $(function() {
 
 	function showResults (data) {
 		$("#results").html(data);
-		console.log("helloooo");
-		// putMarkers();
+		var markers = $(".markers").data("markers")
+		console.log(markers)
+		putMarkers(markers);
 	}
 
 	function showError () {
@@ -74,44 +74,29 @@ $(function() {
 	function initialize(lat, lon) {
 
         var mapOptions = {
-          center: { lat: LAT, lng: LON },
+          center: { lat: lat, lng: lon },
           zoom: 12
         };
 
-        var map1 = new google.maps.Map(document.getElementById('map-canvas'),
+        map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-
-		var position = new google.maps.LatLng(41.399555555556, 2.1521666666667)
-
-        var marker = new google.maps.Marker({
-	            position: position,
-	            map: map1,
-	            title: "Gràcia station"
-	        });
-
     };
 
-    // function putMarkers() {
+    function putMarkers(markers) {
 
-    // 	var position = new google.maps.LatLng(41.399555555556, 2.1521666666667)
+        for( i = 0; i < 10; i++ ) {
 
-    // 	// MARKERS = $(".markers").data("markers");
-    // 	// var MARKERS = $(".markers").data("markers");
+	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
+	        // bounds.extend(position);
+	        marker = new google.maps.Marker({
+	            position: position,
+	            map: map,
+	            title: markers[i]["title"]
+	        });
 
-    //     // for( i = 0; i < MARKERS.length; i++ ) {
+        };
+    };
 
-	   //     //  var position = new google.maps.LatLng(MARKERS[i][0], MARKERS[i][1]);
-	   //     //  // bounds.extend(position);
-	   //      marker = new google.maps.Marker({
-	   //          position: position,
-	   //          map: map,
-	   //          title: "Gràcia station"
-	   //      });
-
-    //     };
-    // };
-
-    // $("#drop-markers").bind('click', putMarkers)
 
 });
 
