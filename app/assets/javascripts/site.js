@@ -5,6 +5,7 @@ $(function() {
 	var LAT;
 	var LON;
 	var MAP;
+	var MARKERS;
 
 	$("#get-loc").bind("click", getLocation)
 
@@ -58,7 +59,8 @@ $(function() {
 
 	function showResults (data) {
 		$("#results").html(data);
-		putMarkers();
+		console.log("helloooo");
+		// putMarkers();
 	}
 
 	function showError () {
@@ -72,33 +74,44 @@ $(function() {
 	function initialize(lat, lon) {
 
         var mapOptions = {
-          center: { lat: lat, lng: lon },
-          zoom: 8
+          center: { lat: LAT, lng: LON },
+          zoom: 12
         };
 
-        MAP = new google.maps.Map(document.getElementById('map-canvas'),
+        var map1 = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
 
-    };
+		var position = new google.maps.LatLng(41.399555555556, 2.1521666666667)
 
-    function putMarkers() {
-
-    	var markers = $(".markers").data("markers");
-
-        for( i = 0; i < markers.length; i++ ) {
-
-	        var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
-	        // bounds.extend(position);
-	        marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
 	            position: position,
-	            map: MAP,
-	            title: markers[i][2]
+	            map: map1,
+	            title: "Gràcia station"
 	        });
 
-        };
     };
 
-    $("#drop-markers").bind('click', putMarkers)
+    // function putMarkers() {
+
+    // 	var position = new google.maps.LatLng(41.399555555556, 2.1521666666667)
+
+    // 	// MARKERS = $(".markers").data("markers");
+    // 	// var MARKERS = $(".markers").data("markers");
+
+    //     // for( i = 0; i < MARKERS.length; i++ ) {
+
+	   //     //  var position = new google.maps.LatLng(MARKERS[i][0], MARKERS[i][1]);
+	   //     //  // bounds.extend(position);
+	   //      marker = new google.maps.Marker({
+	   //          position: position,
+	   //          map: map,
+	   //          title: "Gràcia station"
+	   //      });
+
+    //     };
+    // };
+
+    // $("#drop-markers").bind('click', putMarkers)
 
 });
 
