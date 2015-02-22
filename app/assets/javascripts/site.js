@@ -23,10 +23,10 @@ $(function() {
 		var userLoc = { 'location' : location }
 
 		$.ajax( {
-		    url: /coords/,
+		    url: /search/,
 		    data: userLoc,
 		    dataType:'html',
-		    type:'POST',
+		    type:'GET',
 		    headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
 		    success: function(data) {
 		    	showResults(data);

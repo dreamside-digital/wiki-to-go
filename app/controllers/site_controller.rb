@@ -9,34 +9,30 @@ class SiteController < ApplicationController
 
 	def search
 
+		if params.include? :query
+			response = search_query
+		elsif params.include? :location
+			response = search_coords
+		else
+			"hmmmm what?"
+		end
+		process_response(response)
+
+	end
+
+	def search_query
 		query = params[:query]
-
-		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gspage=' + query)
-		results = JSON.parse(response.body)
-
-		if response.code != 200
-			render 'no_results'
-		elsif results["error"].present?
-			render 'no_results'
-			flash[:search_error] = results["error"]["info"]
-		else
-			@results_array = results["query"]["geosearch"]
-			@full_results = get_full_wiki_info
-			render layout:false
-		end
-
+		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&=geosearch&gslimit=50&gsradius=10000&gspage=' + query)
 	end
 
-
-	def coords
-
+	def search_coords
 		location = params[:location]
-
 		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gscoord=' + location)
-		results = JSON.parse(response.body)
+	end
 
-		# @results_array = results["query"]["geosearch"]
-		# render layout:false
+	def process_response(response)
+
+		results = JSON.parse(response.body)
 
 		if response.code != 200
 			render 'no_results'
@@ -48,9 +44,6 @@ class SiteController < ApplicationController
 			@full_results = get_full_wiki_info
 			render layout:false
 		end
-	end
-
-	def results
 	end
 
 	def get_full_wiki_info
