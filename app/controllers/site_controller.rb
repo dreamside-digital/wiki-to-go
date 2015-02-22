@@ -22,7 +22,7 @@ class SiteController < ApplicationController
 
 	def search_query
 		query = params[:query]
-		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&=geosearch&gslimit=50&gsradius=10000&gspage=' + query)
+		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gspage=' + query)
 	end
 
 	def search_coords
