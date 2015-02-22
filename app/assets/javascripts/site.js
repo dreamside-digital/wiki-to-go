@@ -6,7 +6,7 @@ $(function() {
 
 		
 	function onError (error) {
-		console.log("Error getting geolocation. ", error);
+		alert("Oops, we couldn't detect your location. ", error);
 	}
 
 	function onSuccess(position) {
