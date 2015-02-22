@@ -72,7 +72,9 @@ $(function() {
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
 
-        var markers = []
+        var markers = [
+        	item = $(".results_array").data("results_array").
+        ]
 
       }
 
