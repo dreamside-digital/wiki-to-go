@@ -123,7 +123,7 @@ $(function() {
 	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 	        bounds.extend(position);
 
-	        var link = '<a href="http://en.wikipedia.org/?curid=' + markers[i].id +'">' + markers[i].title + '</a>'
+	        var link = '<a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a>'
 			    infoWindowContent.push(link);
 
 	        marker = new google.maps.Marker({

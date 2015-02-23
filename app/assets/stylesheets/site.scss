@@ -34,8 +34,7 @@ body {
 }
 
 .search_coords button {
-	font-family: 'Roboto', sans-serif;
-	font-size: 22px;
+
 	color: #1B1B1B;
 	margin: 25px auto;
 	display: table;
@@ -49,14 +48,4 @@ body {
 .search_form {
 	margin: 25px auto;
 	display: table;
-}
-
-.search_form input {
-	padding: 5px;
-	font-size: 22px;
-	text-align: left;
-}
-
-#search-query {
-	font-size: 22px;
 }
