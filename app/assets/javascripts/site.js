@@ -2,13 +2,22 @@ $(function() {
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+	var query;
 	var lat;
 	var lon;
 	var map;
 	var bounds;
 	var marker;
 
-	$("#get-loc").bind("click", getLocation)
+	$("#get-loc").on("click", getLocation)
+
+	$("form").on("submit", function(event) {
+		event.preventDefault();
+		query = ($('#query').val());
+		searchQuery(query);
+	})
+
+	
 
 		
 	function onError (error) {
@@ -21,13 +30,30 @@ $(function() {
 		lon = position.coords.longitude;
 		var location = lat+'|'+lon
 
-		searchCoords(location);
 		initialize(lat,lon);
+		searchCoords(location);
+	}
+
+	function searchQuery(query) {
+
+		var userQuery = { 'query' : query };
+
+		$.ajax( {
+		    url: /search/,
+		    data: userQuery,
+		    dataType:'html',
+		    type:'GET',
+		    headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
+		    success: function(data) {
+		    	showResults(data);
+		    },
+		    error: showError
+		} );
 	}
 
 	function searchCoords(location) {
 
-		var userLoc = { 'location' : location }
+		var userLoc = { 'location' : location };
 
 		$.ajax( {
 		    url: /search/,
