@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 	def index
+		@users = User.order(created_at: :asc)
 	end
 
 	def show
@@ -16,6 +17,8 @@ class UsersController < ApplicationController
 
 		if @user.save
 			flash[:welcome] = "Welcome to Wiki to Go!"
+			session[:user_id] = @user.id
+			session[:name] = @user.name
 			redirect_to user_path(@user)
 		else
 			redirect_to '/'
@@ -37,7 +40,11 @@ class UsersController < ApplicationController
 	    end
 	end
 
-	def delete
+	def destroy
+		@user = User.find_by session[:id]
+		@user.destroy!
+		session.clear
+		redirect_to '/'
 	end
 
 	def login
@@ -49,7 +56,7 @@ class UsersController < ApplicationController
 			session[:name] = user.name
 			redirect_to '/'
 		else
-			flast[:error] = "Login was not successful."
+			flash[:error] = "Login was not successful."
 			redirect_to '/'
 		end
 	end
