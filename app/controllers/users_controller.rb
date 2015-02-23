@@ -23,12 +23,40 @@ class UsersController < ApplicationController
 	end
 
 	def edit
+		@user = User.find session[:user_id]
+		render 'new'
 	end
 
 	def update
+	    if @user.update(user_params)
+	      flash[:notice] = "Profile updated yeahhh"
+	      redirect_to user_path(@user)
+	    else
+	      flash[:error]  = "Noooo couldn't update profile"
+	      render :edit
+	    end
 	end
 
 	def delete
+	end
+
+	def login
+
+		user = User.find_by(email: params[:email])
+
+		if user && user.authenticate(params[:password])
+			session[:user_id] = user.id
+			session[:name] = user.name
+			redirect_to '/'
+		else
+			flast[:error] = "Login was not successful."
+			redirect_to '/'
+		end
+	end
+
+	def logout
+		session.clear
+		redirect_to '/'
 	end
 
 	private
@@ -38,3 +66,4 @@ class UsersController < ApplicationController
 		end
 
 end
+ 

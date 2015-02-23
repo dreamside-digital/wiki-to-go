@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get '/' => 'site#index'
   get '/search' => 'site#search'
   post '/coords' => 'site#coords'
+  post '/login' => 'users#login'
+  get '/logout' => 'users#logout'
  
   resources :users do
     resources :personalwiki do

@@ -8,9 +8,10 @@ $(function() {
 	var map;
 	var marker;
 
+
 	$("#get-loc").on("click", getLocation)
 
-	$("form").on("submit", function(event) {
+	$("#search").on("submit", function(event) {
 		event.preventDefault();
 		query = ($('#query').val());
 		searchQuery(query);
