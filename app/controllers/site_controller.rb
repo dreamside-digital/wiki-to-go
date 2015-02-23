@@ -18,7 +18,7 @@ class SiteController < ApplicationController
 			"hmmmm what?"
 		end
 		process_response(response)
-		render layout:false
+		redirect_to '/'
 
 	end
 

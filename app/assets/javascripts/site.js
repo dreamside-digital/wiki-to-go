@@ -5,6 +5,7 @@ $(function() {
 	var lat;
 	var lon;
 	var map;
+	var bounds;
 	var marker;
 
 	$("#get-loc").bind("click", getLocation)
@@ -73,6 +74,8 @@ $(function() {
 
 	function initialize(lat, lon) {
 
+		bounds = new google.maps.LatLngBounds();
+
         var mapOptions = {
           center: { lat: lat, lng: lon },
           zoom: 12
@@ -89,11 +92,11 @@ $(function() {
         for( i = 0; i < 10; i++ ) {
 
 	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
+	        bounds.extend(position);
 
 	        var link = '<a href="http://en.wikipedia.org/?curid=' + markers[i].id +'">' + markers[i].title + '</a>'
 			infoWindowContent.push(link);
 
-	        // bounds.extend(position);
 	        marker = new google.maps.Marker({
 	            position: position,
 	            map: map,
@@ -108,18 +111,16 @@ $(function() {
                 	infoWindow.open(map, marker); 
       			};
 		    })(marker, i));  
+
+		    map.fitBounds(bounds);
         };
 
-        console.log(infoWindowContent);
-    };
+        var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+	        this.setZoom(14);
+	        google.maps.event.removeListener(boundsListener);
+	    });
 
-
-    // $("")
-    // function infoWindow() {
-
-    // google.maps.event.addListener(marker, 'click', function() {
-    // 	console.log($(this).title);
-    // });
+	};
 
 
 });
