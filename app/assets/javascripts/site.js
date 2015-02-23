@@ -5,6 +5,7 @@ $(function() {
 	var lat;
 	var lon;
 	var map;
+	var marker;
 
 	$("#get-loc").bind("click", getLocation)
 
@@ -59,7 +60,6 @@ $(function() {
 	function showResults (data) {
 		$("#results").html(data);
 		var markers = $(".markers").data("markers")
-		console.log(markers)
 		putMarkers(markers);
 	}
 
@@ -84,9 +84,15 @@ $(function() {
 
     function putMarkers(markers) {
 
+        var infoWindowContent = [];
+
         for( i = 0; i < 10; i++ ) {
 
 	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
+
+	        var link = '<a href="http://en.wikipedia.org/?curid=' + markers[i].id +'">' + markers[i].title + '</a>'
+			infoWindowContent.push(link);
+
 	        // bounds.extend(position);
 	        marker = new google.maps.Marker({
 	            position: position,
@@ -94,8 +100,26 @@ $(function() {
 	            title: markers[i]["title"]
 	        });
 
+			var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+	        google.maps.event.addListener(marker, 'click', (function(marker, i) { 
+      			return function() {
+      				infoWindow.setContent(infoWindowContent[i]);
+                	infoWindow.open(map, marker); 
+      			};
+		    })(marker, i));  
         };
+
+        console.log(infoWindowContent);
     };
+
+
+    // $("")
+    // function infoWindow() {
+
+    // google.maps.event.addListener(marker, 'click', function() {
+    // 	console.log($(this).title);
+    // });
 
 
 });

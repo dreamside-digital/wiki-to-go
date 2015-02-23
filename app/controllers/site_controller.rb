@@ -56,11 +56,13 @@ class SiteController < ApplicationController
 			title = place["title"]
 			lat = place["lat"]
 			lon = place["lon"]
+			id = place["pageid"]
 
 			markers << {
 				title: title, 
 				lat: lat,
-				lon: lon
+				lon: lon,
+				id: id
 			}
 
 		end
