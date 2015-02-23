@@ -6,7 +6,6 @@ $(function() {
 	var lat;
 	var lon;
 	var map;
-	var bounds;
 	var marker;
 
 	$("#get-loc").on("click", getLocation)
@@ -15,10 +14,7 @@ $(function() {
 		event.preventDefault();
 		query = ($('#query').val());
 		searchQuery(query);
-	})
-
-
-
+	});
 		
 	function onError (error) {
 		alert("Oops, we couldn't detect your location. ", error);
@@ -114,6 +110,12 @@ $(function() {
 
     function putMarkers(markers) {
 
+        var gmapMarkers = [];
+
+        clearMarkers(gmapMarkers);
+
+        var bounds = new google.maps.LatLngBounds();
+
         var infoWindowContent = [];
 
         for( i = 0; i < markers.length; i++ ) {
@@ -122,7 +124,7 @@ $(function() {
 	        bounds.extend(position);
 
 	        var link = '<a href="http://en.wikipedia.org/?curid=' + markers[i].id +'">' + markers[i].title + '</a>'
-			infoWindowContent.push(link);
+			    infoWindowContent.push(link);
 
 	        marker = new google.maps.Marker({
 	            position: position,
@@ -130,14 +132,16 @@ $(function() {
 	            title: markers[i]["title"]
 	        });
 
-			var infoWindow = new google.maps.InfoWindow(), marker, i;
+          gmapMarkers.push(marker);
+
+			    var infoWindow = new google.maps.InfoWindow(), marker, i;
 
 	        google.maps.event.addListener(marker, 'click', (function(marker, i) { 
       			return function() {
       				infoWindow.setContent(infoWindowContent[i]);
                 	infoWindow.open(map, marker); 
       			};
-		    })(marker, i));  
+		      })(marker, i));  
 
 		    map.fitBounds(bounds);
         };
@@ -149,6 +153,12 @@ $(function() {
 
 	};
 
+	function clearMarkers(gmapMarkers) {
+	  for (var i = 0; i < gmapMarkers.length; i++ ) {
+      gmapMarkers[i].setMap(null);
+	  };
+    gmapMarkers = [];
+	}
 
 });
 
