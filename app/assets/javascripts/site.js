@@ -17,7 +17,7 @@ $(function() {
 		searchQuery(query);
 	})
 
-	
+
 
 		
 	function onError (error) {
@@ -30,7 +30,6 @@ $(function() {
 		lon = position.coords.longitude;
 		var location = lat+'|'+lon
 
-		initialize(lat,lon);
 		searchCoords(location);
 	}
 
@@ -98,24 +97,26 @@ $(function() {
 // ----------------- maps -----------------------
 
 
-	function initialize(lat, lon) {
+	function initialize() {
 
 		bounds = new google.maps.LatLngBounds();
 
         var mapOptions = {
-          center: { lat: lat, lng: lon },
-          zoom: 12
+          center: new google.maps.LatLng(41.38,2.18),
+          zoom: 2
         };
 
         map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
     };
 
+    google.maps.event.addDomListener(window, 'load', initialize);
+
     function putMarkers(markers) {
 
         var infoWindowContent = [];
 
-        for( i = 0; i < 10; i++ ) {
+        for( i = 0; i < markers.length; i++ ) {
 
 	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 	        bounds.extend(position);
