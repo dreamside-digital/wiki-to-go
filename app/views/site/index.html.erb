@@ -1,22 +1,24 @@
-<h1>Wiki To Go!</h1>
+<div class="title">
+	<h1>Wiki To Go!</h1>
+</div>
 
-<p>Search near you: <button id="get-loc">Get my location</button> </p>
+<div class="search_coords col-md-6">
+	<button id="get-loc" class="btn btn-default">Search near you</button>
+</div>
+
+<div class="seach_query col-md-6">
+	<div class="search_form">
+		<%= form_tag("/search", method: "get", :id => 'search') do %>
+		  <%= text_field_tag :query, nil, placeholder: "Enter a location", class: 'btn btn-default' %>
+		  <%= submit_tag "Search", id: "search-query", class: 'btn btn-default' %>
+		<%end%>
+	</div>
+</div>
+
+<div class="map-area col-md-12">
+	<div id="map-canvas" style="width: 100%; height: 100%"> </div>
+</div>
 
 
-<p>or search another location:</p>
-<%= form_tag("/search", method: "get", :id => 'search') do %>
-
-  <%= text_field_tag :query %>
-
-  <%= submit_tag "Search", id: "search-query" %>
-  
-<%end%>
-
-<div id="map-canvas" style="width: 400px; height: 300px"> </div>
-
-<div id="results"></div>
-
-<script>
-	
-</script>
+<div id="results"></div> 	
 

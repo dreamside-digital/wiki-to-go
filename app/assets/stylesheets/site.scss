@@ -1,3 +1,62 @@
-// Place all the styles related to the site controller here.
+/*// Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can use Sass (SCSS) here: http://sass-lang.com/*/
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.map-area {
+	height: 500px;
+	width: 100%;
+}
+
+.title {
+	width: 100%;
+	height: 60px;
+	background-color: #F4F4F4;
+	top: 0px;
+	margin: 0px;
+}
+
+.title h1 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	color: #000;
+	font-size: 40px;
+	text-align: center;
+	padding-top: 5px;
+	margin-top: 0px;
+}
+
+.search_coords {
+	height: 100px;
+}
+
+.search_coords button {
+	font-family: 'Roboto', sans-serif;
+	font-size: 22px;
+	color: #1B1B1B;
+	margin: 25px auto;
+	display: table;
+}
+
+.seach_query {
+	height: 100px;
+	color: #1B1B1B;
+	}
+
+.search_form {
+	margin: 25px auto;
+	display: table;
+}
+
+.search_form input {
+	padding: 5px;
+	font-size: 22px;
+	text-align: left;
+}
+
+#search-query {
+	font-size: 22px;
+}
