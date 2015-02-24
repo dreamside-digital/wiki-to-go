@@ -7,7 +7,7 @@ $(function() {
 	var lon;
 	var map;
 	var marker;
-  var selectedArticles = []
+  	var selectedArticles = []
 
 
 	$("#get-loc").on("click", getLocation)
@@ -101,7 +101,8 @@ $(function() {
 
         var mapOptions = {
           center: new google.maps.LatLng(41.38,2.18),
-          zoom: 2
+          zoom: 2,
+          scrollwheel: false
         };
 
         map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -170,8 +171,6 @@ $(function() {
 	  };
     gmapMarkers = [];
 	}
-
-
 
 });
 

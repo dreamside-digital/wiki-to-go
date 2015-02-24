@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :personal_wiki do
+  factory :article do
     
   end
 

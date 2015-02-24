@@ -4,9 +4,9 @@
       <a class="navbar-brand" href="#">Wiki To Go</a>
     </div>
     <%if session[:name] %>
-          <%= render 'logout' %>
+          <%= render 'sessions/logout' %>
     <% else %>
-          <%= render 'login' %>
+          <%= render 'sessions/login' %>
     <% end %>
   </div>
 </nav>
@@ -28,14 +28,13 @@
 	<div id="map-canvas" style="width: 100%; height: 100%"> </div>
 </div>
 
-
 <div class="col-md-6">  
   <h3>Search results</h3>
   <div id="results"></div>  
 </div>
 
 <div class="col-md-6" id="selected-articles">
-  <%if session[:name] %>
+  <%if current_user %>
     <h3>Your selected articles</h3>
     <div id="selected-results">
       <ul></ul>

@@ -1,7 +1,7 @@
-<%if session[:name] %>    
+<%if session[:user_id] %>    
   <div class="save-results-form">
-  <%= @user.id %>
-    <%= form_for @pwiki, new_user_personalwiki_path(@user) do |f| %>
+    <%= form_for [@user, @book] do |f| %>
+        <%= f.text_field :title %>
         <%= f.hidden_field :articles, value: { title: "hello", id: "1234" } %>
         <%= f.submit "Save these articles" %>
     <% end %>

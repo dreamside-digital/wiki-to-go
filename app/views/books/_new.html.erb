@@ -1,0 +1,8 @@
+<%if current_user %>    
+  <div class="save-results-form">
+    <%= form_tag [@user, @pwiki], new_user_book_path(@user) do |f| %>
+        <%= hidden_field_tag :articles, value: { title: "hello", id: "1234" } %>
+        <%= submit_tag "Save these articles" %>
+    <% end %>
+  </div>
+<% end %>

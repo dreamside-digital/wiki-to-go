@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 			session[:name] = @user.name
 			redirect_to user_path(@user)
 		else
-			redirect_to '/'
+			redirect_to root_path
 		end
 	end
 
@@ -49,26 +49,7 @@ class UsersController < ApplicationController
 		@user = User.find_by session[:id]
 		@user.destroy!
 		session.clear
-		redirect_to '/'
-	end
-
-	def login
-
-		user = User.find_by(email: params[:email])
-
-		if user && user.authenticate(params[:password])
-			session[:user_id] = user.id
-			session[:name] = user.name
-			redirect_to '/'
-		else
-			flash[:error] = "Login was not successful."
-			redirect_to '/'
-		end
-	end
-
-	def logout
-		session.clear
-		redirect_to '/'
+		redirect_to root_path
 	end
 
 	private
