@@ -7,6 +7,7 @@ $(function() {
 	var lon;
 	var map;
 	var marker;
+  var selectedArticles = []
 
 
 	$("#get-loc").on("click", getLocation)
@@ -124,7 +125,8 @@ $(function() {
 	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 	        bounds.extend(position);
 
-	        var content = '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3><br>' +
+	        var content = '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3>' +
+	        	'<input class="save-article btn btn-default" type="button" value="Save" id="'+ markers[i].id +'"><br>' +
 	        	'<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="400" height="300" frameborder="0"></iframe>'
 			    infoWindowContent.push(content);
 
@@ -138,12 +140,19 @@ $(function() {
 
 			    var infoWindow = new google.maps.InfoWindow(), marker, i;
 
-	        google.maps.event.addListener(marker, 'click', (function(marker, i) { 
-      			return function() {
-      				infoWindow.setContent(infoWindowContent[i]);
-                	infoWindow.open(map, marker); 
-      			};
-		      })(marker, i));  
+
+          google.maps.event.addListener(marker, 'click', (function(marker, i) { 
+            return function() {
+              infoWindow.setContent(infoWindowContent[i]);
+                  infoWindow.open(map, marker); 
+              $(".save-article").on('click', function() {
+                selectedArticles.push(markers[i]["id"]);
+                console.log(selectedArticles);
+                $('#selected-results ul').append('<li>' + markers[i]["title"] + '</li>');
+              });
+            };
+          })(marker, i));  
+
 
 		    map.fitBounds(bounds);
         };
@@ -161,6 +170,8 @@ $(function() {
 	  };
     gmapMarkers = [];
 	}
+
+
 
 });
 

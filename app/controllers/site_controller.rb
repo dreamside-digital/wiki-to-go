@@ -6,6 +6,8 @@ class SiteController < ApplicationController
 	def index
 		@results_array
 		@markers
+		@user = User.find session[:user_id]
+		@pwiki = @user.personal_wikis.new
 	end
 
 	def search
