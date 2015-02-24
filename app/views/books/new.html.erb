@@ -2,7 +2,6 @@
   <div class="save-results-form">
     <%= form_for [@user, @book] do |f| %>
         <%= f.text_field :title %>
-        <%= f.hidden_field :articles, value: { title: "hello", id: "1234" } %>
         <%= f.submit "Save these articles" %>
     <% end %>
   </div>
