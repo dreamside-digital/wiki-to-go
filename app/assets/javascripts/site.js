@@ -124,8 +124,9 @@ $(function() {
 	        var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 	        bounds.extend(position);
 
-	        var link = '<a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a>'
-			    infoWindowContent.push(link);
+	        var content = '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3><br>' +
+	        	'<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="400" height="300" frameborder="0"></iframe>'
+			    infoWindowContent.push(content);
 
 	        marker = new google.maps.Marker({
 	            position: position,
