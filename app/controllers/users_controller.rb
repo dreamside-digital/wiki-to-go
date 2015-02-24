@@ -31,14 +31,19 @@ class UsersController < ApplicationController
 	end
 
 	def update
-	    if @user.update(user_params)
+
+		@user = User.find session[:user_id]
+		@user.update_attributes user_params
+
+	    if @user.save
 	      flash[:notice] = "Profile updated yeahhh"
 	      redirect_to user_path(@user)
 	    else
 	      flash[:error]  = "Noooo couldn't update profile"
-	      render :edit
+	      render 'new'
 	    end
 	end
+
 
 	def destroy
 		@user = User.find_by session[:id]

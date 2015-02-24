@@ -18,7 +18,7 @@
 <div class="seach_query col-md-6">
 	<div class="search_form">
 		<%= form_tag("/search", method: "get", :id => 'search', class: 'form-inline') do %>
-		  <%= text_field_tag :query, nil, placeholder: "Enter a location", class: 'form-control' %>
+		  <%= text_field_tag :query, nil, placeholder: "Enter a city", class: 'form-control' %>
 		  <%= submit_tag "Search", id: "search-query", class: 'btn btn-default' %>
 		<%end%>
 	</div>

@@ -7,7 +7,7 @@
 	    <li><%= link_to "Edit my profile", edit_user_path(session[:user_id]) %></li>
 	    <li><%= link_to "My wikis", user_personalwiki_index_path(session[:user_id]) %></li>
 	    <li class="divider"></li>
-	    <li><%= link_to "Delete my account", user_path(session[:user_id]), method: :delete, data: { confirm: "Are you sure?" } %></li>
+	    <li><%= link_to "Delete my account", user_path(session[:user_id]), method: :delete, data: { confirm: "Woah woah woah. Are you sure?" } %></li>
       </ul>
     </li>
     <li><%= link_to "Logout", logout_path %></li>
