@@ -10,7 +10,6 @@ class SiteController < ApplicationController
 
     wiki_service = WikipediaService.new
     @results = wiki_service.search(params)
-    binding.pry
 		render layout:false
 
 	end
