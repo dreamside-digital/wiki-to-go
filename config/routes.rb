@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/search', to: 'site#search'
   post   "/login",  to: "session#create"
   delete "/logout", to: "session#destroy"
+  get '/select', to: "site#select_article"
   
   resources :users do
     resources :books do
