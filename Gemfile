@@ -52,6 +52,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.1.0'
   gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
 end
 

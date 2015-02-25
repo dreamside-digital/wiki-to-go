@@ -12,19 +12,36 @@ class BooksController < ApplicationController
 
 	def new
 		@user = User.find params[:user_id]
-		@book = @user.books.new
+		@book = @user.books.new (book_params)
 	end
 
 	def create
 		@user = User.find params[:user_id]
 		@book = @user.books.new(book_params)
+		@articles = params[:book][:articles]
 
 		if @book.save
-			flash[:saved] = "Your personal wiki has been saved"
+			create_articles(@book, @articles)
 			redirect_to root_path
 		else
 			redirect_to root_path
 		end
+	end
+
+	def create_articles(book, articles)
+
+		articles.each do |article|
+
+			article_params = {
+					title: article[1][:title],
+					pageid: article[1][:id],
+					url: 'http://en.wikipedia.org/?curid=' + article[1][:id].to_s,
+					latitude: article[1][:lat],
+					longitude: article[1][:lon]
+			}
+			book.articles.create(article_params)
+		end
+
 	end
 
 	def delete
@@ -39,6 +56,6 @@ class BooksController < ApplicationController
 	private
 
 	def book_params
-		params.require(:book).permit(:title, :articles)
+		params.require(:book).permit(:title)
 	end
 end

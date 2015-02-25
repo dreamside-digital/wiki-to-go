@@ -39,5 +39,13 @@
     <div id="selected-results">
       <ul></ul>
     </div>
+    <input type="text" id="book-title" placeholder="Name your book">
+    <input type="button" id="make-book" value="Save these articles">
   <% end %>
 </div>
+<% if current_user %>
+  <script>
+    window.UserId = <%= current_user.id %>;
+  </script>
+<%end %>
+

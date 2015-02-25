@@ -67,19 +67,6 @@ GmapOverlay.prototype.clearMarkers = function(gmapMarkers) {
 };
 
 GmapOverlay.prototype.selectArticle = function(event) {
-
-  var pageid = { pageid: this.id }
-  
-  $.ajax( {
-       url: /select/,
-       data: pageid,
-       dataType:'html',
-       type:'GET',
-       success: function(data) {
-        console.log(data)
-       },
-       error: function(error) {
-        console.log("Errrororooror!", error)
-       }
-    } );
+  var articleID = this.id;
+  userArticleList.addArticle(articleID);
 };

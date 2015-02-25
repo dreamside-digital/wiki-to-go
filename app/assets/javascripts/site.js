@@ -68,6 +68,8 @@ $(function() {
   GetSearchData.prototype.showResults = function(data) {
     $("#results").html(data);
     this.markers = $(".results").data("results")
+    userArticleList = new UserSelectedArticles(this.markers);
+    // localStorage.setItem('results', this.markers);
     newOverlay = new GmapOverlay(this.markers);
     newOverlay.putMarkers();
   };
