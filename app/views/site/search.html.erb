@@ -1,5 +1,6 @@
 <%= content_tag :div, class: "results", data: {results: @results} do %>
 <% end %>
+<h3>Search results</h3>
 <ul>
   <% @results.each do |result| %>
 	<% link = 'http://en.wikipedia.org/?curid=' + result[:id].to_s %>

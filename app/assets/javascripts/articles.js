@@ -15,7 +15,17 @@ UserSelectedArticles.prototype.addArticle = function(articleID) {
   this.selectedArticles.push(article);
 };
 
+UserSelectedArticles.prototype.removeArticle = function(articleID) {
+  var article = this.results.filter(function(element) { 
+    return element["id"] == articleID;
+  })[0];
+  $("#selected-results li:last-child").remove();
+  var index = this.selectedArticles.indexOf(article);
+  this.selectedArticles.splice(index, 1);
+};
+
 UserSelectedArticles.prototype.makeBook = function() {
+  
   var url = '/users/'+ UserId + '/books';
   var bookTitle = $('#book-title').val();
   var bookData = {
@@ -30,10 +40,10 @@ UserSelectedArticles.prototype.makeBook = function() {
     data: bookData,
     type: 'POST',
     success: function() {
-      console.log("success!");
+      alert("Your personal wiki has been saved!");
     },
     error: function() {
-      console.log("faillll")
+      alert("Your personal wiki was not saved. Try again.")
     }
   } );
 

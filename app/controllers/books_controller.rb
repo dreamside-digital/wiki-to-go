@@ -17,8 +17,15 @@ class BooksController < ApplicationController
 
 	def create
 		@user = User.find params[:user_id]
-		@book = @user.books.new(book_params)
-		@articles = params[:book][:articles]
+
+		if @user.books.find_by(title: params[:book][:title]) != nil
+			@book = @user.books.find_by(title: params[:book][:title])
+			@book.update_attributes(book_params)
+			@articles = params[:book][:articles]
+		else
+			@book = @user.books.new(book_params)
+			@articles = params[:book][:articles]
+		end
 
 		if @book.save
 			create_articles(@book, @articles)
@@ -39,7 +46,13 @@ class BooksController < ApplicationController
 					latitude: article[1][:lat],
 					longitude: article[1][:lon]
 			}
-			book.articles.create(article_params)
+			
+			if book.articles.find_by(pageid: article[1][:id]) != nil
+				old_article = book.articles.find_by(pageid: article[1][:id])
+				old_article.update_attributes(article_params)
+			else
+				book.articles.create(article_params)
+			end
 		end
 
 	end

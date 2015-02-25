@@ -28,8 +28,7 @@
 	<div id="map-canvas" style="width: 100%; height: 100%"> </div>
 </div>
 
-<div class="col-md-6">  
-  <h3>Search results</h3>
+<div class="all-results col-md-6">  
   <div id="results"></div>  
 </div>
 
@@ -43,6 +42,7 @@
     <input type="button" id="make-book" value="Save these articles">
   <% end %>
 </div>
+
 <% if current_user %>
   <script>
     window.UserId = <%= current_user.id %>;
