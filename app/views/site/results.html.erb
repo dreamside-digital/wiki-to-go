@@ -1,0 +1,7 @@
+<ul>
+  <% @results_array.each do |result| %>
+	<% link = 'http://en.wikipedia.org/?curid=' + result["pageid"].to_s %>
+	<% title = result["title"] %>
+	<li><%= link_to(title, link) %></li>
+  <%end%>
+</ul>

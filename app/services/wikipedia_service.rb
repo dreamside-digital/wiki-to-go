@@ -1,12 +1,29 @@
 class WikipediaService
 
-	def search_query
-		query = params[:query]
-		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gspage=' + query )
-	end
+  include HTTParty
+  attr_accessor :results_array, :results
 
-	def search_coords
-		location = params[:location]
+  def search(params)
+
+    if params.include? :query
+      response = search_query(params[:query])
+    elsif params.include? :location
+      response = search_coords(params[:location])
+    else
+      "hmmmm what?"
+    end
+    process_response(response)
+    return @results
+
+  end
+
+  def search_query(query)
+    # query = params[:query]
+    response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gspage=' + query )
+  end
+
+  def search_coords(location)
+		# location = params[:location]
 		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gscoord=' + location )
 	end
 
@@ -28,7 +45,7 @@ class WikipediaService
  
 	def get_marker_info
 
-		@markers = []
+		@results = []
 
 		@results_array.each do |place|
 			title = place["title"]
@@ -36,7 +53,7 @@ class WikipediaService
 			lon = place["lon"]
 			id = place["pageid"]
 
-			markers << {
+			@results << {
 				title: title, 
 				lat: lat,
 				lon: lon,
@@ -45,5 +62,5 @@ class WikipediaService
 
 		end
 	end
-	
+
 end

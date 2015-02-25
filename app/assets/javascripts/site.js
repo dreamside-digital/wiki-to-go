@@ -83,7 +83,7 @@ $(function() {
 
 	function showResults (data) {
 		$("#results").html(data);
-		var markers = $(".markers").data("markers")
+		var markers = $(".results").data("results")
 		putMarkers(markers);
 	}
 
