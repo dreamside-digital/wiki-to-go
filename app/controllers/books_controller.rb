@@ -1,7 +1,13 @@
 class BooksController < ApplicationController
 
+	def index
+		@user = User.find(current_user.id)
+		@books = @user.books.order(title: :asc)
+	end
+
 	def show
 		@book = Book.find(params[:id])
+		@articles = @book.articles.order(title: :asc)
 	end
 
 	def new

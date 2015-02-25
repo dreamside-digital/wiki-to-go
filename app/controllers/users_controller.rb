@@ -27,7 +27,6 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find session[:user_id]
-		render 'new'
 	end
 
 	def update
@@ -40,7 +39,7 @@ class UsersController < ApplicationController
 	      redirect_to user_path(@user)
 	    else
 	      flash[:error]  = "Noooo couldn't update profile"
-	      render 'new'
+	      render 'edit'
 	    end
 	end
 

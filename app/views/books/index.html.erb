@@ -1,0 +1,6 @@
+<h1>Your books</h1>
+
+<ul><% @books.each do |book| %>
+	<li><%= link_to book.title, user_book_path(current_user.id, book.id) %></li>
+<% end %>
+</ul>
