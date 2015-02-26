@@ -23,13 +23,14 @@ UserSelectedArticles.prototype.addArticle = function(articleID) {
   })[0];
   var newListItem = document.createElement("li");
   var newGlyphicon = document.createElement("span");
+  var self = this
 
   newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
   newGlyphicon.setAttribute("aria-hidden", "true");
   newGlyphicon.setAttribute("id", articleID);
   newGlyphicon.addEventListener('click', self.removeArticle);
   newListItem.innerHTML = article.title;
-  newListItem.setAttribute("id", articleID);
+  // newListItem.setAttribute("class", articleID);
   $('#selected-results').append($(newListItem).append(newGlyphicon));
   selectedArticles.push(article);
 };
@@ -39,7 +40,7 @@ UserSelectedArticles.prototype.removeArticle = function(event) {
   var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
   })[0];
-  $(this).remove();
+  $(this).parent().remove();
   var index = selectedArticles.indexOf(article); 
   if (index > -1) {
       selectedArticles.splice(index, 1);
