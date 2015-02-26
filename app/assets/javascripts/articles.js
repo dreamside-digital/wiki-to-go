@@ -23,14 +23,14 @@ UserSelectedArticles.prototype.addArticle = function(articleID) {
   })[0];
   var newListItem = document.createElement("li");
   var newGlyphicon = document.createElement("span");
-  var self = this
+
   newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
   newGlyphicon.setAttribute("aria-hidden", "true");
   newGlyphicon.setAttribute("id", articleID);
   newGlyphicon.addEventListener('click', self.removeArticle);
   newListItem.innerHTML = article.title;
   newListItem.setAttribute("id", articleID);
-  $('#selected-results').append(newListItem).append(newGlyphicon);
+  $('#selected-results').append($(newListItem).append(newGlyphicon));
 
   selectedArticles.push(article);
   // $("#selected-results").append('<li>' + article.title + '<span class="glyphicon glyphicon-remove" aria-hidden="true" id="' + articleID + '"></span></li>');
@@ -66,8 +66,9 @@ UserSelectedArticles.prototype.makeBook = function() {
     url: url,
     data: bookData,
     type: 'POST',
-    success: function() {
+    success: function(data) {
       alert("Your personal wiki has been saved!");
+      $("#selected-articles-list > h3").html(data)
     },
     error: function() {
       alert("Your personal wiki was not saved. Try again.")

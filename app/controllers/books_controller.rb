@@ -29,7 +29,7 @@ class BooksController < ApplicationController
 
 		if @book.save
 			create_articles(@book, @articles)
-			redirect_to root_path
+			render layout:false
 		else
 			redirect_to root_path
 		end

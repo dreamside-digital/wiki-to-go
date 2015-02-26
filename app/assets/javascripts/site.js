@@ -67,11 +67,9 @@ $(function() {
 
   GetSearchData.prototype.showResults = function(data) {
     $("#results").html(data);
-    this.markers = $(".results").data("results")
-    userArticleList = new UserSelectedArticles(this.markers);
-    // localStorage.setItem('results', this.markers);
-    newOverlay = new GmapOverlay(this.markers);
-    newOverlay.putMarkers();
+    this.markers = $(".results").data("results");
+    mapOverlay.putMarkers(this.markers);
+    userArticleList = new UserSelectedArticles();
     userArticleList.showList();
   };
 
@@ -91,7 +89,8 @@ $(function() {
     alert("Oops, we couldn't detect your location. ", error);
   };
 
-	var newSearch = new GetSearchData();
+  var newSearch = new GetSearchData();
+  var mapOverlay = new GmapOverlay(this.markers);
 
 });
 

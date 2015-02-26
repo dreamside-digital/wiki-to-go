@@ -11,34 +11,32 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 };
 
-var GmapOverlay = function(markers) {
-  this.markers = markers;
+var GmapOverlay = function() {
 };
 
-GmapOverlay.prototype.putMarkers = function() {
-  this.gmapMarkers = [];
-  this.clearMarkers(this.gmapMarkers);
+GmapOverlay.prototype.putMarkers = function(markers) {
+  if (this.gmapMarkers === undefined) this.gmapMarkers = [];
+  this.clearMarkers();
   this.bounds = new google.maps.LatLngBounds();
   this.infoWindowContent = [];
 
-  for( i = 0; i < this.markers.length; i++ ) {
+  for( i = 0; i < markers.length; i++ ) {
 
-    var position = new google.maps.LatLng(this.markers[i]["lat"], this.markers[i]["lon"]);
+    var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
     this.bounds.extend(position);
 
-    var content = '<h3><a href="http://en.wikipedia.org/?curid=' + this.markers[i].id +'" target="_blank">' + this.markers[i].title + '</a></h3>' +
-      '<input class="save-article btn btn-default" type="button" value="Save" id="'+ this.markers[i].id +'"><br>' +
-      '<iframe src="http://en.m.wikipedia.org/?curid=' + this.markers[i].id + '" width="400" height="300" frameborder="0"></iframe>'
+    var content = '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3>' +
+      '<input class="save-article btn btn-default" type="button" value="Save" id="'+ markers[i].id +'"><br>' +
+      '<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="400" height="300" frameborder="0"></iframe>'
     this.infoWindowContent.push(content);
 
     marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: this.markers[i]["title"]
+      title: markers[i]["title"]
     });
 
     this.gmapMarkers.push(marker);
-
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     var self = this;
 
@@ -52,17 +50,11 @@ GmapOverlay.prototype.putMarkers = function() {
 
     map.fitBounds(this.bounds);
   };
-
-  this.boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-    this.setZoom(15);
-    google.maps.event.removeListener(this.boundsListener);
-  });
-
 };
 
-GmapOverlay.prototype.clearMarkers = function(gmapMarkers) {
-    for (var i = 0; i < gmapMarkers.length; i++ ) {
-    gmapMarkers[i].setMap(null);
+GmapOverlay.prototype.clearMarkers = function() {
+    for (var i = 0; i < this.gmapMarkers.length; i++ ) {
+    this.gmapMarkers[i].setMap(null);
   };
   this.gmapMarkers = [];
 };
