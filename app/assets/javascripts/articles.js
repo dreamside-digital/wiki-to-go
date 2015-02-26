@@ -2,26 +2,39 @@
 // All this logic will automatically be available in application.js.
 
 var UserSelectedArticles = function(results) {
-  this.results = results;
-  this.selectedArticles = [];
+  // this.results = results;
+  resultsList = results;
+  selectedArticles = [];
   $('#make-book').on('click', this.makeBook.bind(this));
-}
-
-UserSelectedArticles.prototype.addArticle = function(articleID) {
-  var article = this.results.filter(function(element) { 
-    return element["id"] == articleID;
-  })[0];
-  $("#selected-results").append('<li>' + article.title + '</li>');
-  this.selectedArticles.push(article);
 };
 
-UserSelectedArticles.prototype.removeArticle = function(articleID) {
-  var article = this.results.filter(function(element) { 
+UserSelectedArticles.prototype.showList = function() {
+  $(".map-area").removeClass("col-md-12");
+  $(".map-area").addClass("col-md-8");
+  $(".user-selected-articles").show();
+};
+
+UserSelectedArticles.prototype.addArticle = function(articleID) {
+  var article = resultsList.filter(function(element) { 
+    return element["id"] == articleID;
+  })[0];
+  $("#intro-text").hide();
+  $("#selected-articles-list").show();
+  $("#selected-results").append('<li>' + article.title + '<span class="glyphicon glyphicon-remove" aria-hidden="true" id="' + articleID + '"></span></li>');
+  selectedArticles.push(article);
+  debugger;
+  $('.glyphicon-remove').on('click', this.removeArticle)
+};
+
+UserSelectedArticles.prototype.removeArticle = function(event) {
+  debugger;
+  var articleID = event.currentTarget.id;
+  var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
   })[0];
   $("#selected-results li:last-child").remove();
-  var index = this.selectedArticles.indexOf(article);
-  this.selectedArticles.splice(index, 1);
+  var index = selectedArticles.indexOf(article);
+  selectedArticles.splice(index, 1);
 };
 
 UserSelectedArticles.prototype.makeBook = function() {
@@ -31,7 +44,7 @@ UserSelectedArticles.prototype.makeBook = function() {
   var bookData = {
     book: {
       title: bookTitle,
-      articles: this.selectedArticles,
+      articles: selectedArticles,
     }
   };
 

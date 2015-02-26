@@ -57,6 +57,7 @@ GmapOverlay.prototype.putMarkers = function() {
     this.setZoom(15);
     google.maps.event.removeListener(this.boundsListener);
   });
+
 };
 
 GmapOverlay.prototype.clearMarkers = function(gmapMarkers) {

@@ -1,0 +1,14 @@
+<%if current_user %>
+  <div id="intro-text">
+    <h3>See something interesting?</h3>
+      <p>Click on the map markers to see the wikipedia article for each one, and click "Save" to save the article in your personal collection. </p>
+  </div>
+  <div id="selected-articles-list">
+    <h3>Your selected articles</h3>
+    <div id="selected-results">
+      <ul></ul>
+    </div>
+    <input type="text" id="book-title" placeholder="Name your collection">
+    <input type="button" id="make-book" value="Save these articles">
+  </div>
+<% end %>

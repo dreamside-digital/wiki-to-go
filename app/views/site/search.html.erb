@@ -1,10 +1,11 @@
 <%= content_tag :div, class: "results", data: {results: @results} do %>
 <% end %>
-<h3>Search results</h3>
+<h3>Not a map person?</h3>
+<h4>Here's a list of your search results.</h4>
 <ul>
   <% @results.each do |result| %>
 	<% link = 'http://en.wikipedia.org/?curid=' + result[:id].to_s %>
 	<% title = result[:title] %>
-	<li><%= link_to(title, link) %></li>
+	<li><%= link_to(title, link, target: 'blank') %></li>
   <%end%>
 </ul>

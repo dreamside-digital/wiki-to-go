@@ -72,6 +72,7 @@ $(function() {
     // localStorage.setItem('results', this.markers);
     newOverlay = new GmapOverlay(this.markers);
     newOverlay.putMarkers();
+    userArticleList.showList();
   };
 
   GetSearchData.prototype.showError = function() {

@@ -28,20 +28,14 @@
 	<div id="map-canvas" style="width: 100%; height: 100%"> </div>
 </div>
 
+<div class="user-selected-articles col-md-4">
+  <%= render 'selected_articles' %>
+</div>
+
 <div class="all-results col-md-6">  
   <div id="results"></div>  
 </div>
 
-<div class="col-md-6" id="selected-articles">
-  <%if current_user %>
-    <h3>Your selected articles</h3>
-    <div id="selected-results">
-      <ul></ul>
-    </div>
-    <input type="text" id="book-title" placeholder="Name your book">
-    <input type="button" id="make-book" value="Save these articles">
-  <% end %>
-</div>
 
 <% if current_user %>
   <script>

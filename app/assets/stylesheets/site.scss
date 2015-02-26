@@ -8,7 +8,14 @@ body {
 
 .map-area {
 	height: 500px;
-	width: 100%;
+}
+
+.user-selected-articles {
+	display: none;
+}
+
+#selected-articles-list {
+	display: none;
 }
 
 .title {
