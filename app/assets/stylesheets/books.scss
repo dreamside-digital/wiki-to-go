@@ -1,3 +1,7 @@
-// Place all the styles related to the PersonalWikis controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.article-list > ul > .article-item > button .btn-hide-article {
+  display: none;
+}
+
+.article-list > ul > .article-item > button .btn-toggle-article {
+  display: none;
+}
