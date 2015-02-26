@@ -50,6 +50,10 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
     map.fitBounds(this.bounds);
   };
+  var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+    this.setZoom(15);
+    google.maps.event.removeListener(boundsListener);
+  });
 };
 
 GmapOverlay.prototype.clearMarkers = function() {
@@ -63,3 +67,4 @@ GmapOverlay.prototype.selectArticle = function(event) {
   var articleID = this.id;
   userArticleList.addArticle(articleID);
 };
+

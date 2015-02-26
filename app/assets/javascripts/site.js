@@ -69,7 +69,7 @@ $(function() {
     $("#results").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
-    userArticleList = new UserSelectedArticles();
+    userArticleList = new UserSelectedArticles(this.markers);
     userArticleList.showList();
   };
 
@@ -80,8 +80,6 @@ $(function() {
   GetSearchData.prototype.geolocateSuccess = function(position) {
     this.lat = position.coords.latitude;
     this.lon = position.coords.longitude;
-    // var location = this.lat+'|'+this.lon;
-
     this.searchCoords();
   };
 

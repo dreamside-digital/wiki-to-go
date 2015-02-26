@@ -31,13 +31,10 @@ UserSelectedArticles.prototype.addArticle = function(articleID) {
   newListItem.innerHTML = article.title;
   newListItem.setAttribute("id", articleID);
   $('#selected-results').append($(newListItem).append(newGlyphicon));
-
   selectedArticles.push(article);
-  // $("#selected-results").append('<li>' + article.title + '<span class="glyphicon glyphicon-remove" aria-hidden="true" id="' + articleID + '"></span></li>');
-  // $('"#'+ articleID + '"').on('click', this.removeArticle)
 };
 
-UserSelectedArticles.prototype.removeArticle = function(event) {
+UserSelectedArticles.prototype.removeArticle = function(event) { 
   var articleID = event.currentTarget.id;
   var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
