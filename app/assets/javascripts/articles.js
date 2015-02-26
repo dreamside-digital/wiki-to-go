@@ -6,7 +6,13 @@ var UserSelectedArticles = function(results) {
   resultsList = results;
   selectedArticles = [];
   $('#make-book').on('click', this.makeBook.bind(this));
+  this.listeners();
 };
+
+UserSelectedArticles.prototype.listeners = function() {
+  $('.glyphicon-plus').on('click', this.addArticle.bind(this));
+  // $('.search-results > .glyphicon-remove').on('click', this.removeArticleFromList.bind(this));
+}
 
 UserSelectedArticles.prototype.showList = function() {
   $(".map-area").removeClass("col-md-12");
@@ -14,10 +20,10 @@ UserSelectedArticles.prototype.showList = function() {
   $(".user-selected-articles").show();
 };
 
-UserSelectedArticles.prototype.addArticle = function(articleID) {
+UserSelectedArticles.prototype.addArticle = function(event) {
   $("#intro-text").hide();
   $("#selected-articles-list").show();
-
+  var articleID = event.currentTarget.classList[2]
   var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
   })[0];
@@ -48,6 +54,29 @@ UserSelectedArticles.prototype.removeArticle = function(event) {
     selectedArticles.pop();
   }
 };
+
+// UserSelectedArticles.prototype.addArticleFromList = function(event) {
+//   $("#intro-text").hide();
+//   $("#selected-articles-list").show();
+//   debugger;
+
+//   var articleID = event.currentTarget.classList[2]
+//   var article = resultsList.filter(function(element) { 
+//     return element["id"] == articleID;
+//   })[0];
+//   var newListItem = document.createElement("li");
+//   var newGlyphicon = document.createElement("span");
+//   var self = this
+
+//   newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
+//   newGlyphicon.setAttribute("aria-hidden", "true");
+//   newGlyphicon.setAttribute("id", articleID);
+//   newGlyphicon.addEventListener('click', self.removeArticle);
+//   newListItem.innerHTML = article.title;
+//   // newListItem.setAttribute("class", articleID);
+//   $('#selected-results').append($(newListItem).append(newGlyphicon));
+//   selectedArticles.push(article);
+// };
 
 UserSelectedArticles.prototype.makeBook = function() {
   

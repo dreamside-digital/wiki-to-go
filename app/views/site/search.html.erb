@@ -2,10 +2,14 @@
 <% end %>
 <h3>Not a map person?</h3>
 <h4>Here's a list of your search results.</h4>
-<ul>
+<ul class="list-unstyled search-results">
   <% @results.each do |result| %>
-	<% link = 'http://en.wikipedia.org/?curid=' + result[:id].to_s %>
+  <% pageid = result[:id].to_s %>
+	<% link = 'http://en.wikipedia.org/?curid=' + pageid %>
 	<% title = result[:title] %>
-	<li><%= link_to(title, link, target: 'blank') %></li>
+	<li>
+		<%= link_to(title, link, target: 'blank') %>
+    <%= content_tag :span, class: "glyphicon glyphicon-plus #{pageid}" do%><% end %>
+  </li>
   <%end%>
 </ul>

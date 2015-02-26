@@ -26,7 +26,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     this.bounds.extend(position);
 
     var content = '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3>' +
-      '<input class="save-article btn btn-default" type="button" value="Save" id="'+ markers[i].id +'"><br>' +
+      '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
       '<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="400" height="300" frameborder="0"></iframe>'
     this.infoWindowContent.push(content);
 
@@ -64,7 +64,7 @@ GmapOverlay.prototype.clearMarkers = function() {
 };
 
 GmapOverlay.prototype.selectArticle = function(event) {
-  var articleID = this.id;
-  userArticleList.addArticle(articleID);
+  // var articleID = this.id;
+  userArticleList.addArticle(event);
 };
 
