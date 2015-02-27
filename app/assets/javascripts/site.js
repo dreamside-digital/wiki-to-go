@@ -26,9 +26,25 @@ $(function() {
 		$("#search").on("submit", function(event) {
 			event.preventDefault();
 			query = ($('#query').val());
-			this.searchQuery(query);
+			this.searchAddress(query);
 		}.bind(this));
 	};
+
+  GetSearchData.prototype.searchAddress = function(query) {
+    var self = this;
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address' : query}, function(response, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        debugger;
+        var lat = response[0].geometry.location.k
+        var lon = response[0].geometry.location.D
+        var location = lat +'|'+ lon;
+        userSearch.searchCoords(location);
+      } else {
+        console.log("error: " + status);
+      }
+    });
+  }
 
 	GetSearchData.prototype.searchQuery = function(query) {
     var userQuery = { 'query' : query };
@@ -88,7 +104,7 @@ $(function() {
     alert("Oops, we couldn't detect your location. ", error);
   };
 
-  firstSearch = new GetSearchData();
+  userSearch = new GetSearchData();
   var mapOverlay = new GmapOverlay(this.markers);
 
 });

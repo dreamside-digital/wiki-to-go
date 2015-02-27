@@ -57,7 +57,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     var lat = newCenter.k
     var lon = newCenter.D
     var location = lat + '|' + lon;
-    firstSearch.searchCoords(location);
+    userSearch.searchCoords(location);
     console.log("search!")
     google.maps.event.removeListener(dragendListener);
   });
