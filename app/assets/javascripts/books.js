@@ -3,45 +3,27 @@
 var Book = function () {
 };
 
-Book.prototype.showWikiArticle = function() {
+Book.prototype.showWikiExtract = function() {
   $('.btn-show-article').on('click', function(event) {
-    var pageid = event.currentTarget.classList[1];
-    var wikiIframe = document.createElement("iframe");
-    var iframeSource = 'http://en.wikipedia.org/?curid=' + pageid;
-    wikiIframe.setAttribute("src", iframeSource);
-    wikiIframe.setAttribute("width", "100%");
-    wikiIframe.setAttribute("height", "400px");
-    wikiIframe.setAttribute("frameborder", "0");
-
-    $(this).parent().find(".article-iframe").append(wikiIframe);
-    $(this).parent().find(".article-iframe").slideToggle();
-    console.log("did it!!");
+    console.log("yo");
+    $(this).parent().find(".article-intro").slideToggle();
     $(this).hide();
-    $(this).parent().find(".btn-hide-article").show()
-  });
-};
-
-Book.prototype.closeWikiArticle = function () {
-  $(".btn-hide-article").on('click', function(event) {
-    $(this).parent().find(".article-iframe").slideToggle();
-    $(this).parent().find(".btn-toggle-article").show();
-    $(this).hide();
-  });
-};
-
-Book.prototype.toggleWikiArticle = function () {
-  $(".btn-toggle-article").on('click', function(event) {
-    $(this).parent().find(".article-iframe").slideToggle();
     $(this).parent().find(".btn-hide-article").show();
-    $(this).hide();
   });
 }
 
+Book.prototype.closeWikiExtract = function () {
+  $(".btn-hide-article").on('click', function(event) {
+    $(this).parent().find(".article-intro").slideToggle();
+    $(this).parent().find(".btn-show-article").show();
+    $(this).hide();
+  });
+};
+
 bookready = function() {
   var book1 = new Book();
-  book1.showWikiArticle();
-  book1.closeWikiArticle();
-  book1.toggleWikiArticle();
+  book1.showWikiExtract();
+  book1.closeWikiExtract();
 };
 
 $(document).ready(bookready);

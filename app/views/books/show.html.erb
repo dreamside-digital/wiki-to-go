@@ -6,7 +6,10 @@
       <%= content_tag :button, class: "btn-show-article #{article.pageid}" do%> Show <span class="caret"></span><% end %>
       <%= content_tag :button, class: "btn-hide-article #{article.pageid}" do%> Hide <span class="dropup"><span class="caret"></span></span> <% end %>
       <%= content_tag :button, class: "btn-toggle-article #{article.pageid}" do%> Show <span class="caret"></span><% end %>
-      <%= content_tag :div, class: "article-iframe", id: article.pageid do %>
+      <%= content_tag :div, class: "article-intro", id: article.pageid do %> 
+        <%= content_tag :p, class: "article-intro-text" do %>
+          <%= article.intro %>
+          <% end %>
       <%end%>
     </div>
 	<% end %>
