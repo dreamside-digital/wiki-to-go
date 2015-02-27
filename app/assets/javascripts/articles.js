@@ -14,7 +14,8 @@ var UserSelectedArticles = function(results) {
 // }
 
 UserSelectedArticles.prototype.showList = function() {
-  $(".map-area").removeClass("col-md-12");
+  // $(".map-area").removeClass("col-md-12");
+  $(".map-area").removeClass("map-area-intro");
   $(".map-area").addClass("col-md-8");
   $(".user-selected-articles").show();
 };

@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
 html{
     min-height:100%;
-    position:relative
+    /*position:relative*/
 }
 
 body {
@@ -11,7 +11,7 @@ body {
 	height: 100%;
 }
 
-.map-area {
+.map-area-intro {
 	position:absolute;
   top:0;
   bottom:0;
@@ -19,21 +19,10 @@ body {
   right:0;
   overflow:hidden;
   z-index:-1;
-  width: 200%;
-  animation-duration: 10s;
-	animation-name: pan-across;
+  width: 100%;
+  margin-left: 0;
 }
 
-@keyframes pan-across {
-	from {
-		margin-left: -100%;
-	}
-
-	to {
-		margin-left: -40%;
-	}
-}
-s
 .user-selected-articles {
 	display: none;
 }
