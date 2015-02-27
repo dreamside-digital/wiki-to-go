@@ -3,9 +3,9 @@
 	<ul><% @articles.each do |article| %>
     <div class="article-item">
   		<li><%= link_to article.title, article.url, target: 'blank' %></li>
-      <%= content_tag :button, class: "btn-show-article #{article.pageid}" do%> Show article<% end %>
-      <%= content_tag :button, class: "btn-hide-article #{article.pageid}" do%> Hide article<% end %>
-      <%= content_tag :button, class: "btn-toggle-article #{article.pageid}" do%> Show article<% end %>
+      <%= content_tag :button, class: "btn-show-article #{article.pageid}" do%> Show <span class="caret"></span><% end %>
+      <%= content_tag :button, class: "btn-hide-article #{article.pageid}" do%> Hide <span class="dropup"><span class="caret"></span></span> <% end %>
+      <%= content_tag :button, class: "btn-toggle-article #{article.pageid}" do%> Show <span class="caret"></span><% end %>
       <%= content_tag :div, class: "article-iframe", id: article.pageid do %>
       <%end%>
     </div>

@@ -13,8 +13,8 @@ Book.prototype.showWikiArticle = function() {
     wikiIframe.setAttribute("height", "400px");
     wikiIframe.setAttribute("frameborder", "0");
 
-    $(this).parent().find(".article-iframe").show();
     $(this).parent().find(".article-iframe").append(wikiIframe);
+    $(this).parent().find(".article-iframe").slideToggle();
     console.log("did it!!");
     $(this).hide();
     $(this).parent().find(".btn-hide-article").show()

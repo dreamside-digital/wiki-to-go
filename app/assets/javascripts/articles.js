@@ -37,7 +37,7 @@ UserSelectedArticles.prototype.addArticle = function(event) {
   newGlyphicon.addEventListener('click', self.removeArticle);
   newListItem.innerHTML = article.title;
   // newListItem.setAttribute("class", articleID);
-  $('#selected-results').append($(newListItem).append(newGlyphicon));
+  $('#selected-results ul').append($(newListItem).append(newGlyphicon));
   selectedArticles.push(article);
 };
 

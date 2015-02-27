@@ -4,11 +4,13 @@
       <p>Click on the map markers to see the wikipedia article for each one, and click "Save" to save the article in your personal collection. </p>
   </div>
   <div id="selected-articles-list">
-    <h3>Your selected articles</h3>
+    <h3>Ooh these look good</h3>
     <div id="selected-results">
-      <ul></ul>
+      <ul class="list-unstyled"></ul>
     </div>
-    <input type="text" id="book-title" placeholder="Name your collection">
-    <input type="button" id="make-book" value="Save these articles">
+    <div class="selected-articles-save">
+      <input type="text" id="book-title" placeholder="Name your collection">
+      <input class="btn btn-primary" type="button" id="make-book" value="Save these articles">
+    </div>
   </div>
 <% end %>

@@ -56,3 +56,36 @@ body {
 	margin: 25px auto;
 	display: table;
 }
+
+#selected-results span {
+	float: right;
+}
+
+#selected-results li {
+	font-size: 16px;
+}
+
+.selected-articles-save * {
+	padding: 5px 10px;
+}
+
+.glyphicon-remove:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.glyphicon-plus {
+	float: right;
+	color: #00D52C;
+}
+
+.glyphicon-plus:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.search-results li {
+	font-size: 16px;
+	border-bottom: 1px solid #D3D3D3;
+	padding: 5px 10px;
+}
