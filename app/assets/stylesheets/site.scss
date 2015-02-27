@@ -1,15 +1,39 @@
 /*// Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
+html{
+    min-height:100%;
+    position:relative
+}
 
 body {
 	font-family: 'Roboto', sans-serif;
+	height: 100%;
 }
 
 .map-area {
-	height: 500px;
+	position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  overflow:hidden;
+  z-index:-1;
+  width: 200%;
+  animation-duration: 10s;
+	animation-name: pan-across;
 }
 
+@keyframes pan-across {
+	from {
+		margin-left: -100%;
+	}
+
+	to {
+		margin-left: -40%;
+	}
+}
+s
 .user-selected-articles {
 	display: none;
 }
