@@ -63,4 +63,15 @@ class WikipediaService
 		end
 	end
 
+  def get_article_content(articles)
+
+    articles_with_intros = 
+    articles.map do |article|
+      articleID = article[1][:id]
+      response = HTTParty.get('https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
+      article << { intro: response["query"]["pages"][articleID]["extract"] }
+    end
+    return articles_with_intros
+  end
+
 end

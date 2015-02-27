@@ -6,18 +6,16 @@ var UserSelectedArticles = function(results) {
   resultsList = results;
   selectedArticles = [];
   $('#make-book').on('click', this.makeBook.bind(this));
-  this.listeners();
+  // this.listeners();
 };
 
-UserSelectedArticles.prototype.listeners = function() {
-  $('.glyphicon-plus').on('click', this.addArticle.bind(this));
-  // $('.search-results > .glyphicon-remove').on('click', this.removeArticleFromList.bind(this));
-}
+// UserSelectedArticles.prototype.listeners = function() {
+//   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
+// }
 
 UserSelectedArticles.prototype.showList = function() {
   $(".map-area").removeClass("col-md-12");
   $(".map-area").addClass("col-md-8");
-  // $(".map-area").trigger('mapSizeChanged');
   $(".user-selected-articles").show();
 };
 

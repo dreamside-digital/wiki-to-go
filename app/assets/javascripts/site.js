@@ -46,21 +46,21 @@ $(function() {
     });
   }
 
-	GetSearchData.prototype.searchQuery = function(query) {
-    var userQuery = { 'query' : query };
+	// GetSearchData.prototype.searchQuery = function(query) {
+ //    var userQuery = { 'query' : query };
 
-    $.ajax( {
-      url: /search/,
-      data: userQuery,
-      dataType:'html',
-      type:'GET',
-      headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
-      success: function(data) {
-        this.showResults(data);
-      }.bind(this),
-      error: this.showError
-    } );
-  };
+ //    $.ajax( {
+ //      url: /search/,
+ //      data: userQuery,
+ //      dataType:'html',
+ //      type:'GET',
+ //      headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
+ //      success: function(data) {
+ //        this.showResults(data);
+ //      }.bind(this),
+ //      error: this.showError
+ //    } );
+ //  };
 
   GetSearchData.prototype.searchCoords = function(location) {
 
