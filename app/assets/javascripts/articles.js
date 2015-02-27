@@ -6,15 +6,15 @@ var UserSelectedArticles = function(results) {
   resultsList = results;
   selectedArticles = [];
   $('#make-book').on('click', this.makeBook.bind(this));
-  // this.listeners();
+  this.listeners();
 };
 
-// UserSelectedArticles.prototype.listeners = function() {
-//   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
-// }
+UserSelectedArticles.prototype.listeners = function() {
+  $('.glyphicon-plus').on('click', this.addArticle.bind(this));
+}
 
 UserSelectedArticles.prototype.showList = function() {
-  // $(".map-area").removeClass("col-md-12");
+  $(".map-area").removeClass("map-area-intro");
   $(".map-area").removeClass("map-area-intro");
   $(".map-area").addClass("col-md-8");
   $(".user-selected-articles").show();
@@ -36,7 +36,6 @@ UserSelectedArticles.prototype.addArticle = function(event) {
   newGlyphicon.setAttribute("id", articleID);
   newGlyphicon.addEventListener('click', self.removeArticle);
   newListItem.innerHTML = article.title;
-  // newListItem.setAttribute("class", articleID);
   $('#selected-results ul').append($(newListItem).append(newGlyphicon));
   selectedArticles.push(article);
 };

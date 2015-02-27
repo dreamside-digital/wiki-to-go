@@ -3,12 +3,33 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
 html{
     min-height:100%;
-    /*position:relative*/
+    position:relative
 }
 
 body {
 	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
 	height: 100%;
+}
+
+h1, h2, h3, h4 {
+	color: #147363
+}
+
+.btn {
+	background-color: #147363;
+	border-style: none;
+	color: #FFF;
+}
+
+.btn:hover {
+	background-color: #2FA176;
+	color: #FFF;
+}
+
+.map-area {
+	height: 400px;
+	padding-top: 25px;
 }
 
 .map-area-intro {
@@ -20,7 +41,29 @@ body {
   overflow:hidden;
   z-index:-1;
   width: 100%;
+  height: 100%;
   margin-left: 0;
+}
+
+.navbar {
+	background-color: #2FA176;
+	z-index: 1;
+	border-bottom: 5px solid #147363;
+	margin-bottom: 0;
+}
+
+/*.navbar-right > li, .dropdown a {
+	color: #FFF;
+	font-weight: 300;
+	font-size: 16px;
+}
+
+.dropdown-menu li a {
+	color: #262626;
+}*/
+
+#intro-text h3 {
+	color: #147363;
 }
 
 .user-selected-articles {
@@ -29,6 +72,18 @@ body {
 
 #selected-articles-list {
 	display: none;
+}
+
+.save-article {
+	font-weight: bold;
+	color: #FFF;
+	background-color: #147363;
+	border-style: none;
+}
+
+.save-article:hover {
+	background-color: #2FA176;
+	color: #FFF;
 }
 
 .title {
@@ -47,6 +102,38 @@ body {
 	text-align: center;
 	padding-top: 5px;
 	margin-top: 0px;
+}
+
+.search-area {
+	width: 100%;
+	background: #147363;
+	height: 120px;
+	top: 0px;
+
+	button, input {
+		font-size: 18px;
+		border-radius: 8px;
+		border-style: none;
+		background-color: #FFF;
+		height: 40px;
+		padding: 5px 15px;
+		color: #08084D;
+		}
+}
+
+
+/*.search-area-tab*/
+
+/*.search-area button, .search-area input {
+	font-size: 18px;
+	border-radius: 8px;
+	border-style: none;
+	background-color: #FFF;
+	font-weight: 400;
+}*/
+
+.glyphicon-screenshot {
+	padding: 0 7px;
 }
 
 .search_coords {
@@ -89,7 +176,7 @@ body {
 
 .glyphicon-plus {
 	float: right;
-	color: #00D52C;
+	color: #2FA176;
 }
 
 .glyphicon-plus:hover {
@@ -107,4 +194,13 @@ body {
 	font-size: 12px;
 	padding: 0 5px;
 	color: #B5B5B5;
+}
+
+.menu-white-text, {
+	color: #FFF !important;
+	font-size: 16px;
+}
+
+.menu-white-text:hover {
+	font-weight: 400;
 }

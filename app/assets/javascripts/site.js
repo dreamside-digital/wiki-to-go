@@ -2,6 +2,14 @@ $(function() {
 
   google.maps.event.addDomListener(window, 'load', initialize);
 
+  // $('.search-area').on('mouseenter', toggleMenu)
+  $('.navbar-brand').on('click', toggleMenu);
+
+  function toggleMenu(e) {
+    e.preventDefault();
+    $('.search-area, .search-coords, .search-query').slideToggle();
+  }
+
   var GetSearchData = function () {
     this.addWikiListeners();
   };
@@ -28,6 +36,9 @@ $(function() {
 			query = ($('#query').val());
 			this.searchAddress(query);
 		}.bind(this));
+
+    $("#get-loc").on("click", toggleMenu);
+    $("#search").on("submit", toggleMenu);
 	};
 
   GetSearchData.prototype.searchAddress = function(query) {

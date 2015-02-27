@@ -149,8 +149,9 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
     this.bounds.extend(position);
 
-    var content = '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3>' +
+    var content = 
       '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
+      '<h3><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h3>' +
       '<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="400" height="300" frameborder="0"></iframe>'
     this.infoWindowContent.push(content);
 
