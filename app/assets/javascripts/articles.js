@@ -17,6 +17,7 @@ UserSelectedArticles.prototype.listeners = function() {
 UserSelectedArticles.prototype.showList = function() {
   $(".map-area").removeClass("col-md-12");
   $(".map-area").addClass("col-md-8");
+  // $(".map-area").trigger('mapSizeChanged');
   $(".user-selected-articles").show();
 };
 

@@ -4,6 +4,10 @@ class SiteController < ApplicationController
 
 	def index
 		@results
+    if current_user
+      @user = current_user
+      @user_wikis = @user.books.order(updated_at: :desc).limit(5)
+    end
 	end
 
 	def search
@@ -13,5 +17,4 @@ class SiteController < ApplicationController
 		render layout:false
 
 	end
-
 end

@@ -9,4 +9,5 @@
 
 <%= link_to "Edit", edit_user_path(@user) %>
 <%= link_to "Back", root_path %>
+<%= link_to "Delete my account", user_path(current_user.id), method: :delete, data: { confirm: "Woah woah woah. Are you sure?" } %>
 <%= link_to "New personal wiki", new_user_book_path(@user) %>

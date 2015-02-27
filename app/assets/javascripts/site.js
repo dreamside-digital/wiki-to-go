@@ -46,9 +46,9 @@ $(function() {
     } );
   };
 
-  GetSearchData.prototype.searchCoords = function() {
+  GetSearchData.prototype.searchCoords = function(location) {
 
-    var location = this.lat+'|'+this.lon;
+    // var location = this.lat+'|'+this.lon;
     var userLoc = { 'location' : location };
 
     $.ajax( {
@@ -80,14 +80,15 @@ $(function() {
   GetSearchData.prototype.geolocateSuccess = function(position) {
     this.lat = position.coords.latitude;
     this.lon = position.coords.longitude;
-    this.searchCoords();
+    var location = this.lat+'|'+this.lon;
+    this.searchCoords(location);
   };
 
   GetSearchData.prototype.geolocateError = function(error) {
     alert("Oops, we couldn't detect your location. ", error);
   };
 
-  var newSearch = new GetSearchData();
+  firstSearch = new GetSearchData();
   var mapOverlay = new GmapOverlay(this.markers);
 
 });

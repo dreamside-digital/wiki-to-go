@@ -9,6 +9,7 @@ function initialize() {
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
 };
 
 var GmapOverlay = function() {
@@ -50,8 +51,20 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
     map.fitBounds(this.bounds);
   };
+
+  var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
+    var newCenter = map.getCenter();
+    var lat = newCenter.k
+    var lon = newCenter.D
+    var location = lat + '|' + lon;
+    firstSearch.searchCoords(location);
+    console.log("search!")
+    google.maps.event.removeListener(dragendListener);
+  });
+
   var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
     this.setZoom(15);
+    console.log("zoomed!")
     google.maps.event.removeListener(boundsListener);
   });
 };
