@@ -2,7 +2,6 @@
 // All this logic will automatically be available in application.js.
 
 var UserSelectedArticles = function(results) {
-  // this.results = results;
   resultsList = results;
   selectedArticles = [];
   $('#make-book').on('click', this.makeBook.bind(this));

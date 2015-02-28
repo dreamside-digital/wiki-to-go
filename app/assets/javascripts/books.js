@@ -1,7 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 var Book = function () {
-  var li
 };
 
 Book.prototype.showWikiExtract = function() {
@@ -23,7 +22,7 @@ Book.prototype.closeWikiExtract = function () {
 
 Book.prototype.deleteBook = function () {
   $(".glyphicon-remove").on('click', function () {
-    $(this).parent().parent().remove();
+    var self = $(this)
 
     var bookId = $(this).parent().find('a').attr('class');
     var url = '/users/' + window.UserId + '/books/' + bookId  + '/';
@@ -35,11 +34,12 @@ Book.prototype.deleteBook = function () {
       id: bookId
     },
     type: 'DELETE',
-    success: function (data) {
-      console.log(data);
+    success: function() {
+      self.parent().parent().remove();
+      console.log("deleted!!");
     },
     error: function() {
-      alert("Your personal wiki was not deleted. It's yours forevaaaa!");
+      alert("Your personal wiki was not deleted. Please refresh the page and try again.");
     }
   } );
   });
@@ -51,12 +51,6 @@ bookready = function() {
   book1.closeWikiExtract();
   book1.deleteBook();
 };
-
-var deleteListItem = function(data) {
-  li = document.getElementById(data);
-  li.parentNode.removeChild(li);
-  alert("congrats, you killed your book.");
-}
 
 $(document).ready(bookready);
 $(document).on('page:load', bookready);

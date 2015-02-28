@@ -64,7 +64,6 @@ class WikipediaService
 	end
 
   def get_article_content(articles)
-    binding.pry
     articles_with_intros = 
     articles.map do |article|
       articleID = article[1][:id]
