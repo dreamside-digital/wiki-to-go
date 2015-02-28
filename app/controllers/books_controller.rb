@@ -61,7 +61,11 @@ class BooksController < ApplicationController
 
 	end
 
-	def delete
+	def destroy
+		@user = current_user
+		@book = @user.books.find(params[:id])
+		@book.destroy
+		render layout:false
 	end
 
 	def edit

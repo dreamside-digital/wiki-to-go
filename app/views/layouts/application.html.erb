@@ -17,5 +17,8 @@
 
 <%= yield %>
 
+  <script>
+    window.UserId = <%= current_user.id %>;
+  </script>
 </body>
 </html>

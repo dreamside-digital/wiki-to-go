@@ -1,6 +1,15 @@
-<h1>Your personal wikis</h1>
 
-<ul><% @books.each do |book| %>
-	<li><%= link_to book.title, user_book_path(current_user.id, book.id) %></li>
-<% end %>
-</ul>
+<div class="container books-index">
+  <h2>Your personal wiki collection</h2>
+  <div class="all-books">
+    <ul class="list-unstyled"><% @books.each do |book| %>
+      <div class="book-index-item">
+       <li id = book.id>
+         <%= link_to book.title, user_book_path(current_user.id, book.id), class: book.id %>
+         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+       </li>
+      </div>
+    <% end %>
+    </ul>
+  </div>
+</div>

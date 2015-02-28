@@ -59,6 +59,7 @@ UserSelectedArticles.prototype.makeBook = function() {
   
   var url = '/users/'+ UserId + '/books';
   var bookTitle = $('#book-title').val();
+
   var bookData = {
     book: {
       title: bookTitle,

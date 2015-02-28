@@ -1,3 +1,45 @@
+.all-books {
+  display: table;
+  width: 500px;
+  margin: auto;
+}
+
+.book-index-item {
+  border-bottom: 1px solid #147363;
+  padding: 5px 10px;
+  li {
+    font-size: 16px;
+  }
+}
+
+.books-index h2 {
+  text-align: center;
+  font-weight: 800;
+}
+
+.book-index-item span {
+  float: right;
+  font-size: 14px;
+}
+
+/*.book-index-item {
+  background-color: #147363;
+  height: 60px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 4px;
+  float: left;
+  display: table;
+  li {
+    font-size: 16px;
+    display: table-cell;
+    vertical-align: middle;
+    a {
+      color: #FFF;
+    }
+  }
+}*/
+
 .btn-hide-article {
   display: none;
 }
