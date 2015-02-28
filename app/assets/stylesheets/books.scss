@@ -22,6 +22,28 @@
   font-size: 14px;
 }
 
+.article-list h2 {
+  text-align: center;
+  font-weight: 800;
+}
+
+.article-list {
+  display: table;
+  width: 500px;
+  margin: auto;
+}
+
+.btn-hide-article, .btn-show-article {
+  width: 75px;
+}
+
+.article-item {
+  border-bottom: 1px solid #147363;
+  padding: 5px 10px 30px 10px;
+  li {
+    font-size: 16px;
+  }
+}
 /*.book-index-item {
   background-color: #147363;
   height: 60px;

@@ -1,19 +1,20 @@
-<h1><%= @book.title %></h1>
-<div class="article-list">
-	<ul><% @articles.each do |article| %>
-    <div class="article-item">
-  		<li><%= link_to article.title, article.url, target: 'blank' %></li>
-      <%= content_tag :button, class: "btn-show-article #{article.pageid}" do%> Show <span class="caret"></span><% end %>
-      <%= content_tag :button, class: "btn-hide-article #{article.pageid}" do%> Hide <span class="dropup"><span class="caret"></span></span> <% end %>
-      <%= content_tag :button, class: "btn-toggle-article #{article.pageid}" do%> Show <span class="caret"></span><% end %>
-      <%= content_tag :div, class: "article-intro", id: article.pageid do %> 
-        <%= content_tag :p, class: "article-intro-text" do %>
-          <%= article.intro %>
-          <% end %>
-      <%end%>
-    </div>
-	<% end %>
-	</ul>
+<div class="container"></div>
+  <div class="article-list">
+  <h2><%= @book.title %></h2>
+  	<ul class="list-unstyled"><% @articles.each do |article| %>
+      <div class="article-item">
+        <li><h3><%= link_to article.title, article.url, target: 'blank' %><h3></li>
+        <%= content_tag :div, class: "article-intro", id: article.pageid do %> 
+          <%= content_tag :p, class: "article-intro-text" do %>
+            <%= article.intro %>
+            <% end %>
+        <%end%>
+        <%= content_tag :button, class: "btn-show-article #{article.pageid} btn" do%> Show <span class="caret"></span><% end %>
+        <%= content_tag :button, class: "btn-hide-article #{article.pageid} btn" do%> Hide <span class="dropup"><span class="caret"></span></span> <% end %>
+        <%= link_to "Full article in Wikipedia", article.url, { class: "btn-open-wikipedia btn", target: 'blank' } %> 
+      </div>
+  	<% end %>
+  	</ul>
+  </div>
+  <%= link_to "Back", root_path %>
 </div>
-
-<%= link_to "Back", root_path %>
