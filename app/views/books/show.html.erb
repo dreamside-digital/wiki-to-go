@@ -9,9 +9,9 @@
             <%= article.intro %>
             <% end %>
         <%end%>
-        <%= content_tag :button, class: "btn-show-article #{article.pageid} btn" do%> Show <span class="caret"></span><% end %>
+        <%= content_tag :button, class: "btn-show-article #{article.pageid} btn" do%> Preview <span class="caret"></span><% end %>
         <%= content_tag :button, class: "btn-hide-article #{article.pageid} btn" do%> Hide <span class="dropup"><span class="caret"></span></span> <% end %>
-        <%= link_to "Full article in Wikipedia", article.url, { class: "btn-open-wikipedia btn", target: 'blank' } %> 
+        <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
       </div>
   	<% end %>
   	</ul>

@@ -34,7 +34,7 @@
 }
 
 .btn-hide-article, .btn-show-article {
-  width: 75px;
+  width: 80px;
 }
 
 .article-item {
@@ -42,6 +42,10 @@
   padding: 5px 10px 30px 10px;
   li {
     font-size: 16px;
+  }
+  .glyphicon-link {
+    font-size: 12px;
+    padding: 0 3px;
   }
 }
 /*.book-index-item {

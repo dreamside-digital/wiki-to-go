@@ -10,6 +10,19 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,900' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Wiki To Go</a>
+      </div>
+      <%if session[:name] %>
+            <%= render 'sessions/logout' %>
+      <% else %>
+            <%= render 'sessions/login' %>
+      <% end %>
+    </div>
+  </nav>
+
 	<% flash.map do |key, msg| %>
     <%= content_tag :div, msg, id: key %>
   <% end %>
@@ -17,8 +30,10 @@
 
 <%= yield %>
 
+<%if current_user %>
   <script>
-    window.UserId = <%= current_user.id %>;
+      window.UserId = <%= current_user.id %>
   </script>
+<% end %>
 </body>
 </html>
