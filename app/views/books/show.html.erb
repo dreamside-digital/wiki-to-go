@@ -1,5 +1,5 @@
 <div class="container"></div>
-  <div class="article-list">
+  <div class="article-list col-md-8 col-centered">
   <h2><%= @book.title %></h2>
   	<ul class="list-unstyled"><% @articles.each do |article| %>
       <div class="article-item">
@@ -16,5 +16,9 @@
   	<% end %>
   	</ul>
   </div>
-  <%= link_to "Back", root_path %>
+  <div class="row">
+    <div class="col-md-1 col-centered">
+      <%= link_to "Back", root_path, class: "btn btn-back" %>
+    </div>
+  </div>
 </div>

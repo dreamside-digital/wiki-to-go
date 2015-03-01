@@ -10,25 +10,33 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,900' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Wiki To Go</a>
+<div class="wrapper">
+  <div class="main">
+    
+    
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Wiki To Go</a>
+        </div>
+        <%if session[:name] %>
+              <%= render 'sessions/logout' %>
+        <% else %>
+              <%= render 'sessions/login' %>
+        <% end %>
       </div>
-      <%if session[:name] %>
-            <%= render 'sessions/logout' %>
-      <% else %>
-            <%= render 'sessions/login' %>
-      <% end %>
-    </div>
-  </nav>
+    </nav>
 
-	<% flash.map do |key, msg| %>
-    <%= content_tag :div, msg, id: key %>
-  <% end %>
+    <% flash.map do |key, msg| %>
+      <%= content_tag :div, msg, id: key %>
+    <% end %>
 
 
-<%= yield %>
+    <%= yield %>
+
+  </div>
+</div>
+  <%= render 'footer' unless @disable_footer %>
 
 <%if current_user %>
   <script>

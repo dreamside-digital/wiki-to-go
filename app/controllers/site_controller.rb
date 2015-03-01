@@ -1,6 +1,7 @@
 class SiteController < ApplicationController
 
   attr_accessor :results
+  before_action :disable_footer, only: [:index]
 
 	def index
 		@results
@@ -11,10 +12,8 @@ class SiteController < ApplicationController
 	end
 
 	def search
-
     wiki_service = WikipediaService.new
     @results = wiki_service.search(params)
 		render layout:false
-
 	end
 end

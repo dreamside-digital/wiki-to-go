@@ -1,7 +1,7 @@
 
 <div class="container books-index">
   <h2>Your personal wiki collection</h2>
-  <div class="all-books">
+  <div class="all-books col-md-8 col-centered">
     <ul class="list-unstyled"><% @books.each do |book| %>
       <div class="book-index-item">
        <li id = book.id>
@@ -11,5 +11,10 @@
       </div>
     <% end %>
     </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-1 col-centered">
+      <%= link_to "Back", root_path, class: "btn btn-back" %>
+    </div>
   </div>
 </div>

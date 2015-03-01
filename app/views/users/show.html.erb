@@ -1,13 +1,12 @@
-<h1>Hello, <%= @user.name%>!</h1>
+<div class="container"></div>
+<div class="user-profile col-md-6 col-centered">
+  <h1>Hello, <%= @user.name%>!</h1>
+  <h3>Your profile:</h3>
+  <ul class="list-unstyled">
+    <li>Name: <span class="user-profile-info"><%= @user.name%></span> </li>
+    <li>Email: <span class="user-profile-info"><%= @user.email%></span> </li>
+  </ul>
 
-<h2>Your profile:</h2>
-
-<ul>
-	<li><%= @user.name%></li>
-	<li><%= @user.email%></li>
-</ul>
-
-<%= link_to "Edit", edit_user_path(@user) %>
-<%= link_to "Back", root_path %>
-<%= link_to "Delete my account", user_path(current_user.id), method: :delete, data: { confirm: "Woah woah woah. Are you sure?" } %>
-<%= link_to "New personal wiki", new_user_book_path(@user) %>
+  <%= link_to "Edit", edit_user_path(@user), class: 'btn'%>
+  <%= link_to "Back", root_path, class: 'btn' %>
+</div>

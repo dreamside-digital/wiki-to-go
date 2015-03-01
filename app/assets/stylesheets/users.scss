@@ -1,3 +1,35 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.user-profile {
+  border: 5px solid #2FA176;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  top: 50px;
+  li {
+    font-size: 16px;
+  }
+}
+
+.user-profile-info {
+  font-weight: 400;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.edit-form-fields input {
+  font-size: 16px;
+  margin: 5px;
+}
+
+.edit-form-fields .btn {
+  font-size: 14px;
+}
+
+.user-profile-registration-form {
+  input {
+    padding: 5px;
+    font-size: 16px;
+  }
+}
