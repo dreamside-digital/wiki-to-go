@@ -27,9 +27,22 @@
   font-size: 14px;
 }
 
-.user-profile-registration-form {
+.user-profile-registration-form-fields {
+  margin: 20px;
   input {
     padding: 5px;
     font-size: 16px;
+  }
+}
+
+.user-profile-error-messages {
+  background-color: #EAEAEA;
+  padding: 10px;
+  border-radius: 8px;
+  li {
+    text-align: left;
+  }
+  span {
+    padding: 0 10px;
   }
 }

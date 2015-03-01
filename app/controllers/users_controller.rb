@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+
 	def index
 		@users = User.order(created_at: :asc)
 	end
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
 			session[:name] = @user.name
 			redirect_to user_path(@user)
 		else
-			redirect_to root_path
+			render 'new'
 		end
 	end
 

@@ -3,12 +3,12 @@
     <% if @user.errors.any? %>
       <ul>
         <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+          <li><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><%= msg %></li>
         <% end %>
       </ul>
     <% end %>
   </div>
-  <div class="user-profile col-md-6 col-centered">
+  <div class="user-profile col-md-8 col-centered">
     <h2>Edit your profile</h2><br>
     <div class="edit-form-fields">
       <%= form_for [@user] do |f| %>
