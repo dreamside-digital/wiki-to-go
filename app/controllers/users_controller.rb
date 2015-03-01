@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+	before_action :require_login, except: [:new, :create]
 
 	def index
 		@users = User.order(created_at: :asc)

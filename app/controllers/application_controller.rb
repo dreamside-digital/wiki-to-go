@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_action :set_user_books
   protect_from_forgery with: :exception
-
   helper_method :current_user
 
 
@@ -23,5 +22,14 @@ class ApplicationController < ActionController::Base
   def disable_footer
     @disable_footer = true
   end
+
+  private
+
+    def require_login
+      unless current_user
+        flash[:error] = 'Please log in or register to access this page'
+        redirect_to root_path
+      end
+    end
 
 end
