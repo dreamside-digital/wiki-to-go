@@ -3,12 +3,29 @@ $(function() {
   google.maps.event.addDomListener(window, 'load', initialize);
 
   // $('.search-area').on('mouseenter', toggleMenu)
-  $('.navbar-brand').on('click', toggleMenu);
+  $('.show-search-btn').on('click', showMenu);
+  $('.hide-search-btn').on('click', hideMenu);
 
-  function toggleMenu(e) {
+
+  function showMenu(e) {
     e.preventDefault();
-    $('.search-area, .search-coords, .search-query').slideToggle();
+    $('.search-area').animate( {
+      bottom: "-=100"
+    });
+    $(this).hide();
+    $('.hide-search-btn').show()
   }
+
+  function hideMenu(e) {
+    e.preventDefault();
+    $('.search-area').animate( {
+      bottom: "+=100"
+    });
+    $(this).hide();
+    $('.show-search-btn').show()
+  }
+
+
 
   var GetSearchData = function () {
     this.addWikiListeners();
@@ -37,8 +54,8 @@ $(function() {
 			this.searchAddress(query);
 		}.bind(this));
 
-    $("#get-loc").on("click", toggleMenu);
-    $("#search").on("submit", toggleMenu);
+    $("#get-loc").on("click", hideMenu);
+    $("#search").on("submit", hideMenu);
 	};
 
   GetSearchData.prototype.searchAddress = function(query) {

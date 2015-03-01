@@ -4,7 +4,12 @@
 var UserSelectedArticles = function(results) {
   resultsList = results;
   selectedArticles = [];
-  $('#make-book').on('click', this.makeBook.bind(this));
+  var self = this
+  $('#make-book').on('submit', function(event) {
+    console.log("submitted!");
+    event.preventDefault();
+    self.makeBook();
+  });
   this.listeners();
 };
 
