@@ -6,23 +6,22 @@ $(function() {
   $('.show-search-btn').on('click', showMenu);
   $('.hide-search-btn').on('click', hideMenu);
 
+  // function toggleMenu () {
+  //   $('.search-area').hide('slow');
+  // }
 
   function showMenu(e) {
     e.preventDefault();
-    $('.search-area').animate( {
-      bottom: "-=100"
-    });
-    $(this).hide();
-    $('.hide-search-btn').show()
+    $('.search-area').slideToggle('slow');
+    $('.show-search-btn').hide();
+    $('.hide-search-btn').show();
   }
 
   function hideMenu(e) {
     e.preventDefault();
-    $('.search-area').animate( {
-      bottom: "+=100"
-    });
-    $(this).hide();
-    $('.show-search-btn').show()
+    $('.search-area').slideToggle('slow');
+    $('.hide-search-btn').hide();
+    $('.show-search-btn').show();
   }
 
 
@@ -114,6 +113,7 @@ $(function() {
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
     userArticleList.showList(this.markers);
+    userArticleList.listeners();
   };
 
   GetSearchData.prototype.showError = function() {
