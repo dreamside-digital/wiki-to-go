@@ -113,8 +113,7 @@ $(function() {
     $("#results").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
-    userArticleList = new UserSelectedArticles(this.markers);
-    userArticleList.showList();
+    userArticleList.showList(this.markers);
   };
 
   GetSearchData.prototype.showError = function() {

@@ -1,15 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-var UserSelectedArticles = function(results) {
-  resultsList = results;
+var UserSelectedArticles = function() {
+  resultsList = [];
   selectedArticles = [];
-  var self = this
-  $('#make-book').on('submit', function(event) {
-    console.log("submitted!");
-    event.preventDefault();
-    self.makeBook();
-  });
   this.listeners();
 };
 
@@ -17,11 +11,17 @@ UserSelectedArticles.prototype.listeners = function() {
   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
 }
 
-UserSelectedArticles.prototype.showList = function() {
+UserSelectedArticles.prototype.showList = function(results) {
+  resultsList = results;
   $(".map-area").removeClass("map-area-intro");
   $(".map-area").removeClass("map-area-intro");
   $(".map-area").addClass("col-md-8");
   $(".user-selected-articles").show();
+  var self = this
+  $('#make-book').unbind('submit').bind('submit', function(event) {
+    event.preventDefault();
+    self.makeBook();
+  });
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
@@ -86,3 +86,5 @@ UserSelectedArticles.prototype.makeBook = function() {
   } );
 
 }
+
+userArticleList = new UserSelectedArticles();
