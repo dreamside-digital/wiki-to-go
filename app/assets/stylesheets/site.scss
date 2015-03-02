@@ -11,7 +11,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	height: 100%;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 h1, h2, h3, h4 {
@@ -71,6 +71,7 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 100%;
   margin-left: 0;
+  margin-top: 0;
 }
 
 .map-area-loggedout {
@@ -88,19 +89,38 @@ h1, h2, h3, h4 {
 	z-index: 2;
 }
 
-#intro-text h3 {
-	color: #147363;
+#intro-text {
+	display: none;
+	z-index: 10;
+	background-color: #2FA176;
+	border-radius: 8px;
+	width: 200px;
+	padding: 15px;
+	position: fixed;
+	top: 100px;
+	right: 0;
+	* {
+		color: #FFF !important;
+	}
+	h3 {
+		margin-top: 0;
+		padding-top: 0;
+	}
+	li {
+		padding: 4px 0 4px 0;
+	}
+	button {
+		float: right;
+		background-color: #2FA176;
+	}
 }
 
 .user-selected-articles {
 	display: none;
 }
 
-#selected-articles-list {
-	display: none;
-}
-
 .save-article {
+	float: right;
 	font-weight: bold;
 	color: #FFF;
 	background-color: #147363;

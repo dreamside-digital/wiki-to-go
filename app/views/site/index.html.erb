@@ -26,12 +26,20 @@
   <div id="map-canvas" style="width: 100%; height: 100%"> </div>
 </div>
 
-<div class="user-selected-articles col-md-4">
-  <%= render 'selected_articles' %>
+<div id="intro-text" class="col-md-3">
+  <button class="btn close-intro-text-btn"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+  <h3>See something interesting?</h3>
+  <ul class="list-unstyled">
+    <li>Click on a map marker to see the Wikipedia article</li>
+    <li>Click "Save" to put the article in your personal collection</li>
+  </ul>
 </div>
 
 <div class="all-results col-md-8">  
-  <div id="results"></div>  
+  <div id="results"></div> 
+</div>
 
-
+<div class="user-selected-articles col-md-4">
+  <%= render 'selected_articles' %>
+</div>
 

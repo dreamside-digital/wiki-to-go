@@ -1,14 +1,8 @@
 $(function() {
 
   google.maps.event.addDomListener(window, 'load', initialize);
-
-  // $('.search-area').on('mouseenter', toggleMenu)
   $('.show-search-btn').on('click', showMenu);
   $('.hide-search-btn').on('click', hideMenu);
-
-  // function toggleMenu () {
-  //   $('.search-area').hide('slow');
-  // }
 
   function showMenu(e) {
     e.preventDefault();
@@ -23,8 +17,6 @@ $(function() {
     $('.hide-search-btn').hide();
     $('.show-search-btn').show();
   }
-
-
 
   var GetSearchData = function () {
     this.addWikiListeners();
@@ -62,7 +54,6 @@ $(function() {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address' : query}, function(response, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        debugger;
         var lat = response[0].geometry.location.k
         var lon = response[0].geometry.location.D
         var location = lat +'|'+ lon;
@@ -74,25 +65,8 @@ $(function() {
     });
   }
 
-	// GetSearchData.prototype.searchQuery = function(query) {
- //    var userQuery = { 'query' : query };
-
- //    $.ajax( {
- //      url: /search/,
- //      data: userQuery,
- //      dataType:'html',
- //      type:'GET',
- //      headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
- //      success: function(data) {
- //        this.showResults(data);
- //      }.bind(this),
- //      error: this.showError
- //    } );
- //  };
-
   GetSearchData.prototype.searchCoords = function(location) {
 
-    // var location = this.lat+'|'+this.lon;
     var userLoc = { 'location' : location };
 
     $.ajax( {
@@ -106,7 +80,6 @@ $(function() {
        }.bind(this),
        error: this.showError
     } );
-
   };
 
   GetSearchData.prototype.showResults = function(data) {

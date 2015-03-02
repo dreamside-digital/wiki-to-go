@@ -13,8 +13,12 @@ UserSelectedArticles.prototype.listeners = function() {
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
   $(".map-area").removeClass("map-area-intro");
-  $(".map-area").removeClass("map-area-intro");
-  $(".user-selected-articles").show();
+  if (window.UserId) {
+    $("#intro-text").show();
+  };
+  $("#intro-text button").on('click', function() {
+    $("#intro-text").remove();
+  });
   var self = this
   $('#make-book').unbind('submit').bind('submit', function(event) {
     event.preventDefault();
@@ -23,8 +27,7 @@ UserSelectedArticles.prototype.showList = function(results) {
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
-  $("#intro-text").hide();
-  $("#selected-articles-list").show();
+  $(".user-selected-articles").show();
   var articleID = event.currentTarget.classList[2]
   var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
