@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
   	if session[:user_id]
-	  @current_user ||= User.find session[:user_id]
-	end
+  	  @current_user ||= User.find session[:user_id]
+  	end
   end
 
   def set_user_books
@@ -23,13 +23,11 @@ class ApplicationController < ActionController::Base
     @disable_footer = true
   end
 
-  private
-
-    def require_login
-      unless current_user
-        flash[:error] = 'Please log in or register to access this page'
-        redirect_to root_path
-      end
+  def require_login
+    unless current_user
+      flash[:error] = 'Please log in or register to access this page'
+      redirect_to root_patha
     end
+  end
 
 end
