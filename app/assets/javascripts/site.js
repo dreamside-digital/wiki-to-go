@@ -67,6 +67,7 @@ $(function() {
         var lon = response[0].geometry.location.D
         var location = lat +'|'+ lon;
         userSearch.searchCoords(location);
+        repositionMap(lat,lon);
       } else {
         console.log("error: " + status);
       }

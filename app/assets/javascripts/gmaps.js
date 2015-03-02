@@ -135,6 +135,12 @@ function initialize() {
 
 };
 
+function repositionMap (lat,lon) {
+    var newPosition = new google.maps.LatLng(lat,lon)
+    map.setCenter(newPosition);
+    map.setZoom(15);
+}
+
 var GmapOverlay = function() {
 };
 
@@ -147,7 +153,6 @@ GmapOverlay.prototype.putMarkers = function(markers) {
   for( i = 0; i < markers.length; i++ ) {
 
     var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
-    this.bounds.extend(position);
 
     var content = 
       '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
@@ -172,8 +177,6 @@ GmapOverlay.prototype.putMarkers = function(markers) {
         $(".save-article").on('click', self.selectArticle);
       };
     })(marker, i));  
-
-    map.fitBounds(this.bounds);
   };
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
@@ -182,14 +185,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     var lon = newCenter.D
     var location = lat + '|' + lon;
     userSearch.searchCoords(location);
-    console.log("search!")
     google.maps.event.removeListener(dragendListener);
-  });
-
-  var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-    this.setZoom(15);
-    console.log("zoomed!")
-    google.maps.event.removeListener(boundsListener);
   });
 };
 
@@ -201,7 +197,6 @@ GmapOverlay.prototype.clearMarkers = function() {
 };
 
 GmapOverlay.prototype.selectArticle = function(event) {
-  // var articleID = this.id;
   userArticleList.addArticle(event);
 };
 

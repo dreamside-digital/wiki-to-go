@@ -14,7 +14,6 @@ UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
   $(".map-area").removeClass("map-area-intro");
   $(".map-area").removeClass("map-area-intro");
-  $(".map-area").addClass("col-md-8");
   $(".user-selected-articles").show();
   var self = this
   $('#make-book').unbind('submit').bind('submit', function(event) {
