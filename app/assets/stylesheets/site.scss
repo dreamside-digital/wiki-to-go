@@ -19,22 +19,11 @@ h1, h2, h3, h4 {
 	font-weight: 800;
 }
 
-.wrapper {
-	min-height: 100%;
-	padding-bottom: 50px;
-}
-
-.main {
-	overflow:auto;
-  padding-bottom: 50px;
-}
-
 .footer {
 	position: relative;
   margin-top: -50px; /* negative value of footer height */
   height: 50px;
   clear:both;
-  padding-top:5px;
 	width: 100%;
 	border-top: 2px solid #DBE8E3;
 	background-color: #F5F5F5;
@@ -57,7 +46,6 @@ h1, h2, h3, h4 {
 
 .map-area {
 	height: 400px;
-	margin-top: -60px;
 }
 
 .map-area-intro {
@@ -86,7 +74,7 @@ h1, h2, h3, h4 {
 	background-color: #2FA176;
 	border-bottom: 5px solid #147363;
 	margin-bottom: 0;
-	z-index: 2;
+	z-index: 6;
 }
 
 #intro-text {
@@ -232,8 +220,10 @@ h1, h2, h3, h4 {
 	font-size: 16px;
 }
 
-.selected-articles-save * {
-	padding: 5px 10px;
+.selected-articles-save {
+	input {
+		height: 40px;
+	}
 }
 
 .glyphicon-remove:hover {
@@ -272,7 +262,7 @@ h1, h2, h3, h4 {
 	font-weight: 400;
 }
 
-#error {
+.flash-messages {
 	background: #FF960E;
 	z-index: 5;
 	color: #FFF;

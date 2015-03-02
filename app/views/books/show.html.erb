@@ -16,9 +16,9 @@
   	<% end %>
   	</ul>
   </div>
-  <div class="row">
+  <div class="container-fluid">
     <div class="col-md-1 col-centered">
-      <%= link_to "Back", root_path, class: "btn btn-back" %>
+      <%= link_to "Back", user_books_path(current_user.id), class: "btn btn-back" %>
     </div>
   </div>
 </div>

@@ -37,14 +37,12 @@ $(function() {
 	};
 
 	GetSearchData.prototype.addWikiListeners = function () {
-		$("#get-loc").on("click", this.getLocation.bind(this));
-
-		$("#search").on("submit", function(event) {
+    $("#get-loc").on("click", this.getLocation.bind(this));
+    		$("#search").on("submit", function(event) {
 			event.preventDefault();
 			query = ($('#query').val());
 			this.searchAddress(query);
 		}.bind(this));
-
     $("#get-loc").on("click", hideMenu);
     $("#search").on("submit", hideMenu);
 	};
@@ -105,6 +103,8 @@ $(function() {
     this.lon = position.coords.longitude;
     var location = this.lat+'|'+this.lon;
     this.searchCoords(location);
+    repositionMap(this.lat, this.lon);
+    putUserMarker(this.lat, this.lon);
   };
 
   GetSearchData.prototype.geolocateError = function(error) {

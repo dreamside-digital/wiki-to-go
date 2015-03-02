@@ -121,9 +121,6 @@ function initialize() {
     }
 ]
 
-
-
-
   var mapOptions = {
     center: new google.maps.LatLng(41.38,2.18),
     zoom: 5,
@@ -139,6 +136,17 @@ function repositionMap (lat,lon) {
     var newPosition = new google.maps.LatLng(lat,lon)
     map.setCenter(newPosition);
     map.setZoom(15);
+}
+
+function putUserMarker (lat, lon) {
+
+  var position = new google.maps.LatLng(lat,lon)
+    marker = new google.maps.Marker({
+      position: position,
+      map: map,
+      title: "You are here!",
+      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|FF1200|000000'
+    });
 }
 
 var GmapOverlay = function() {
@@ -157,13 +165,14 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     var content = 
       '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
       '<h4><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-      '<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="100%" frameborder="0"></iframe>'
+      '<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
     this.infoWindowContent.push(content);
 
     marker = new google.maps.Marker({
       position: position,
       map: map,
-      title: markers[i]["title"]
+      title: markers[i]["title"],
+      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|FF960E|000000'
     });
 
     this.gmapMarkers.push(marker);

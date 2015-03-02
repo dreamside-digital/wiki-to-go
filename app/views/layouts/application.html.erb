@@ -10,9 +10,6 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,900' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="wrapper">
-  <div class="main">
-    
     
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -28,20 +25,17 @@
     </nav>
 
     <% flash.map do |key, msg| %>
-      <%= content_tag :div, msg, id: key %>
+      <%= content_tag :div, msg, id: key, class: 'flash-messages'%>
     <% end %>
 
 
     <%= yield %>
 
-  </div>
-</div>
-  <%= render 'footer' unless @disable_footer %>
+</body>
 
 <%if current_user %>
   <script>
       window.UserId = <%= current_user.id %>
   </script>
 <% end %>
-</body>
 </html>
