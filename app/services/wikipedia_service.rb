@@ -5,26 +5,14 @@ class WikipediaService
 
   def search(params)
 
-    if params.include? :query
-      response = search_query(params[:query])
-    elsif params.include? :location
-      response = search_coords(params[:location])
-    else
-      "hmmmm what?"
-    end
+    response = search_coords(params[:location])
     process_response(response)
     return @results
 
   end
 
-  def search_query(query)
-    # query = params[:query]
-    response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gspage=' + query )
-  end
-
   def search_coords(location)
-		# location = params[:location]
-		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gscoord=' + location )
+		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gscoord=' + CGI::escape(location) )
 	end
 
 	def process_response(response)
