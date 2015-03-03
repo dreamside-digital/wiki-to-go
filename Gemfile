@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty'
 gem 'underscore-rails'
+gem 'pdfkit'
+gem 'delayed_job_active_record'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

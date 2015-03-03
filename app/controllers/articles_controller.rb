@@ -1,22 +1,27 @@
 class ArticlesController < ApplicationController
   before_action :require_login
 
-  def new
-    @user = User.find(current_user.id)
-    @book = @user.books.find params[:book_id]
-    @article = @book.articles.new
-  end
-
-	def create
-	end
-
 	def destroy
+    @user = current_user
+    @book = @user.books.find(params[:book_id])
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to user_book_path(@user, @book)
   end
 
-  private
-
-  def article_params
-    params.require(:article).permit(:title, :pageid, :url, :latitude, :longitude, :intro)
+  def export_pdf
+    articleID = params[:pageid]
+    pdfmaker = ArticleCreator.new
+    pdfmaker.delay.make_pdf(articleID)
   end
 
+  def pdf_status
+    articleID = params[:pageid].to_s
+    file_path = 'public/' + articleID + '.pdf'
+    if File.exists?(file_path)
+      render json: { id: articleID }
+    else
+      render json: { status: "FAIL"}
+    end
+  end
 end

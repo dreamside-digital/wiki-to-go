@@ -1,6 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 var Book = function () {
+  $('.export-pdf-btn').on('click', this.getArticlePdf)
 };
 
 Book.prototype.showWikiExtract = function() {
@@ -44,6 +45,16 @@ Book.prototype.deleteBook = function () {
   } );
   });
 }
+
+Book.prototype.getArticlePdf = function() {
+  var pageid = event.currentTarget.classList[2]
+  $.get('/pdf_status', { pageid: pageid }, function (data) {
+    if (data.id) {
+      $('.open-pdf-btn').show();
+    }
+  });
+}
+
 
 bookready = function() {
   var book1 = new Book();

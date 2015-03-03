@@ -9,9 +9,22 @@
             <%= article.intro %>
             <% end %>
         <%end%>
-        <%= content_tag :button, class: "btn-show-article #{article.pageid} btn" do%> Preview <span class="caret"></span><% end %>
-        <%= content_tag :button, class: "btn-hide-article #{article.pageid} btn" do%> Hide <span class="dropup"><span class="caret"></span></span> <% end %>
-        <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+        <%= content_tag :button, class: "btn-show-article #{article.pageid} btn" do%>
+          Preview <span class="caret"></span>
+        <% end %>
+        <%= content_tag :button, class: "btn-hide-article #{article.pageid} btn" do%>
+          Hide <span class="dropup"><span class="caret"></span></span> 
+        <% end %>
+        <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> 
+          Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+        </a>
+        <%= link_to export_pdf_path(article.pageid), class: 'btn export-pdf-btn #{article.pageid}' do %>
+          PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+        <% end %>
+        <%= link_to "Open PDF","/#{article.pageid}.pdf", class: 'btn open-pdf-btn' %>
+        <%= link_to user_book_article_path(current_user, @book, article), :method => :delete, class: "btn delete-article-btn" do %>
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
       </div>
   	<% end %>
   	</ul>
