@@ -81,6 +81,7 @@ $(function() {
   };
 
   GetSearchData.prototype.showResults = function(data) {
+    $(".map-area").removeClass("map-area-intro");
     $("#results").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
@@ -88,7 +89,6 @@ $(function() {
     userArticleList.showList(this.markers);
     userArticleList.listeners();
     } else {
-      $('.map-area').removeClass('map-area-intro');
       $('.map-area').addClass('map-area-loggedout');
     }
 

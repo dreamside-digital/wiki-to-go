@@ -12,7 +12,6 @@ UserSelectedArticles.prototype.listeners = function() {
 
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
-  $(".map-area").removeClass("map-area-intro");
   if (window.UserId) {
     $("#intro-text").show();
   };
@@ -27,6 +26,7 @@ UserSelectedArticles.prototype.showList = function(results) {
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
+  debugger;
   $(".user-selected-articles").show();
   var articleID = event.currentTarget.classList[2]
   var article = resultsList.filter(function(element) { 

@@ -168,13 +168,13 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
     this.infoWindowContent.push(content);
 
-    marker = new google.maps.Marker({
+    marker = new StyledMarker({
+      styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF960E'}),
       position: position,
       map: map,
-      title: markers[i]["title"],
-      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|FF960E|000000'
+      title: markers[i]["title"]
     });
-
+    marker.metadata = { type: 'point', id: markers[i].id };  
     this.gmapMarkers.push(marker);
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     var self = this;
@@ -184,6 +184,9 @@ GmapOverlay.prototype.putMarkers = function(markers) {
         infoWindow.setContent(self.infoWindowContent[i]);
         infoWindow.open(map, marker); 
         $(".save-article").on('click', self.selectArticle);
+        // $(".save-article").on('click', function() {
+        //   styleIcon.set('color', 'FF1200');
+        // });
       };
     })(marker, i));  
   };
