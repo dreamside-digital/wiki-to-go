@@ -48,7 +48,12 @@ Book.prototype.deleteBook = function () {
 }
 
 Book.prototype.makeArticlePdf = function(event) {
+
+  var exportButton = event.currentTarget
   var pageid = event.currentTarget.classList[1];
+  
+  $(exportButton).hide();
+  $(exportButton).parent().find('.generating-pdf').removeClass('hidden');
   $.ajax( {
     url: '/exportpdf', 
     data: { 'pageid' : pageid },
@@ -66,16 +71,16 @@ Book.prototype.makeArticlePdf = function(event) {
 Book.prototype.getPdfStatus = function(event) {
 
   var pageid = event.currentTarget.classList[1];
-  console.log(pageid);
 
   poll = setInterval(function() {
     $.get('/pdfstatus', { 'pageid' : pageid }, function (data) {
       if (data.id) {
-        $('.open-pdf-btn').show();
+        var exportButton = event.currentTarget
+        $(exportButton).parent().find('.open-pdf-btn').show();
+        $(exportButton).parent().find('.generating-pdf').addClass('hidden');
         return false;
       } else {
         poll;
-        console.log('polling again');
       }
     });
   }, 2000);

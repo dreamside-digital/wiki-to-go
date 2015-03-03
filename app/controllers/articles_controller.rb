@@ -10,7 +10,6 @@ class ArticlesController < ApplicationController
   end
 
   def export_pdf
-    binding.pry
     articleID = params[:pageid]
     pdfmaker = ArticleCreator.new
     pdfmaker.delay.make_pdf(articleID)
