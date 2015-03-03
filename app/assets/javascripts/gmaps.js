@@ -157,16 +157,20 @@ GmapOverlay.prototype.putMarkers = function(markers) {
   this.clearMarkers();
   this.bounds = new google.maps.LatLngBounds();
   this.infoWindowContent = [];
+  this.previewInfoWindowContent = [];
 
   for( i = 0; i < markers.length; i++ ) {
 
     var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 
-    var content = 
+    var previewContent = '<p>' + markers[i].title + '</p>';
+    this.previewInfoWindowContent.push(previewContent);
+
+    var mainContent = 
       '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
       '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
       '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
-    this.infoWindowContent.push(content);
+    this.infoWindowContent.push(mainContent);
 
     marker = new StyledMarker({
       styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF960E'}),
@@ -177,6 +181,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     marker.metadata = { type: 'point', id: markers[i].id };  
     this.gmapMarkers.push(marker);
     var infoWindow = new google.maps.InfoWindow(), marker, i;
+    var previewInfoWindow = new google.maps.InfoWindow(), marker, i;
     var self = this;
 
     google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
@@ -202,13 +207,12 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       };
     })(marker, i, position));
 
-    // google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
-    //   return function() {
-    //     infoWindow.setContent(self.infoWindowContent[i]);
-    //     infoWindow.open(map, marker); 
-    //   };
-    // })(marker, i));
-
+    google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
+      return function() {
+        previewInfoWindow.setContent(self.previewInfoWindowContent[i]);
+        previewInfoWindow.open(map, marker); 
+      };
+    })(marker, i));
   };
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
