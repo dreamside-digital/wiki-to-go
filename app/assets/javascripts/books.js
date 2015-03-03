@@ -1,7 +1,8 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 var Book = function () {
-  $('.export-pdf-btn').on('click', this.getArticlePdf)
+  $('.export-pdf-btn').on('click', this.makeArticlePdf)
+  $('.export-pdf-btn').on('click', this.getPdfStatus)
 };
 
 Book.prototype.showWikiExtract = function() {
@@ -46,13 +47,38 @@ Book.prototype.deleteBook = function () {
   });
 }
 
-Book.prototype.getArticlePdf = function() {
-  var pageid = event.currentTarget.classList[2]
-  $.get('/pdf_status', { pageid: pageid }, function (data) {
-    if (data.id) {
-      $('.open-pdf-btn').show();
+Book.prototype.makeArticlePdf = function(event) {
+  var pageid = event.currentTarget.classList[1];
+  $.ajax( {
+    url: '/exportpdf', 
+    data: { 'pageid' : pageid },
+    type: 'GET', 
+    success: function() {
+      console.log("request sent!");
+    },
+    error: function() {
+      console.log("error, sucker!")
     }
-  });
+  } );
+}
+
+
+Book.prototype.getPdfStatus = function(event) {
+
+  var pageid = event.currentTarget.classList[1];
+  console.log(pageid);
+
+  poll = setInterval(function() {
+    $.get('/pdfstatus', { 'pageid' : pageid }, function (data) {
+      if (data.id) {
+        $('.open-pdf-btn').show();
+        return false;
+      } else {
+        poll;
+        console.log('polling again');
+      }
+    });
+  }, 2000);
 }
 
 
