@@ -28,7 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty'
-gem "paperclip", "~> 4.2"
+gem 'underscore-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -55,6 +55,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'quiet_assets'
 
 end
 

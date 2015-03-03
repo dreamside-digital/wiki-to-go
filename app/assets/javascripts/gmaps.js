@@ -161,58 +161,62 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
   for( i = 0; i < markers.length; i++ ) {
 
-    var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
+    if (_.findWhere(selectedArticles, { id: markers[i].id }) == undefined) {    
 
-    var previewContent = '<p>' + markers[i].title + '</p>';
-    this.previewInfoWindowContent.push(previewContent);
+      var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 
-    var mainContent = 
-      '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
-      '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-      '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
-    this.infoWindowContent.push(mainContent);
+      var previewContent = '<p>' + markers[i].title + '</p>';
+      this.previewInfoWindowContent.push(previewContent);
 
-    marker = new StyledMarker({
-      styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF960E'}),
-      position: position,
-      map: map,
-      title: markers[i]["title"]
-    });
-    marker.metadata = { type: 'point', id: markers[i].id };  
-    this.gmapMarkers.push(marker);
-    var infoWindow = new google.maps.InfoWindow(), marker, i;
-    var previewInfoWindow = new google.maps.InfoWindow(), marker, i;
-    var self = this;
+      var mainContent = 
+        '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
+        '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
+        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
+      this.infoWindowContent.push(mainContent);
 
-    google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
-      return function() {
-        infoWindow.setContent(self.infoWindowContent[i]);
-        infoWindow.open(map, marker); 
-        $(".save-article").on('click', self.selectArticle);
-        $(".save-article").on('click', function() {
-          if (window.UserId != undefined) {
-            // marker.styleIcon.set('color', '147363');
-            marker.setMap(null);
-            marker = new StyledMarker({
-              styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-              position: position,
-              map: map,
-              title: markers[i]["title"]
-            });
-          } else {
-            console.log(window.UserId)
-            alert("We can't save this article for you if you're not logged in!");
-          };
-        });
-      };
-    })(marker, i, position));
+      marker = new StyledMarker({
+        styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF960E'}),
+        position: position,
+        map: map,
+        title: markers[i]["title"]
+      });
+      marker.metadata = { type: 'point', id: markers[i].id };  
+      // debugger;
+      this.gmapMarkers.push(marker);
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
+      // var previewInfoWindow = new google.maps.InfoWindow(), marker, i;
+      var self = this;
 
-    google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
-      return function() {
-        previewInfoWindow.setContent(self.previewInfoWindowContent[i]);
-        previewInfoWindow.open(map, marker); 
-      };
-    })(marker, i));
+      google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
+        return function() {
+          infoWindow.setContent(self.infoWindowContent[i]);
+          infoWindow.open(map, marker); 
+          $(".save-article").on('click', self.selectArticle);
+          $(".save-article").on('click', function() {
+            if (window.UserId != undefined) {
+              // marker.styleIcon.set('color', '147363');
+              marker.setMap(null);
+              marker = new StyledMarker({
+                styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
+                position: position,
+                map: map,
+                title: markers[i]["title"]
+              });
+            } else {
+              console.log(window.UserId)
+              alert("We can't save this article for you if you're not logged in!");
+            };
+          });
+        };
+      })(marker, i, position));
+
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
+        return function() {
+          infoWindow.setContent(self.previewInfoWindowContent[i]);
+          infoWindow.open(map, marker); 
+        };
+      })(marker, i));
+    };
   };
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
