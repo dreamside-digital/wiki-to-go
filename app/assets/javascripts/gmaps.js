@@ -141,11 +141,11 @@ function repositionMap (lat,lon) {
 function putUserMarker (lat, lon) {
 
   var position = new google.maps.LatLng(lat,lon)
-    marker = new google.maps.Marker({
+    marker = new StyledMarker({
+      styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF1200'}),
       position: position,
       map: map,
-      title: "You are here!",
-      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|FF1200|000000'
+      title: "You are here!"
     });
 }
 
@@ -179,16 +179,36 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     var self = this;
 
-    google.maps.event.addListener(marker, 'click', (function(marker, i) { 
+    google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
       return function() {
         infoWindow.setContent(self.infoWindowContent[i]);
         infoWindow.open(map, marker); 
         $(".save-article").on('click', self.selectArticle);
-        // $(".save-article").on('click', function() {
-        //   styleIcon.set('color', 'FF1200');
-        // });
+        $(".save-article").on('click', function() {
+          if (window.UserId != undefined) {
+            // marker.styleIcon.set('color', '147363');
+            marker.setMap(null);
+            marker = new StyledMarker({
+              styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
+              position: position,
+              map: map,
+              title: markers[i]["title"]
+            });
+          } else {
+            console.log(window.UserId)
+            alert("We can't save this article for you if you're not logged in!");
+          };
+        });
       };
-    })(marker, i));  
+    })(marker, i, position));
+
+    // google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
+    //   return function() {
+    //     infoWindow.setContent(self.infoWindowContent[i]);
+    //     infoWindow.open(map, marker); 
+    //   };
+    // })(marker, i));
+
   };
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {

@@ -85,13 +85,8 @@ $(function() {
     $("#results").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
-    if (window.UserId) {
     userArticleList.showList(this.markers);
     userArticleList.listeners();
-    } else {
-      $('.map-area').addClass('map-area-loggedout');
-    }
-
   };
 
   GetSearchData.prototype.showError = function() {

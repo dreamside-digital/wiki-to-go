@@ -12,9 +12,7 @@ UserSelectedArticles.prototype.listeners = function() {
 
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
-  if (window.UserId) {
-    $("#intro-text").show();
-  };
+  $("#intro-text").show();
   $("#intro-text button").on('click', function() {
     $("#intro-text").remove();
   });
@@ -26,7 +24,6 @@ UserSelectedArticles.prototype.showList = function(results) {
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
-  debugger;
   $(".user-selected-articles").show();
   var articleID = event.currentTarget.classList[2]
   var article = resultsList.filter(function(element) { 
