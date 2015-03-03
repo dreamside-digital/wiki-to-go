@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-	belongs_to :book
   before_action :require_login
 
   def new
