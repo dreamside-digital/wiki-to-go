@@ -164,8 +164,8 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
     var content = 
       '<input class="save-article btn '+ markers[i].id +' btn btn-default" type="button" value="Save"><br>' +
-      '<h4><a href="http://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-      '<iframe src="http://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
+      '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
+      '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
     this.infoWindowContent.push(content);
 
     marker = new google.maps.Marker({

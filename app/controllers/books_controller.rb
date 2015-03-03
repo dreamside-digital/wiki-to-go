@@ -46,7 +46,7 @@ class BooksController < ApplicationController
 			article_params = {
 					title: article[1][:title],
 					pageid: article[1][:id],
-					url: 'http://en.wikipedia.org/?curid=' + article[1][:id].to_s,
+					url: 'https://en.wikipedia.org/?curid=' + article[1][:id].to_s,
 					latitude: article[1][:lat],
 					longitude: article[1][:lon],
 					intro: article[2][:intro]
