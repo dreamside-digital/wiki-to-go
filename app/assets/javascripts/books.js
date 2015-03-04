@@ -51,7 +51,7 @@ Book.prototype.makeArticlePdf = function(event) {
 
   var exportButton = event.currentTarget
   var pageid = event.currentTarget.classList[1];
-  
+
   $(exportButton).hide();
   $(exportButton).parent().find('.generating-pdf').removeClass('hidden');
   $.ajax( {
@@ -75,12 +75,14 @@ Book.prototype.getPdfStatus = function(event) {
   poll = setInterval(function() {
     $.get('/pdfstatus', { 'pageid' : pageid }, function (data) {
       if (data.id) {
-        var exportButton = event.currentTarget
-        $(exportButton).parent().find('.open-pdf-btn').show();
+        console.log("data received!")
+        var exportButton = event.currentTarget;
+        $(exportButton).parent().find('.open-pdf-btn').removeClass('hidden');
         $(exportButton).parent().find('.generating-pdf').addClass('hidden');
-        return false;
+        clearInterval(poll);
       } else {
         poll;
+        console.log("polling again")
       }
     });
   }, 2000);

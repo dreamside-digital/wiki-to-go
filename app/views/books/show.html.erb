@@ -19,10 +19,14 @@
           Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
         </a>
         <p class="generating-pdf hidden">Just one sec...</p>
-        <%= content_tag :button, class: "export-pdf-btn #{article.pageid} btn" do %>
-          PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+        <% if article.pdf_path %>
+          <%= link_to "Open PDF","/#{article.pageid}.pdf", class: 'btn open-pdf-btn' %>
+        <% else %>
+          <%= link_to "Open PDF","/#{article.pageid}.pdf", class: 'btn open-pdf-btn hidden' %>
+          <%= content_tag :button, class: "export-pdf-btn #{article.pageid} btn" do %>
+            PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+          <% end %>
         <% end %>
-        <%= link_to "Open PDF","/#{article.pageid}.pdf", class: 'btn open-pdf-btn' %>
         <%= link_to user_book_article_path(current_user, @book, article), :method => :delete, class: "btn delete-article-btn" do %>
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         <% end %>

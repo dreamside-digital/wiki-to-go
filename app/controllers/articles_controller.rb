@@ -10,16 +10,16 @@ class ArticlesController < ApplicationController
   end
 
   def export_pdf
-    articleID = params[:pageid]
+    pageid = params[:pageid].to_s
+    articles = Article.where(pageid: pageid)
     pdfmaker = ArticleCreator.new
-    pdfmaker.delay.make_pdf(articleID)
+    pdfmaker.delay.make_pdf(pageid, articles)
   end
 
   def pdf_status
-    articleID = params[:pageid].to_s
-    file_path = 'public/' + articleID + '.pdf'
-    if File.exists?(file_path)
-      render json: { id: articleID }
+    pageid = params[:pageid].to_s
+    if ArticleCreator.new.pdf_status(pageid)
+      render json: { id: pageid }
     else
       render json: { status: "FAIL"}
     end
