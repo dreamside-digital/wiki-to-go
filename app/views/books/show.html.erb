@@ -1,47 +1,57 @@
 <div class="container">
-  <div class="article-list col-md-8 col-centered">
-  <h2><%= @book.title %></h2>
-  	<ul class="list-unstyled"><% @articles.each do |article| %>
-      <div class="article-item">
-        <li><h3><%= link_to article.title, article.url, target: 'blank' %><h3></li>
-        <%= content_tag :div, class: "article-intro", id: article.pageid do %> 
-          <%= content_tag :p, class: "article-intro-text" do %>
-            <%= article.intro %>
-            <% end %>
-        <%end%>
-        <%= content_tag :button, class: "btn-show-article #{article.pageid} btn" do%>
-          Preview <span class="caret"></span>
-        <% end %>
-        <%= content_tag :button, class: "btn-hide-article #{article.pageid} btn" do%>
-          Hide <span class="dropup"><span class="caret"></span></span> 
-        <% end %>
-        <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> 
-          Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-        </a>
-        <p class="generating-pdf hidden">Just one sec...</p>
-        <% if article.pdf_path %>
-          <%= link_to "Open PDF","/#{article.pageid}.pdf/", class: 'btn open-pdf-btn' %>
-        <% else %>
-          <%= link_to "Open PDF","/#{article.pageid}.pdf/", class: 'btn open-pdf-btn hidden' %>
-          <%= content_tag :button, class: "export-pdf-btn #{article.pageid} btn" do %>
-            PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+  <div class="row">
+    <div class="article-list col-md-8 col-centered">
+    <h2><%= @book.title %></h2>
+    	<ul class="list-unstyled"><% @articles.each do |article| %>
+        <div class="article-item">
+          <li><h3><%= link_to article.title, article.url, target: 'blank' %></h3></li>
+          <%= content_tag :div, class: "article-intro", id: article.pageid do %> 
+            <%= content_tag :p, class: "article-intro-text" do %>
+              <%= article.intro %>
+              <% end %>
+          <%end%>
+          <%= content_tag :button, class: "btn-show-article #{article.pageid} btn highlight-btn" do%>
+            Preview <span class="caret"></span>
           <% end %>
-        <% end %>
-        <%= link_to user_book_article_path(current_user, @book, article), :method => :delete, class: "btn delete-article-btn" do %>
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        <% end %>
-      </div>
-  	<% end %>
-  	</ul>
+          <%= content_tag :button, class: "btn-hide-article #{article.pageid} btn reverse-highlight-btn" do%>
+            Hide <span class="dropup"><span class="caret"></span></span> 
+          <% end %>
+          <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> 
+            Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+          </a>
+          <% if article.pdf_path %>
+            <%= link_to "/#{article.pageid}.pdf/", class: 'btn open-pdf-btn highlight-btn', target: "blank" do%>
+            Open PDF <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <% end %>
+          <% else %>
+            <p class="generating-pdf hidden">Just one sec...</p>
+            <%= link_to "/#{article.pageid}.pdf/", class: 'btn open-pdf-btn highlight-btn hidden', target: "blank" do%>
+            Open PDF <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <% end %>
+            <%= content_tag :button, class: "export-pdf-btn #{article.pageid} btn" do %>
+              PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+            <% end %>
+          <% end %>
+          <%= link_to user_book_article_path(current_user, @book, article), :method => :delete, class: "btn delete-article-btn" do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <% end %>
+        </div>
+    	<% end %>
+    	</ul>
+    </div>
   </div>
-  <div class="container-fluid">
-    <div class="col-md-1 col-centered">
+  <div class="row">
+    <div class="col-md-3 col-centered book-btns">
       <%= link_to "Back", user_books_path(current_user.id), class: "btn btn-back" %>
-      <p class="generating-pdf hidden">Just one sec...</p>
       <% if @book.pdf_path %>
-        <%= link_to "Open PDF","/#{@book.id}.pdf/", class: 'btn open-pdf-btn' %>
+        <%= link_to "/#{@book.id}.pdf/", class: 'btn open-pdf-btn highlight-btn', target: "blank" do%>
+          Open PDF <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          <% end %>
       <% else %>
-        <%= link_to "Open PDF","/#{@book.id}.pdf/", class: 'btn open-pdf-btn hidden' %>
+        <p class="generating-pdf hidden">Just one sec...</p>
+        <%= link_to "/#{@book.id}.pdf/", class: 'btn open-pdf-btn highlight-btn hidden', target: "blank" do%>
+          Open PDF <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          <% end %>
         <%= content_tag :button, class: "export-book-btn #{@book.id} btn" do %>
           Make Book PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
         <% end %>

@@ -20,8 +20,8 @@
           <%= f.label :email %>
           <%= f.text_field :email %>
         </div>
+        <%= link_to "Back", root_path, class: "btn btn-back" %>
         <%= f.submit class: "btn" %>
-        <%= link_to "Back", root_path, class: "btn" %>
     </div>
     <% end %>
     <%= link_to "Delete my account", user_path(current_user.id), method: :delete, data: { confirm: "Woah woah woah. Are you sure?" } %>

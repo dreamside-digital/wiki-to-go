@@ -19,6 +19,71 @@ h1, h2, h3, h4 {
 	font-weight: 800;
 }
 
+.title-area {
+	position: fixed;
+	width: 100%;
+	top: 60%;
+	left: 5%;
+	z-index: 5;
+	margin: 0;
+	padding: 0;
+	h1 {
+		text-transform: uppercase;
+		font-size: 80px;
+		color: #000;
+	}
+	h2 {
+		font-size: 50px;
+		color: #000;
+	}
+	.heavy {
+		font-weight: 400;
+	}
+	.light {
+		font-weight: 100;
+	}
+}
+
+.description1, .description2, .description3 {
+	position: absolute;
+	width: 100%;
+	opacity: 0;
+}
+
+.fadein-fadeout {
+	animation-name: fade-in-out;
+	animation-duration: 3s;
+}
+
+@keyframes fade-in-out {
+	0% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.fadein {
+	animation-name: fadein;
+	animation-duration: 1.5s;
+}
+
+@keyframes fadein {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 .footer {
 	position: relative;
   margin-top: -50px; /* negative value of footer height */
@@ -60,6 +125,7 @@ h1, h2, h3, h4 {
   height: 100%;
   margin-left: 0;
   margin-top: 0;
+  opacity: .7;
 }
 
 .map-area-loggedout {
@@ -121,24 +187,6 @@ h1, h2, h3, h4 {
 	color: #FFF;
 }
 
-.title {
-	width: 100%;
-	height: 60px;
-	background-color: #F4F4F4;
-	top: 0px;
-	margin: 0px;
-}
-
-.title h1 {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 100;
-	color: #000;
-	font-size: 40px;
-	text-align: center;
-	padding-top: 5px;
-	margin-top: 0px;
-}
-
 .search-area {
 	background: #147363;
 	border-radius: 0 0 8px 8px;
@@ -148,6 +196,7 @@ h1, h2, h3, h4 {
 	right: 0;
 	left: 0;
 	margin: 0 auto;
+	display: none;
 
 	button, input {
 		font-size: 18px;
@@ -185,6 +234,24 @@ h1, h2, h3, h4 {
 	padding: 0 7px;
 }
 
+.bounce {
+	animation-name: bounce;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	60% {
+		transform: translateY(8px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
 .hide-search-btn, .show-search-btn {
 	position: absolute;
 	width: 50px;
@@ -201,6 +268,14 @@ h1, h2, h3, h4 {
 	}
 }
 
+.show-search-btn {
+	height: 60px;
+	top: 40px;
+	span {
+		transform: translateY(7px);
+	}
+}
+
 .hide-search-btn:hover {
 	background-color: #147363;
 }
@@ -209,7 +284,7 @@ h1, h2, h3, h4 {
 	background-color: #147363;
 }
 
-.show-search-btn {
+.hide-search-btn {
 	display: none;
 }
 
@@ -252,7 +327,7 @@ h1, h2, h3, h4 {
 	font-size: 12px;
 	padding: 0 5px;
 	color: #B5B5B5;
-}
+} 
 
 .menu-white-text, {
 	color: #FFF !important;
@@ -283,4 +358,8 @@ h1, h2, h3, h4 {
 .navbar-brand {
 	color: #FFF !important;
 	font-weight: 400;
+}
+
+.highlight-text {
+	color: #FF960E;
 }

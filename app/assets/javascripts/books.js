@@ -73,7 +73,6 @@ Book.prototype.makeArticlePdf = function(event) {
 Book.prototype.getPdfStatus = function(event) {
 
   var filename = event.currentTarget.classList[1];
-  debugger;
 
   poll = setInterval(function() {
     $.get('/pdfstatus', { 'filename' : filename }, function (data) {
@@ -92,8 +91,12 @@ Book.prototype.getPdfStatus = function(event) {
 }
 
 Book.prototype.makeBookPdf = function(event) {
-  var book_id = event.currentTarget.classList[1]
-  var url = '/users/' + window.UserId + '/books/' + book_id + '/export'
+
+  var exportButton = event.currentTarget;
+  $(exportButton).hide();
+  $(exportButton).parent().find('.generating-pdf').removeClass('hidden');
+  var book_id = event.currentTarget.classList[1];
+  var url = '/users/' + window.UserId + '/books/' + book_id + '/export';
   
   $.ajax( {
     url: url, 

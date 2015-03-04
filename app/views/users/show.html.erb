@@ -1,12 +1,12 @@
 <div class="container"></div>
 <div class="user-profile col-md-6 col-centered">
-  <h1>Hello, <%= @user.name%>!</h1>
+  <h1 class="highlight-text">Hello, <%= @user.name%>!</h1>
   <h3>Your profile:</h3>
   <ul class="list-unstyled">
     <li>Name: <span class="user-profile-info"><%= @user.name%></span> </li>
     <li>Email: <span class="user-profile-info"><%= @user.email%></span> </li>
   </ul>
 
+  <%= link_to "Back", root_path, class: 'btn btn-back' %>
   <%= link_to "Edit", edit_user_path(@user), class: 'btn'%>
-  <%= link_to "Back", root_path, class: 'btn' %>
 </div>
