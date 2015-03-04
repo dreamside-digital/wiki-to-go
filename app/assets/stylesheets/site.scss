@@ -12,6 +12,7 @@ body {
 	font-weight: 300;
 	height: 100%;
 	font-size: 16px;
+	padding-bottom: 80px;
 }
 
 h1, h2, h3, h4 {
@@ -24,7 +25,7 @@ h1, h2, h3, h4 {
 	width: 100%;
 	top: 60%;
 	left: 5%;
-	z-index: 5;
+	z-index: 4;
 	margin: 0;
 	padding: 0;
 	h1 {
@@ -85,17 +86,22 @@ h1, h2, h3, h4 {
 }
 
 .footer {
-	position: relative;
-  margin-top: -50px; /* negative value of footer height */
+	position: fixed;
+	bottom: 0;
+  margin-top: 40px;
   height: 50px;
   clear:both;
 	width: 100%;
 	border-top: 2px solid #DBE8E3;
 	background-color: #F5F5F5;
 	p {
-		text-align: center;
+		/*text-align: center;*/
 		padding: 10px;
 	}
+}
+
+.footer-wrapper {
+	padding-top: 50px;
 }
 
 .btn {
@@ -141,6 +147,18 @@ h1, h2, h3, h4 {
 	border-bottom: 5px solid #147363;
 	margin-bottom: 0;
 	z-index: 6;
+}
+
+.icon-bar {
+	background-color: #FFF !important;
+}
+
+.navbar-toggle:focus {
+	background-color: #147363 !important;
+}
+
+.navbar-toggle:hover {
+	background-color: #147363 !important;
 }
 
 #intro-text {
@@ -191,7 +209,7 @@ h1, h2, h3, h4 {
 	background: #147363;
 	border-radius: 0 0 8px 8px;
 	padding: 40px;
-	z-index: 1;
+	z-index: 6;
 	position: absolute;
 	right: 0;
 	left: 0;
