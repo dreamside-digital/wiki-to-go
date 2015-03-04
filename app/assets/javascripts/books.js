@@ -1,8 +1,10 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 var Book = function () {
-  $('.export-pdf-btn').on('click', this.makeArticlePdf)
-  $('.export-pdf-btn').on('click', this.getPdfStatus)
+  $('.export-pdf-btn').on('click', this.makeArticlePdf);
+  $('.export-pdf-btn').on('click', this.getPdfStatus);
+  $('.export-book-btn').on('click', this.makeBookPdf);
+  $('.export-book-btn').on('click', this.getPdfStatus);
 };
 
 Book.prototype.showWikiExtract = function() {
@@ -70,10 +72,11 @@ Book.prototype.makeArticlePdf = function(event) {
 
 Book.prototype.getPdfStatus = function(event) {
 
-  var pageid = event.currentTarget.classList[1];
+  var filename = event.currentTarget.classList[1];
+  debugger;
 
   poll = setInterval(function() {
-    $.get('/pdfstatus', { 'pageid' : pageid }, function (data) {
+    $.get('/pdfstatus', { 'filename' : filename }, function (data) {
       if (data.id) {
         console.log("data received!")
         var exportButton = event.currentTarget;
@@ -86,6 +89,23 @@ Book.prototype.getPdfStatus = function(event) {
       }
     });
   }, 2000);
+}
+
+Book.prototype.makeBookPdf = function(event) {
+  var book_id = event.currentTarget.classList[1]
+  var url = '/users/' + window.UserId + '/books/' + book_id + '/export'
+  
+  $.ajax( {
+    url: url, 
+    data: "",
+    type: 'GET', 
+    success: function() {
+      console.log("making book!");
+    },
+    error: function() {
+      console.log("error, sucker!")
+    }
+  } );
 }
 
 

@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-	before_action :require_login
+	before_action :require_login, except: [:preview]
 
 	def index
 		@user = User.find(current_user.id)
@@ -75,10 +75,14 @@ class BooksController < ApplicationController
 	def update
 	end
 
-	def export
-		@user = current_user
+	def preview
 		@book = Book.find(params[:id])
 		@articles = @book.articles.all
+	end
+
+	def export
+		pdfmaker = ArticleCreator.new
+		pdfmaker.delay.make_book_pdf(params)
 	end
 
 	private

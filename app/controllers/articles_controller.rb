@@ -17,9 +17,9 @@ class ArticlesController < ApplicationController
   end
 
   def pdf_status
-    pageid = params[:pageid].to_s
-    if ArticleCreator.new.pdf_status(pageid)
-      render json: { id: pageid }
+    filename = params[:filename].to_s
+    if ArticleCreator.new.pdf_status(filename)
+      render json: { id: filename }
     else
       render json: { status: "FAIL"}
     end

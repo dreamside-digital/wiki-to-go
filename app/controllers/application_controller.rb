@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   def require_login
     unless current_user
       flash[:error] = 'Please log in or register to access this page'
-      redirect_to root_patha
+      redirect_to root_path
     end
   end
 
