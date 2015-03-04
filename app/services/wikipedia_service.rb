@@ -34,12 +34,12 @@ class WikipediaService
 	def get_marker_info
 
 		@results = []
-
 		@results_array.each do |place|
-			title = place["title"]
-			lat = place["lat"]
-			lon = place["lon"]
-			id = place["pageid"]
+
+      title = place["title"]
+      lat = place["lat"]
+      lon = place["lon"]
+      id = place["pageid"]
 
 			@results << {
 				title: title, 

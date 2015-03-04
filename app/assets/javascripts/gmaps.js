@@ -140,8 +140,6 @@ function repositionMap (lat,lon) {
 
 function putUserMarker (lat, lon) {
 
-map.setOptions({styles: styles});
-
   var position = new google.maps.LatLng(lat,lon)
     marker = new StyledMarker({
       styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF1200'}),
@@ -167,13 +165,14 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
       var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
 
-      var previewContent = '<p>' + markers[i].title + '</p>';
+      var previewContent = 
+      '<p>' + markers[i].title + '</p>';
       this.previewInfoWindowContent.push(previewContent);
 
       var mainContent = 
         '<input class="save-article btn '+ markers[i].id +' highlight-btn" type="button" value="Save"><br>' +
         '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" frameborder="0"></iframe>'
+        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" height="300px" frameborder="0"></iframe>'
       this.infoWindowContent.push(mainContent);
 
       marker = new StyledMarker({
