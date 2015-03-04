@@ -182,10 +182,8 @@ GmapOverlay.prototype.putMarkers = function(markers) {
         title: markers[i]["title"]
       });
       marker.metadata = { type: 'point', id: markers[i].id };  
-      // debugger;
       this.gmapMarkers.push(marker);
       var infoWindow = new google.maps.InfoWindow(), marker, i;
-      // var previewInfoWindow = new google.maps.InfoWindow(), marker, i;
       var self = this;
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
@@ -195,7 +193,6 @@ GmapOverlay.prototype.putMarkers = function(markers) {
           $(".save-article").on('click', self.selectArticle);
           $(".save-article").on('click', function() {
             if (window.UserId != undefined) {
-              // marker.styleIcon.set('color', '147363');
               marker.setMap(null);
               marker = new StyledMarker({
                 styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
@@ -204,7 +201,6 @@ GmapOverlay.prototype.putMarkers = function(markers) {
                 title: markers[i]["title"]
               });
             } else {
-              console.log(window.UserId)
               alert("We can't save this article for you if you're not logged in!");
             };
           });

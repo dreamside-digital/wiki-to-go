@@ -87,7 +87,7 @@ $(function() {
         userSearch.searchCoords(location);
         repositionMap(lat,lon);
       } else {
-        console.log("error: " + status);
+        alert("Sorry, there was an error with your search: " + status);
       }
     });
   }

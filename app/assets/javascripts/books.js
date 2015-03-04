@@ -9,7 +9,6 @@ var Book = function () {
 
 Book.prototype.showWikiExtract = function() {
   $('.btn-show-article').on('click', function(event) {
-    console.log("yo");
     $(this).parent().find(".article-intro").slideToggle();
     $(this).hide();
     $(this).parent().find(".btn-hide-article").show();
@@ -40,7 +39,6 @@ Book.prototype.deleteBook = function () {
     type: 'DELETE',
     success: function() {
       self.parent().parent().remove();
-      console.log("deleted!!");
     },
     error: function() {
       alert("Your personal wiki was not deleted. Please refresh the page and try again.");
@@ -61,10 +59,8 @@ Book.prototype.makeArticlePdf = function(event) {
     data: { 'pageid' : pageid },
     type: 'GET', 
     success: function() {
-      console.log("request sent!");
     },
     error: function() {
-      console.log("error, sucker!")
     }
   } );
 }
@@ -77,14 +73,12 @@ Book.prototype.getPdfStatus = function(event) {
   poll = setInterval(function() {
     $.get('/pdfstatus', { 'filename' : filename }, function (data) {
       if (data.id) {
-        console.log("data received!")
         var exportButton = event.currentTarget;
         $(exportButton).parent().find('.open-pdf-btn').removeClass('hidden');
         $(exportButton).parent().find('.generating-pdf').addClass('hidden');
         clearInterval(poll);
       } else {
         poll;
-        console.log("polling again")
       }
     });
   }, 2000);
@@ -102,11 +96,8 @@ Book.prototype.makeBookPdf = function(event) {
     url: url, 
     data: "",
     type: 'GET', 
-    success: function() {
-      console.log("making book!");
-    },
-    error: function() {
-      console.log("error, sucker!")
+    error: function(error) {
+      alert("Sorry, there was an error exporting your pdf. Please try again.")
     }
   } );
 }
