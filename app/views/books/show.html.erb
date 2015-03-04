@@ -1,4 +1,4 @@
-<div class="container"></div>
+<div class="container">
   <div class="article-list col-md-8 col-centered">
   <h2><%= @book.title %></h2>
   	<ul class="list-unstyled"><% @articles.each do |article| %>
@@ -37,6 +37,7 @@
   <div class="container-fluid">
     <div class="col-md-1 col-centered">
       <%= link_to "Back", user_books_path(current_user.id), class: "btn btn-back" %>
+      <%= link_to "export", book_export_path(current_user, @book), class: "export-book-btn #{@book.id} btn" %>
     </div>
   </div>
 </div>

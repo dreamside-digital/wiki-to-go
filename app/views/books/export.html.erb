@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="article-list col-md-10 col-centered">
+  <h2><%= @book.title %></h2>
+    <ul class="list-unstyled"><% @articles.each do |article| %>
+      <div class="article-item">
+        <li><h3><%= link_to article.title, article.url, target: 'blank' %></h3></li>
+        <%= content_tag :div, id: article.pageid do %> 
+          <%= content_tag :p, class: "article-intro-text" do %>
+            <%= article.intro %>
+          <% end %>
+        <% end %>
+        <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> 
+          Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+        </a>
+      </div>
+    <% end %>
+    </ul>
+  </div>
+</div>

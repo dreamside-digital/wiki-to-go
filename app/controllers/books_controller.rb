@@ -75,6 +75,12 @@ class BooksController < ApplicationController
 	def update
 	end
 
+	def export
+		@user = current_user
+		@book = Book.find(params[:id])
+		@articles = @book.articles.all
+	end
+
 	private
 
 	def book_params
