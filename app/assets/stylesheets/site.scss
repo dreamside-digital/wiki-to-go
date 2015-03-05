@@ -20,12 +20,16 @@ h1, h2, h3, h4 {
 	font-weight: 800;
 }
 
+.glyphicon {
+	padding: 0 5px;
+}
+
 .title-area {
 	position: fixed;
 	width: 100%;
 	top: 60%;
 	left: 5%;
-	z-index: 4;
+	z-index: 2;
 	margin: 0;
 	padding: 0;
 	h1 {
@@ -131,7 +135,7 @@ h1, h2, h3, h4 {
   height: 100%;
   margin-left: 0;
   margin-top: 0;
-  opacity: .7;
+  opacity: .8;
 }
 
 .map-area-loggedout {
@@ -163,7 +167,7 @@ h1, h2, h3, h4 {
 
 #intro-text {
 	display: none;
-	z-index: 10;
+	z-index: 5;
 	background-color: #2FA176;
 	border-radius: 8px;
 	width: 200px;
@@ -209,7 +213,7 @@ h1, h2, h3, h4 {
 	background: #147363;
 	border-radius: 0 0 8px 8px;
 	padding: 40px;
-	z-index: 6;
+	z-index: 3;
 	position: absolute;
 	right: 0;
 	left: 0;
@@ -318,6 +322,10 @@ h1, h2, h3, h4 {
 	input {
 		height: 40px;
 	}
+}
+
+.glyphicon-remove-circle {
+	font-size: 20px !important;
 }
 
 .glyphicon-remove:hover {

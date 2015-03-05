@@ -25,7 +25,7 @@ function initialize() {
                 "saturation": 74
             },
             {
-                "lightness": 100
+                "lightness": 80
             }
         ]
     },
@@ -58,10 +58,10 @@ function initialize() {
                 "weight": 0.6
             },
             {
-                "saturation": -85
+                "saturation": -81
             },
             {
-                "lightness": 61
+                "lightness": 41
             }
         ]
     },
@@ -115,7 +115,7 @@ function initialize() {
                 "lightness": 26
             },
             {
-                "gamma": 5.86
+                "gamma": 2.6
             }
         ]
     }
