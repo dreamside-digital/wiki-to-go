@@ -172,7 +172,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       var mainContent = 
         '<input class="save-article btn '+ markers[i].id +' highlight-btn" type="button" value="Save"><br>' +
         '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" height="300px" frameborder="0"></iframe>'
+        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" height="250px" frameborder="0"></iframe>'
       this.infoWindowContent.push(mainContent);
 
       marker = new StyledMarker({

@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav navbar-right">
-	<li class= "navbar-text menu-white-text"> Welcome, <%= current_user.name %></li>
+<!-- 	<li class= "navbar-text menu-white-text"> Welcome, <%= current_user.name %></li> -->
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle menu-white-text" data-toggle="dropdown" aria-expanded="false"> My Wiki Collections <span class="caret"></span></a>
+    <a href="#" class="dropdown-toggle menu-white-text" data-toggle="dropdown" aria-expanded="false"> <%= current_user.name %>'s Wiki Collections <span class="caret"></span></a>
       <ul class="dropdown-menu"><% @user_wikis.each do |wiki| %>
           <li>
             <a href="<%= user_book_path(@user, wiki) %>">
