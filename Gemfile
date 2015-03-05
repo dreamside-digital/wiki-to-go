@@ -31,6 +31,7 @@ gem 'httparty'
 gem 'underscore-rails'
 gem 'pdfkit'
 gem 'delayed_job_active_record'
+gem 'font-awesome-sass'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
