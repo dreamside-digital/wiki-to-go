@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root 'site#index'
   get '/search', to: 'site#search'
 
-  post   "/login",  to: "session#create"
-  delete "/logout", to: "session#destroy"
+  post   "/login",  to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
 
   get '/exportpdf', to: 'articles#export_pdf', as: 'export_pdf'
   get '/pdfstatus', to: 'articles#pdf_status'

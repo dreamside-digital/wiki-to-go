@@ -56,11 +56,58 @@ h1, h2, h3, h4 {
 }
 
 .fadein-fadeout {
-	animation-name: fade-in-out;
-	animation-duration: 3s;
+	-webkit-animation: fade-in-out 3s;
+	-moz-animation: fade-in-out 3s;
+	-o-animation: fade-in-out 3s;
+	animation-name: fade-in-out 3s;
 }
 
 @keyframes fade-in-out {
+	0% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes fade-in-out {
+	0% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@-moz-keyframes fade-in-out {
+	0% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@-o-keyframes fade-in-out {
 	0% {
 		opacity: 0;
 	}
@@ -260,9 +307,46 @@ h1, h2, h3, h4 {
 }
 
 .bounce {
-	animation-name: bounce;
-	animation-duration: 1s;
-	animation-iteration-count: infinite;
+	-webkit-animation: bounce 1s infinite;
+	-moz-animation: bounce 1s infinite;
+	-o-animation: bounce 1s infinite;
+	animation: bounce 1s infinite;
+}
+
+@-webkit-keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	60% {
+		transform: translateY(8px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@-moz-keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	60% {
+		transform: translateY(8px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@-o-keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	60% {
+		transform: translateY(8px);
+	}
+	100% {
+		transform: translateY(0);
+	}
 }
 
 @keyframes bounce {
