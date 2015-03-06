@@ -20,6 +20,11 @@ h1, h2, h3, h4 {
 	font-weight: 800;
 }
 
+.navbar-brand {
+	text-transform: uppercase;
+	font-size: 14px
+}
+
 .glyphicon {
 	padding: 0 5px;
 }
@@ -244,6 +249,20 @@ h1, h2, h3, h4 {
 
 .user-selected-articles {
 	display: none;
+	padding: 0;
+}
+
+.selected-articles-header {
+	width: 100%;
+	background-color: #147363;
+	position: absolute;
+	padding: 0;
+	h3 {
+		color: #FFF;
+		margin: 0;
+		padding: 20px 10px;
+		text-align: center;
+	}
 }
 
 .save-article {
@@ -407,6 +426,7 @@ h1, h2, h3, h4 {
 }
 
 #selected-results {
+	padding: 20px;
 	span {
 		float: right;
 	}
@@ -416,8 +436,14 @@ h1, h2, h3, h4 {
 		padding: 5px 10px;
 	}
 }
+.selected-results-area {
+	padding-top: 65px;
+}
+
 
 .selected-articles-save {
+	text-align: center;
+	margin-bottom: 30px;
 	input {
 		height: 40px;
 	}
