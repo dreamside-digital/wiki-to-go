@@ -3,20 +3,19 @@
     <button class="btn hide-search-btn"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
   </div>
 
-  <div class="search-area col-md-4">
-    <div class="row">
-      <div class="search-coords col-md-12">
-        <button id="get-loc" class="btn btn-default">Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span></button>
-      </div>
+ <div class="search-area">
+  <div class="row">
+    <div class="search-coords">
+      <button id="get-loc" class="btn btn-default">Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span></button>
     </div>
-    <div class="row">
-      <div class="search-query col-md-12">
-        <div class="search-form">
-          <%= form_tag("/search", method: "get", :id => 'search', class: 'form-inline') do %>
-            <%= text_field_tag :query, nil, placeholder: "Search by location", class: 'form-control' %>
-            <button type="submit" id="search-query" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-          <%end%>
-        </div>
+  </div>
+  <div class="row">
+    <div class="search-query">
+      <div class="search-form">
+        <%= form_tag("/search", method: "get", :id => 'search', class: 'form-inline') do %>
+          <%= text_field_tag :query, nil, placeholder: "Search by location", class: 'form-control' %>
+          <button type="submit" id="search-query" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        <%end%>
       </div>
     </div>
   </div>

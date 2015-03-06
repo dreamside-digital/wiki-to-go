@@ -176,6 +176,10 @@ h1, h2, h3, h4 {
 
 .map-area {
 	height: 500px;
+<<<<<<< HEAD
+=======
+	border-bottom: 5px solid #147363;
+>>>>>>> tomerge
 }
 
 .map-area-intro {
@@ -292,7 +296,6 @@ h1, h2, h3, h4 {
 	position: absolute;
 	top: auto;
 	left: 0;
-	right: 0;
 	z-index: 4;
 	width: 100%;
 	max-width: 400px;
@@ -308,6 +311,31 @@ h1, h2, h3, h4 {
 	height: 60px;
 	top: -15px;
 	padding-top: 20px;
+	width: 100%;
+	max-width: 400px;
+	left: 0;
+	margin: 0 auto;
+	display: none;
+
+	button, input {
+		font-size: 18px;
+		border-radius: 8px;
+		border-style: none;
+		background-color: #FFF;
+		height: 40px;
+		padding: 5px 15px;
+		color: #08084D;
+		}
+}
+
+.search-coords {
+	float: none;
+	margin: 20px;
+}
+
+.search-query {
+	float: none;
+	margin: 20px;
 }
 
 .hide-search-btn {
@@ -370,11 +398,14 @@ h1, h2, h3, h4 {
 	}
 }
 
-
 .search-btn-text {
 	color: #FFF;
 	font-size: 20px !important;
 	font-weight: 400;
+}
+
+.hide-search-btn {
+	text-align: right;
 }
 
 .hide-search-btn:hover {

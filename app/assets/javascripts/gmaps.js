@@ -123,8 +123,15 @@ function initialize() {
 
   var mapOptions = {
     center: new google.maps.LatLng(41.38,2.18),
-    zoom: 5,
-    scrollwheel: false
+    zoom: 3,
+    scrollwheel: false, 
+    zoomControl: true,
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.SMALL,
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    }
+
+
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
