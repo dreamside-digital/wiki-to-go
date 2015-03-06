@@ -3,12 +3,14 @@
     <button class="btn hide-search-btn"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
   </div>
 
- <div class="search-area">
+<div class="search-area">
+
   <div class="row">
     <div class="search-coords">
       <button id="get-loc" class="btn btn-default">Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span></button>
     </div>
   </div>
+
   <div class="row">
     <div class="search-query">
       <div class="search-form">
@@ -19,6 +21,8 @@
       </div>
     </div>
   </div>
+
+</div>
 
 <div class="title-area">
     <h1><span class="light">Wiki </span><span class="heavy">To Go</span></h1>
@@ -44,7 +48,7 @@
   <% end %>
 </div>
 
-  <div class="user-selected-articles col-md-12">
+  <div class="user-selected-articles col-md-8 col-centered">
     <%= render 'selected_articles' %>
   </div>
   <div class="all-results col-md-8 col-centered">  

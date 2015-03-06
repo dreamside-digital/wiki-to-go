@@ -129,9 +129,7 @@ function initialize() {
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.SMALL,
       position: google.maps.ControlPosition.RIGHT_BOTTOM
-    }
-
-
+    },
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);

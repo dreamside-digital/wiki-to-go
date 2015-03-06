@@ -1,18 +1,14 @@
 <%if current_user %>
   <div id="selected-articles-list">
-  <div class="selected-articles-header">
     <h3>Ooh these look good</h3>
-  </div>
-  <div class="col-md-8 col-centered selected-results-area">
-    <div id="selected-results">
-      <ul class="list-unstyled"></ul>
-    </div>
-    <div class="selected-articles-save">
-      <form action="/"  id="make-book">
-        <input type="text" id="book-title" placeholder="Name your collection">
-        <input class="btn highlight-btn" type="submit" value="Save these articles">
-      </form>
-    </div>
-  </div>
+    <!-- <div class="selected-results-area"> -->
+      <div id="selected-results">
+        <ul class="list-unstyled"></ul>
+      </div>
+        <form action="/"  id="make-book">
+          <input type="text" id="book-title" placeholder="Name your collection">
+          <input class="btn highlight-btn" type="submit" value="Save these articles">
+        </form>
+    <!-- </div> -->
   </div>
 <% end %>

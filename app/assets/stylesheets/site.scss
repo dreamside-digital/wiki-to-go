@@ -176,10 +176,7 @@ h1, h2, h3, h4 {
 
 .map-area {
 	height: 500px;
-<<<<<<< HEAD
-=======
 	border-bottom: 5px solid #147363;
->>>>>>> tomerge
 }
 
 .map-area-intro {
@@ -285,7 +282,6 @@ h1, h2, h3, h4 {
 .show-and-hide {
 	position: absolute;
 	height: 40px;
-	/*left: 5%;*/
 	width: 100%;
 	button {
 		margin: 0;
@@ -315,7 +311,7 @@ h1, h2, h3, h4 {
 	max-width: 400px;
 	left: 0;
 	margin: 0 auto;
-	display: none;
+	/*display: none;*/
 
 	button, input {
 		font-size: 18px;
@@ -451,13 +447,12 @@ h1, h2, h3, h4 {
 	padding: 0 7px;
 }
 
-.search-everything {
+/*.search-everything {
 	position: relative;
 	width:100%;
-}
+}*/
 
 #selected-results {
-	padding: 20px;
 	span {
 		float: right;
 	}
@@ -467,17 +462,9 @@ h1, h2, h3, h4 {
 		padding: 5px 10px;
 	}
 }
-.selected-results-area {
-	padding-top: 65px;
-}
 
-
-.selected-articles-save {
-	text-align: center;
-	margin-bottom: 30px;
-	input {
-		height: 40px;
-	}
+#selected-articles-list {
+	padding: 15px;
 }
 
 .glyphicon-remove-circle {
