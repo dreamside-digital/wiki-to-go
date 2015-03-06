@@ -170,7 +170,8 @@ h1, h2, h3, h4 {
 }
 
 .map-area {
-	height: 460px;
+	height: 500px;
+	border-bottom: 5px solid #147363;
 }
 
 .map-area-intro {
@@ -265,7 +266,9 @@ h1, h2, h3, h4 {
 	padding: 40px;
 	z-index: 3;
 	position: absolute;
-	right: 0;
+	width: 100%;
+	max-width: 400px;
+	/*right: 0;*/
 	left: 0;
 	margin: 0 auto;
 	display: none;
@@ -283,23 +286,12 @@ h1, h2, h3, h4 {
 
 .search-coords {
 	float: none;
-	margin: 20px auto;
+	margin: 20px;
 }
 
 .search-query {
 	float: none;
-	margin: 20px auto;
-}
-
-.search-coords button {
-	display: table;
-	margin: 0 auto;
-}
-
-.search-form {
-	float: none;
-	display: table;
-	margin: 0 auto;
+	margin: 20px;
 }
 
 .glyphicon-screenshot {
@@ -363,9 +355,10 @@ h1, h2, h3, h4 {
 
 .hide-search-btn, .show-search-btn {
 	position: absolute;
-	width: 50px;
+	width: 100%;
+	max-width: 400px;
 	top: auto;
-	right: 0;
+	/*right: 0;*/
 	left: 0;
 	margin: 0 auto;
 	z-index: 4;
@@ -383,6 +376,10 @@ h1, h2, h3, h4 {
 	span {
 		transform: translateY(7px);
 	}
+}
+
+.hide-search-btn {
+	text-align: right;
 }
 
 .hide-search-btn:hover {

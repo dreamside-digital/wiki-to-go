@@ -3,14 +3,14 @@
   <button class="btn hide-search-btn"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
 </div>
 
- <div class="search-area col-md-6 col-centered">
+ <div class="search-area">
   <div class="row">
-    <div class="search-coords col-md-8">
+    <div class="search-coords">
       <button id="get-loc" class="btn btn-default">Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span></button>
     </div>
   </div>
   <div class="row">
-    <div class="search-query col-md-8">
+    <div class="search-query">
       <div class="search-form">
         <%= form_tag("/search", method: "get", :id => 'search', class: 'form-inline') do %>
           <%= text_field_tag :query, nil, placeholder: "Search by location", class: 'form-control' %>
