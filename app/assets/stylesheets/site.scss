@@ -420,9 +420,6 @@ h1, h2, h3, h4 {
 	position: absolute;
 	width: 100%;
 	max-width: 400px;
-	/*right: 0;*/
-	/*left: 5%;*/
-	/*margin: 0 auto;*/
 	display: none;
 
 	button, input {
@@ -430,7 +427,6 @@ h1, h2, h3, h4 {
 		border-radius: 8px;
 		border-style: none;
 		background-color: #FFF;
-		/*height: 40px;*/
 		color: #08084D;
 		}
 }
@@ -446,11 +442,6 @@ h1, h2, h3, h4 {
 .glyphicon-screenshot {
 	padding: 0 7px;
 }
-
-/*.search-everything {
-	position: relative;
-	width:100%;
-}*/
 
 #selected-results {
 	span {
@@ -531,4 +522,11 @@ h1, h2, h3, h4 {
 
 .highlight-text {
 	color: #FF960E;
+}
+
+#make-book {
+	input{
+		width: 100%;
+		margin: 5px auto;
+	}
 }
