@@ -69,16 +69,21 @@ Book.prototype.makeArticlePdf = function(event) {
 Book.prototype.getPdfStatus = function(event) {
 
   var filename = event.currentTarget.classList[1];
+  var i = 0
 
   poll = setInterval(function() {
+    i++;
     $.get('/pdfstatus', { 'filename' : filename }, function (data) {
       if (data.id) {
         var exportButton = event.currentTarget;
         $(exportButton).parent().find('.open-pdf-btn').removeClass('hidden');
         $(exportButton).parent().find('.generating-pdf').addClass('hidden');
         clearInterval(poll);
-      } else {
+      } else if (i <= 4) {
         poll;
+      } else {
+        alert("Sorry, there was an error exporting your PDF.")
+        clearInterval(poll);
       }
     });
   }, 2000);
