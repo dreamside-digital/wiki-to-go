@@ -173,7 +173,6 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       var previewContent = 
       '<p>' + markers[i].title + '</p>';
       this.previewInfoWindowContent.push(previewContent);
-
       var mainContent = 
         '<input class="save-article btn '+ markers[i].id +' highlight-btn" type="button" value="Save"><br>' +
         '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
@@ -193,6 +192,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
         return function() {
+          self.getIntro(markers[i])
           infoWindow.setContent(self.infoWindowContent[i]);
           infoWindow.open(map, marker); 
           $(".save-article").on('click', self.selectArticle);
@@ -237,6 +237,20 @@ GmapOverlay.prototype.clearMarkers = function() {
   };
   this.gmapMarkers = [];
 };
+
+GmapOverlay.prototype.getIntro = function(marker) {
+  var data = { 'marker' : marker };
+  $.ajax( {
+     url: /getarticleintro/,
+     data: data,
+     dataType:'json',
+     type:'GET',
+     headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
+     success: function() {
+      console.log("succes!");
+     }
+  } );
+}
 
 GmapOverlay.prototype.selectArticle = function(event) {
   userArticleList.addArticle(event);
