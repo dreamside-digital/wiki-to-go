@@ -16,5 +16,11 @@ class SiteController < ApplicationController
     @results = wiki_service.search(params)
 		render layout:false
 	end
+
+  def get_article_intros
+    wiki_service = WikipediaService.new
+    results = wiki_service.get_article_intro(params)
+    render layout:false
+  end
 end
  

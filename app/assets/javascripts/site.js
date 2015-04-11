@@ -116,6 +116,7 @@ $(function() {
     mapOverlay.putMarkers(this.markers);
     userArticleList.showList(this.markers);
     userArticleList.listeners();
+    this.getArticleIntros(this.markers);
   };
 
   GetSearchData.prototype.showError = function() {
@@ -134,6 +135,19 @@ $(function() {
   GetSearchData.prototype.geolocateError = function(error) {
     alert("Oops, we couldn't detect your location. ", error);
   };
+
+  GetSearchData.prototype.getArticleIntros = function(markers) {
+    for( i = 0; i < markers.length; i++ ) {
+      var data = { 'marker' : markers[i] };
+      $.ajax( {
+         url: /getarticleintro/,
+         data: data,
+         dataType:'json',
+         type:'GET',
+         headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
+      } );
+    }
+  }
 
   userSearch = new GetSearchData();
   var mapOverlay = new GmapOverlay(this.markers);

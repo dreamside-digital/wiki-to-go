@@ -61,4 +61,11 @@ class WikipediaService
     return articles_with_intros
   end
 
+  def get_article_intro(data)
+    articleID = data["marker"]["id"]
+    response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
+    intro = response["query"]["pages"][articleID]["extract"] }
+    binding.pry
+  end
+
 end
