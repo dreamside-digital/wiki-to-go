@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
     pageid = params[:pageid].to_s
     articles = Article.where(pageid: pageid)
     pdfmaker = ArticleCreator.new
-    pdfmaker.delay.make_pdf(pageid, articles)
+    pdfmaker.make_pdf(pageid, articles)
   end
 
   def pdf_status

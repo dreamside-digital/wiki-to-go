@@ -50,7 +50,7 @@ class BooksController < ApplicationController
 
 	def export
 		pdfmaker = ArticleCreator.new
-		pdfmaker.delay.make_book_pdf(params)
+		pdfmaker.make_book_pdf(params)
 	end
 
 	private
