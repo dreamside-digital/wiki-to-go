@@ -19,7 +19,7 @@ class SiteController < ApplicationController
 
   def get_article_intros
     wiki_service = WikipediaService.new
-    results = wiki_service.get_article_intro(params)
+    @intros = wiki_service.get_article_intro(params)
     render layout:false
   end
 end
