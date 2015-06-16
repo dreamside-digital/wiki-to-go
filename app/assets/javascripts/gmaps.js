@@ -223,8 +223,8 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
     var newCenter = map.getCenter();
-    var lat = newCenter.k
-    var lon = newCenter.D
+    var lat = newCenter.A
+    var lon = newCenter.F
     var location = lat + '|' + lon;
     userSearch.searchCoords(location);
     google.maps.event.removeListener(dragendListener);
