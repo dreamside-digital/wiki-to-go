@@ -81,8 +81,8 @@ $(function() {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address' : query}, function(response, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var lat = response[0].geometry.location.k
-        var lon = response[0].geometry.location.D
+        var lat = response[0].geometry.location.A
+        var lon = response[0].geometry.location.F
         var location = lat +'|'+ lon;
         userSearch.searchCoords(location);
         repositionMap(lat,lon);
