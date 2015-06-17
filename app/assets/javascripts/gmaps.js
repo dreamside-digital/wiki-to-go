@@ -192,6 +192,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
         return function() {
+          self.showWikiInfo(markers[i]);
           infoWindow.setContent(self.infoWindowContent[i]);
           infoWindow.open(map, marker); 
           $(".save-article").on('click', self.selectArticle);
@@ -241,3 +242,24 @@ GmapOverlay.prototype.selectArticle = function(event) {
   userArticleList.addArticle(event);
 };
 
+GmapOverlay.prototype.showWikiInfo = function(marker) {
+
+  var url = '/results'
+  var markerData = {
+    articleID: marker.id
+  }
+
+  $.ajax( {
+    url: url,
+    data: markerData,
+    type: 'GET',
+    success: function(data) {
+      console.log(data.preview);
+      $("#info-preview").html(data.preview)
+    },
+    error: function(err) {
+      console.log(err)
+    }, 
+    dataType: "json"
+  } );
+}

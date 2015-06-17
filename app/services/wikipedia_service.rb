@@ -55,18 +55,15 @@ class WikipediaService
     articles_with_intros = 
     articles.map do |article|
       articleID = article[1][:id]
-      response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
-      article << { intro: response["query"]["pages"][articleID]["extract"] }
+      preview = get_wikipedia_article_preview(articleID)
+      article << { intro: preview }
     end
     return articles_with_intros
   end
 
-  def get_article_intro(data)
-    data
-    binding.pry
-    articleID = data["marker"]["id"]
+  def get_wikipedia_article_preview(articleID)
     response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
-    intro = response["query"]["pages"][articleID]["extract"] }
+    article_preview = response["query"]["pages"][articleID]["extract"]
   end
 
 end

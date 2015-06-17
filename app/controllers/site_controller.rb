@@ -17,10 +17,18 @@ class SiteController < ApplicationController
 		render layout:false
 	end
 
-  def get_article_intros
+  def show_wiki_article
     wiki_service = WikipediaService.new
-    @intros = wiki_service.get_article_intro(params)
-    render layout:false
+    @preview = wiki_service.get_wikipedia_article_preview(params[:articleID])
+    # binding.pry
+    respond_to do |format|
+     format.html
+     format.js {} 
+     format.json { 
+        render json: {:preview => @preview}
+     } 
+    end
   end
+
 end
  
