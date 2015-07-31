@@ -161,6 +161,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
   if (this.gmapMarkers === undefined) this.gmapMarkers = [];
   this.clearMarkers();
   this.bounds = new google.maps.LatLngBounds();
+  this.previewInfoWindowContent = []
 
   for( i = 0; i < markers.length; i++ ) {
 
@@ -168,6 +169,9 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
       var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
       var infoWindow = new google.maps.InfoWindow(), marker, i;
+      var previewContent = 
+      '<p>' + markers[i].title + '</p>';
+      this.previewInfoWindowContent.push(previewContent);
       var self = this;
 
       marker = new StyledMarker({
@@ -181,7 +185,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
         return function() {
-          self.getWikiPreview(markers[i], self);
+          self.getWikiPreview(marker, self);
         };
       })(marker, i, position));
 
@@ -215,10 +219,9 @@ GmapOverlay.prototype.clearMarkers = function() {
 GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
 
   console.log("let's get some info!");
-
   var url = '/results'
   var markerData = {
-    articleID: marker.id
+    articleID: marker.metadata.id
   }
 
   $.ajax( {
@@ -226,6 +229,7 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
     data: markerData,
     type: 'GET',
     success: function(data){
+      console.log("got response!")
       gmapOverlayObject.showWikiInfowindow(data, marker);
     },
     error: function(err) {
@@ -238,19 +242,19 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
 GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
   console.log("display preview");
 
-  var readMore = '<a href="https://en.wikipedia.org/?curid="' + marker.id + '" >Read more</a>'
-  var $saveButton = $('<input class="save-article btn '+ marker.id +' highlight-btn" type="button" value="Save article">')
+  var readMore = '<a href="https://en.wikipedia.org/?curid="' + marker.metadata.id + '" >Read more</a>';
+  var $saveButton = $('<input class="save-article btn '+ marker.metadata.id +' highlight-btn" type="button" value="Save article">');
 
   $("#info-preview h4").html(marker.title);
   $("#info-preview img").attr("src", data.image);
   $("#info-preview p").html(wordCount(data.preview) + readMore);
-  $("#info-preview .buttons").append($saveButton);
+  $("#info-preview .buttons").html($saveButton);
   $(".save-article").on("click", function() {
     if (window.UserId != undefined) {
       marker.setMap(null);
       newMarker = new StyledMarker({
         styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-        position: position,
+        position: marker.position,
         map: map,
         title: marker.title
       });
