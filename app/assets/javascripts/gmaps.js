@@ -187,7 +187,7 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       });
       marker.metadata = { type: 'point', id: markers[i].id };  
       this.gmapMarkers.push(marker);
-      // var infoWindow = new google.maps.InfoWindow(), marker, i;
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
       var self = this;
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
@@ -212,12 +212,12 @@ GmapOverlay.prototype.putMarkers = function(markers) {
         };
       })(marker, i, position));
 
-      // google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
-      //   return function() {
-      //     infoWindow.setContent(self.previewInfoWindowContent[i]);
-      //     infoWindow.open(map, marker); 
-      //   };
-      // })(marker, i));
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
+        return function() {
+          infoWindow.setContent(self.previewInfoWindowContent[i]);
+          infoWindow.open(map, marker); 
+        };
+      })(marker, i));
     };
   };
 

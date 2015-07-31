@@ -174,9 +174,14 @@ h1, h2, h3, h4 {
 	color: #FFF;
 }
 
+.cover {
+	border-bottom: 5px solid #147363;
+	width: 100%;
+	margin: 0;
+}
+
 .map-area {
 	height: 500px;
-	border-bottom: 5px solid #147363;
 }
 
 .map-area-intro {
@@ -204,6 +209,18 @@ h1, h2, h3, h4 {
 
 #info-preview {
 	max-height: 500px;
+	
+	.img-preview {
+		width: 100%;
+		overflow: hidden;
+		max-height: 200px;
+		margin: 15px 15px 15px 0;
+
+		img {
+			margin: 0 auto;
+			display: block;
+		}
+	}
 }
 
 .navbar {
