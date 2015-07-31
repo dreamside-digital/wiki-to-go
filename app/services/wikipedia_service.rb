@@ -62,7 +62,12 @@ class WikipediaService
 
   def get_wikipedia_article_preview(articleID)
     response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
-    article_preview = response["query"]["pages"][articleID]["extract"]
+    response["query"]["pages"][articleID]["extract"]
+  end
+
+  def get_image_thumbnail(articleID)
+    response = HTTParty.get("http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=300&pageids=" + articleID)
+    response["query"]["pages"][articleID]["thumbnail"]["source"]
   end
 
 end

@@ -270,6 +270,7 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
 GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
   console.log("display preview");
   $("#info-preview h4").html(marker.title);
+  $("#info-preview img").attr("src", data.image);
   $("#info-preview p").html(wordCount(data.preview, marker));
 
   function wordCount(text, marker) {
@@ -280,11 +281,4 @@ GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
     }
     return preview + "... <a href='https://en.wikipedia.org/?curid=" + marker.id + "'>Read more</a>"
   }
-
-  // var wikiPreview = "<p>" + data.preview + "</p>";
-  // var infoWindow = new google.maps.InfoWindow({
-  //   content: wikiPreview,
-  //   position: new google.maps.LatLng(marker.lat, marker.lon)
-  // });
-  // infoWindow.open(map);
 }
