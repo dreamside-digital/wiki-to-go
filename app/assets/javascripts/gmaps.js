@@ -161,23 +161,14 @@ GmapOverlay.prototype.putMarkers = function(markers) {
   if (this.gmapMarkers === undefined) this.gmapMarkers = [];
   this.clearMarkers();
   this.bounds = new google.maps.LatLngBounds();
-  this.infoWindowContent = [];
-  this.previewInfoWindowContent = [];
 
   for( i = 0; i < markers.length; i++ ) {
 
     if (_.findWhere(selectedArticles, { id: markers[i].id }) == undefined) {    
 
       var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
-
-      var previewContent = 
-      '<p>' + markers[i].title + '</p>';
-      this.previewInfoWindowContent.push(previewContent);
-      var mainContent = 
-        '<input class="save-article btn '+ markers[i].id +' highlight-btn" type="button" value="Save"><br>' +
-        '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" height="250px" frameborder="0"></iframe>'
-      this.infoWindowContent.push(mainContent);
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
+      var self = this;
 
       marker = new StyledMarker({
         styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF960E'}),
@@ -187,28 +178,10 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       });
       marker.metadata = { type: 'point', id: markers[i].id };  
       this.gmapMarkers.push(marker);
-      var infoWindow = new google.maps.InfoWindow(), marker, i;
-      var self = this;
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
         return function() {
           self.getWikiPreview(markers[i], self);
-          // infoWindow.setContent(self.infoWindowContent[i]);
-          // infoWindow.open(map, marker); 
-          // $(".save-article").on('click', self.selectArticle);
-          // $(".save-article").on('click', function() {
-          //   if (window.UserId != undefined) {
-          //     marker.setMap(null);
-          //     marker = new StyledMarker({
-          //       styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-          //       position: position,
-          //       map: map,
-          //       title: markers[i]["title"]
-          //     });
-          //   } else {
-          //     alert("We can't save this article for you if you're not logged in!");
-          //   };
-          // });
         };
       })(marker, i, position));
 
@@ -227,7 +200,6 @@ GmapOverlay.prototype.putMarkers = function(markers) {
     var lat = newCenter.lat();
     var lon = newCenter.lng();
     var location = lat + '|' + lon;
-    console.log(location);
     userSearch.searchCoords(location);
     google.maps.event.removeListener(dragendListener);
   });
@@ -238,10 +210,6 @@ GmapOverlay.prototype.clearMarkers = function() {
     this.gmapMarkers[i].setMap(null);
   };
   this.gmapMarkers = [];
-};
-
-GmapOverlay.prototype.selectArticle = function(event) {
-  userArticleList.addArticle(event);
 };
 
 GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
@@ -269,16 +237,35 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
 
 GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
   console.log("display preview");
+
+  var readMore = '<a href="https://en.wikipedia.org/?curid="' + marker.id + '" >Read more</a>'
+  var $saveButton = $('<input class="save-article btn '+ marker.id +' highlight-btn" type="button" value="Save article">')
+
   $("#info-preview h4").html(marker.title);
   $("#info-preview img").attr("src", data.image);
-  $("#info-preview p").html(wordCount(data.preview, marker));
+  $("#info-preview p").html(wordCount(data.preview) + readMore);
+  $("#info-preview .buttons").append($saveButton);
+  $(".save-article").on("click", function() {
+    if (window.UserId != undefined) {
+      marker.setMap(null);
+      newMarker = new StyledMarker({
+        styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
+        position: position,
+        map: map,
+        title: marker.title
+      });
+    } else {
+      alert("We can't save this article for you if you're not logged in!");
+    };
+  })
 
-  function wordCount(text, marker) {
-    if (text.length > 330) {
-      var preview = text.slice(0, 330);
+  function wordCount(text) {
+    if (text.length > 300) {
+      var preview = text.slice(0, 300);
     } else {
       var preview = text;
     }
-    return preview + "... <a href='https://en.wikipedia.org/?curid=" + marker.id + "'>Read more</a>"
+    return preview + " ... " 
   }
 }
+

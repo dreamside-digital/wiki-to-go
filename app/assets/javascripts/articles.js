@@ -8,6 +8,7 @@ var UserSelectedArticles = function() {
 
 UserSelectedArticles.prototype.listeners = function() {
   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
+  $("body").on('click', ".save-article", this.addArticle);
 }
 
 UserSelectedArticles.prototype.showList = function(results) {
