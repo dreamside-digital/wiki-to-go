@@ -202,6 +202,10 @@ h1, h2, h3, h4 {
   margin-bottom: -80px;
 }
 
+#info-preview {
+	max-height: 500px;
+}
+
 .navbar {
 	background-color: #2FA176;
 	border-bottom: 5px solid #147363;
@@ -530,3 +534,5 @@ h1, h2, h3, h4 {
 		margin: 5px auto;
 	}
 }
+
+

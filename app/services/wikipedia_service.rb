@@ -4,7 +4,6 @@ class WikipediaService
   attr_accessor :results_array, :results
 
   def search(params)
-
     response = search_coords(params[:location])
     process_response(response)
     return @results

@@ -187,45 +187,47 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       });
       marker.metadata = { type: 'point', id: markers[i].id };  
       this.gmapMarkers.push(marker);
-      var infoWindow = new google.maps.InfoWindow(), marker, i;
+      // var infoWindow = new google.maps.InfoWindow(), marker, i;
       var self = this;
 
       google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
         return function() {
-          self.showWikiInfo(markers[i]);
-          infoWindow.setContent(self.infoWindowContent[i]);
-          infoWindow.open(map, marker); 
-          $(".save-article").on('click', self.selectArticle);
-          $(".save-article").on('click', function() {
-            if (window.UserId != undefined) {
-              marker.setMap(null);
-              marker = new StyledMarker({
-                styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-                position: position,
-                map: map,
-                title: markers[i]["title"]
-              });
-            } else {
-              alert("We can't save this article for you if you're not logged in!");
-            };
-          });
+          self.getWikiPreview(markers[i], self);
+          // infoWindow.setContent(self.infoWindowContent[i]);
+          // infoWindow.open(map, marker); 
+          // $(".save-article").on('click', self.selectArticle);
+          // $(".save-article").on('click', function() {
+          //   if (window.UserId != undefined) {
+          //     marker.setMap(null);
+          //     marker = new StyledMarker({
+          //       styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
+          //       position: position,
+          //       map: map,
+          //       title: markers[i]["title"]
+          //     });
+          //   } else {
+          //     alert("We can't save this article for you if you're not logged in!");
+          //   };
+          // });
         };
       })(marker, i, position));
 
-      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
-        return function() {
-          infoWindow.setContent(self.previewInfoWindowContent[i]);
-          infoWindow.open(map, marker); 
-        };
-      })(marker, i));
+      // google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
+      //   return function() {
+      //     infoWindow.setContent(self.previewInfoWindowContent[i]);
+      //     infoWindow.open(map, marker); 
+      //   };
+      // })(marker, i));
     };
   };
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
+    console.log("searching again")
     var newCenter = map.getCenter();
-    var lat = newCenter.k
-    var lon = newCenter.D
+    var lat = newCenter.lat();
+    var lon = newCenter.lng();
     var location = lat + '|' + lon;
+    console.log(location);
     userSearch.searchCoords(location);
     google.maps.event.removeListener(dragendListener);
   });
@@ -242,7 +244,9 @@ GmapOverlay.prototype.selectArticle = function(event) {
   userArticleList.addArticle(event);
 };
 
-GmapOverlay.prototype.showWikiInfo = function(marker) {
+GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
+
+  console.log("let's get some info!");
 
   var url = '/results'
   var markerData = {
@@ -253,13 +257,34 @@ GmapOverlay.prototype.showWikiInfo = function(marker) {
     url: url,
     data: markerData,
     type: 'GET',
-    success: function(data) {
-      console.log(data.preview);
-      $("#info-preview").html(data.preview)
+    success: function(data){
+      gmapOverlayObject.showWikiInfowindow(data, marker);
     },
     error: function(err) {
       console.log(err)
     }, 
     dataType: "json"
   } );
+}
+
+GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
+  console.log("display preview");
+  $("#info-preview h4").html(marker.title);
+  $("#info-preview p").html(wordCount(data.preview, marker));
+
+  function wordCount(text, marker) {
+    if (text.length > 330) {
+      var preview = text.slice(0, 330);
+    } else {
+      var preview = text;
+    }
+    return preview + "... <a href='https://en.wikipedia.org/?curid=" + marker.id + "'>Read more</a>"
+  }
+
+  // var wikiPreview = "<p>" + data.preview + "</p>";
+  // var infoWindow = new google.maps.InfoWindow({
+  //   content: wikiPreview,
+  //   position: new google.maps.LatLng(marker.lat, marker.lon)
+  // });
+  // infoWindow.open(map);
 }
