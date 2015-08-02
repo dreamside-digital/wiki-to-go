@@ -1,6 +1,11 @@
 /*// Place all the styles related to the site controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
+*:focus {
+    outline: none !important;
+    outline: 0;
+}
+
 html{
     min-height:100%;
     height: 100%;
@@ -8,7 +13,7 @@ html{
 }
 
 body {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Raleway', sans-serif;
 	font-weight: 300;
 	height: 100%;
 	font-size: 16px;
@@ -34,114 +39,25 @@ h1, h2, h3, h4 {
 }
 
 .title-area {
-	position: fixed;
+	text-align: center;
 	width: 100%;
-	top: 60%;
-	left: 5%;
 	z-index: 2;
 	margin: 0;
 	padding: 0;
 	h1 {
 		text-transform: uppercase;
-		font-size: 80px;
-		color: #000;
+		font-size: 8em;
 	}
-	h2 {
-		font-size: 50px;
+	h3 {
+		font-size: 1.6em;
 		color: #000;
+		font-weight: 600;
 	}
 	.heavy {
-		font-weight: 400;
+		font-weight: 800;
 	}
 	.light {
-		font-weight: 100;
-	}
-}
-
-.description1, .description2, .description3 {
-	position: absolute;
-	width: 100%;
-	opacity: 0;
-}
-
-.fadein-fadeout {
-	-webkit-animation: fade-in-out 3s;
-	-moz-animation: fade-in-out 3s;
-	-o-animation: fade-in-out 3s;
-	animation-name: fade-in-out 3s;
-}
-
-@keyframes fade-in-out {
-	0% {
-		opacity: 0;
-	}
-	20% {
-		opacity: 1;
-	}
-	80% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes fade-in-out {
-	0% {
-		opacity: 0;
-	}
-	20% {
-		opacity: 1;
-	}
-	80% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes fade-in-out {
-	0% {
-		opacity: 0;
-	}
-	20% {
-		opacity: 1;
-	}
-	80% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-
-@-o-keyframes fade-in-out {
-	0% {
-		opacity: 0;
-	}
-	20% {
-		opacity: 1;
-	}
-	80% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-
-.fadein {
-	animation-name: fadein;
-	animation-duration: 1.5s;
-}
-
-@keyframes fadein {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
+		font-weight: 400;
 	}
 }
 
@@ -367,8 +283,44 @@ h1, h2, h3, h4 {
 }
 
 .search-coords {
-	float: none;
-	margin: 20px;
+	margin: 0 auto;
+	display: table;
+	button, input {
+		width: 250px;
+		line-height: 2;
+		vertical-align: middle;
+		border-radius: 0;
+		font-size: 18px;
+		margin: 10px;
+	}
+
+	input {
+		border: 5px solid #FF960E;
+		background: rgba(0,0,0,0);
+	}
+
+	input:hover, input:focus {
+		background: #fff;
+	}
+	::-webkit-input-placeholder {
+   color: #FF960E;
+   font-weight: 400;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: #FF960E;  
+	   font-weight: 400;
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: #FF960E;  
+	   font-weight: 400;
+	}
+
+	:-ms-input-placeholder {  
+	   color: #FF960E;  
+	   font-weight: 400;
+	}
 }
 
 .search-query {
@@ -473,10 +425,6 @@ h1, h2, h3, h4 {
 		}
 }
 
-.search-coords {
-	margin: 10px;
-}
-
 .search-query {
 	margin: 10px;
 }
@@ -571,6 +519,14 @@ h1, h2, h3, h4 {
 		width: 100%;
 		margin: 5px auto;
 	}
+}
+
+.initial-search {
+	z-index: 5;
+}
+
+.search-menu {
+	display: none;
 }
 
 
