@@ -36,10 +36,10 @@
 
     <div class="search-coords">
 
-      <%= button_tag id: "get-loc", class: "btn btn-default highlight-btn col-md-6" do %>
+      <%= button_tag id: "get-loc", class: "btn btn-default highlight-btn" do %>
         Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
       <% end %>
-      <%= text_field_tag :query, nil, placeholder: "Search by location", class: 'col-md-6' do %>
+      <%= text_field_tag :query, nil, placeholder: "Search by location", class: 'col-md-6', id: 'search-query' do %>
         Search any location
       <% end %>
     </div>
