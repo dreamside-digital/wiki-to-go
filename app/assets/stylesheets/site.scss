@@ -25,6 +25,14 @@ h1, h2, h3, h4 {
 	font-weight: 800;
 }
 
+input, button, {
+	border-radius: 0;
+}
+
+.btn {
+	border-radius: 0;
+}
+
 .row {
 	margin: 0;
 }
@@ -105,7 +113,6 @@ h1, h2, h3, h4 {
 
 .cover {
 	width: 100%;
-	/*margin: 0;*/
 }
 
 .map-area {
@@ -225,6 +232,7 @@ h1, h2, h3, h4 {
 	color: #FFF;
 	background-color: #147363;
 	border-style: none;
+	margin-bottom: 15px;
 }
 
 .save-article:hover {
@@ -527,7 +535,7 @@ h1, h2, h3, h4 {
 	z-index: 5;
 }
 
-.search-menu {
+#search-menu {
 	display: none;
 }
 

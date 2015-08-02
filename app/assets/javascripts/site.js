@@ -95,6 +95,7 @@ $(function() {
     $(".map-area").removeClass("map-area-intro");
     $(".map-area").addClass("col-md-9");
     $("#info-preview").show();
+    $("#search-menu").show();
     $(".map-loader").removeClass("circles-loader");
     $(".cover").css({ "border-bottom": "5px solid #147363" })
     $("#results").html(data);
