@@ -268,27 +268,6 @@ GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
   $("#info-preview").append($preview);
   $("#info-preview").append($saveButton);
   
-
-
-  $("body").on("click", ".save-article", function(e) {
-    var lat = e.currentTarget.dataset.location.split(",")[0];
-    var lng = e.currentTarget.dataset.location.split(",")[1];
-    var position = new google.maps.LatLng(lat,lng);
-    debugger;
-    console.log(position);
-    if (window.UserId != undefined) {
-      marker.setMap(null);
-      newMarker = new StyledMarker({
-        styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-        position: position,
-        map: map,
-        title: marker.title
-      });
-    } else {
-      alert("We can't save this article for you if you're not logged in!");
-    };
-  })
-
   function wordCount(text) {
     if (text.length > 330) {
       var preview = text.slice(0, 330);
