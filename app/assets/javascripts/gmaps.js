@@ -253,7 +253,7 @@ GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
   var $preview = $("<p>", { html: wordCount(response.preview) });
   var $readMore = $("<a>", { href: "https://en.wikipedia.org/?curid=" + marker.metadata.id, html: "Read more" })
   var $saveButton = $("<input>", { 
-    class: "save-article btn", 
+    class: "save-article btn highlight-btn", 
     id: marker.metadata.id, 
     value: "Save article"
   })
