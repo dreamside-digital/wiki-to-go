@@ -22,6 +22,9 @@ $(function() {
   };
 
 	GetSearchData.prototype.getLocation = function () {
+
+    $(".map-loader").addClass("circles-loader");
+
 		if (!navigator.geolocation) throw new Error("Geolocation is not available, just type your location into the search bar instead!");
 			
 		var options = {
@@ -37,10 +40,11 @@ $(function() {
 
 	GetSearchData.prototype.addWikiListeners = function () {
     $("#get-loc").on("click", this.getLocation.bind(this));
-    		$("#search-query").on("submit", function(event) {
+    $("#search").on("submit", function(event) {
+      $(".map-loader").addClass("circles-loader");
 			event.preventDefault();
-			query = ($('#search-query').val());
-			this.searchAddress(query);
+      query = ($('#search-query').val());
+      this.searchAddress(query);
 		}.bind(this));
     $("#get-loc").on("click", hideMenu);
     $("#get-loc").on("click", function() {
@@ -49,7 +53,7 @@ $(function() {
     });
     $("#search").on("submit", hideMenu);
     $("#search").on("submit", function() {
-      $('.title-area').remove();  
+      $('.title-area').remove(); 
       $('.show-search-btn').removeClass('bounce');
     });
 	};
@@ -90,6 +94,8 @@ $(function() {
   GetSearchData.prototype.showResults = function(data) { 
     $(".map-area").removeClass("map-area-intro");
     $(".map-area").addClass("col-md-9");
+    $("#info-preview").show();
+    $(".map-loader").removeClass("circles-loader");
     $(".cover").css({ "border-bottom": "5px solid #147363" })
     $("#results").html(data);
     this.markers = $(".results").data("results");

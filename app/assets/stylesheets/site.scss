@@ -44,6 +44,9 @@ h1, h2, h3, h4 {
 	z-index: 2;
 	margin: 0;
 	padding: 0;
+	position: fixed;
+	top: 55%;
+	transform: translateY(-50%);
 	h1 {
 		text-transform: uppercase;
 		font-size: 8em;
@@ -61,6 +64,12 @@ h1, h2, h3, h4 {
 	}
 }
 
+.map-loader {
+	position: absolute !important;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+}
 .footer {
 	position: fixed;
 	bottom: 0;
@@ -179,29 +188,15 @@ h1, h2, h3, h4 {
 	background-color: #147363 !important;
 }
 
-#intro-text {
-	display: none;
-	z-index: 5;
-	background-color: #2FA176;
-	border-radius: 8px;
-	width: 200px;
+.intro-text {
 	padding: 15px;
-	position: fixed;
-	top: 100px;
-	right: 0;
-	* {
-		color: #FFF !important;
-	}
 	h3 {
-		margin-top: 0;
-		padding-top: 0;
+		margin-top: 20px 0;
 	}
-	li {
-		padding: 4px 0 4px 0;
-	}
-	button {
-		float: right;
-		background-color: #2FA176;
+	li, p {
+		font-size: 18px !important;
+		line-height: 1.5;
+		padding: 10px 0;
 	}
 }
 
@@ -283,7 +278,7 @@ h1, h2, h3, h4 {
 }
 
 .search-coords {
-	margin: 0 auto;
+	margin: 40px auto;
 	display: table;
 	button, input {
 		width: 250px;
@@ -297,10 +292,17 @@ h1, h2, h3, h4 {
 	input {
 		border: 5px solid #FF960E;
 		background: rgba(0,0,0,0);
+		text-align: center;
 	}
 
 	input:hover, input:focus {
 		background: #fff;
+	}
+
+	input:focus {
+		text-align: left;
+		padding-left: 10px;
+
 	}
 	::-webkit-input-placeholder {
    color: #FF960E;

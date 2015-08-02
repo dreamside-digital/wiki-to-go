@@ -45,6 +45,7 @@ UserSelectedArticles.prototype.showList = function(results) {
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
+  
   if (window.UserId != undefined) {
     $(".user-selected-articles").show();
     

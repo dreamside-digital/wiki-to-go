@@ -246,6 +246,8 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
 
 GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
   console.log("display preview");
+  $("#info-preview").removeClass("intro-text");
+
 
   var $imgContainer = $("<div>", { class: "img-preview" });
   var $img = $("<img>", { src: response.image });
