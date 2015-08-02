@@ -56,6 +56,9 @@ $(function() {
       $('.title-area').remove(); 
       $('.show-search-btn').removeClass('bounce');
     });
+
+    $(".show-search-btn").on("click", showMenu);
+    $(".hide-search-btn").on("click", hideMenu);
 	};
 
   GetSearchData.prototype.searchAddress = function(query) {
@@ -96,6 +99,7 @@ $(function() {
     $(".map-area").addClass("col-md-9");
     $("#info-preview").show();
     $("#search-menu").show();
+    $(".search-area").hide();
     $(".map-loader").removeClass("circles-loader");
     $(".cover").css({ "border-bottom": "5px solid #147363" })
     $("#results").html(data);
