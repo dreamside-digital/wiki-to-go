@@ -112,6 +112,8 @@ $(function() {
 
   GetSearchData.prototype.showResults = function(data) { 
     $(".map-area").removeClass("map-area-intro");
+    $(".map-area").addClass("col-md-9");
+    $(".cover").css({ "border-bottom": "5px solid #147363" })
     $("#results").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);

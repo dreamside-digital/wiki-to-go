@@ -20,6 +20,10 @@ h1, h2, h3, h4 {
 	font-weight: 800;
 }
 
+.row {
+	margin: 0;
+}
+
 .navbar-brand {
 	text-transform: uppercase;
 	font-size: 14px
@@ -175,13 +179,14 @@ h1, h2, h3, h4 {
 }
 
 .cover {
-	border-bottom: 5px solid #147363;
 	width: 100%;
-	margin: 0;
+	/*margin: 0;*/
 }
 
 .map-area {
 	height: 500px;
+	margin-left: 0;
+	padding-left: 0;
 }
 
 .map-area-intro {
@@ -232,6 +237,11 @@ h1, h2, h3, h4 {
 			margin: 0 5px;
 		}
 	}
+}
+
+.circles-loader {
+	display: block !important;
+	margin: 30px auto;
 }
 
 .navbar {

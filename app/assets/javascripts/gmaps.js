@@ -183,11 +183,11 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       marker.metadata = { type: 'point', id: markers[i].id };  
       this.gmapMarkers.push(marker);
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
+      google.maps.event.addListener(marker, 'click', (function(marker) { 
         return function() {
           self.getWikiPreview(marker, self);
         };
-      })(marker, i, position));
+      })(marker));
 
       google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
         return function() {
@@ -219,6 +219,11 @@ GmapOverlay.prototype.clearMarkers = function() {
 GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
 
   console.log("let's get some info!");
+  $("#info-preview").empty();
+  var $loader = $("<div>", { class: "circles-loader", html: "Loading..." });
+  $("#info-preview").append($loader);
+
+
   var url = '/results'
   var markerData = {
     articleID: marker.metadata.id
@@ -230,7 +235,7 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
     type: 'GET',
     success: function(data){
       console.log("got response!")
-      gmapOverlayObject.showWikiInfowindow(data, marker);
+      gmapOverlayObject.renderWikiInfowindow(data, marker);
     },
     error: function(err) {
       console.log(err)
@@ -239,22 +244,43 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
   } );
 }
 
-GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
+GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
   console.log("display preview");
 
-  var readMore = '<a href="https://en.wikipedia.org/?curid="' + marker.metadata.id + '" >Read more</a>';
-  var $saveButton = $('<input class="save-article btn '+ marker.metadata.id +' highlight-btn" type="button" value="Save article">');
+  var $imgContainer = $("<div>", { class: "img-preview" });
+  var $img = $("<img>", { src: response.image });
+  var $title = $("<h4>", { html: marker.title });
+  var $preview = $("<p>", { html: wordCount(response.preview) });
+  var $readMore = $("<a>", { href: "https://en.wikipedia.org/?curid=" + marker.metadata.id, html: "Read more" })
+  var $saveButton = $("<input>", { 
+    class: "save-article btn", 
+    id: marker.metadata.id, 
+    value: "Save article"
+  })
+  $saveButton.attr("data-lat", marker.position.lat());
+  $saveButton.attr("data-lng", marker.position.lng());
 
-  $("#info-preview h4").html(marker.title);
-  $("#info-preview img").attr("src", data.image);
-  $("#info-preview p").html(wordCount(data.preview) + readMore);
-  $("#info-preview .buttons").html($saveButton);
-  $(".save-article").on("click", function() {
+  $("#info-preview").empty();
+  $imgContainer.append($img);
+  $("#info-preview").append($imgContainer)
+  $("#info-preview").append($title);
+  $preview.append($readMore);
+  $("#info-preview").append($preview);
+  $("#info-preview").append($saveButton);
+  
+
+
+  $("body").on("click", ".save-article", function(e) {
+    var lat = e.currentTarget.dataset.location.split(",")[0];
+    var lng = e.currentTarget.dataset.location.split(",")[1];
+    var position = new google.maps.LatLng(lat,lng);
+    debugger;
+    console.log(position);
     if (window.UserId != undefined) {
       marker.setMap(null);
       newMarker = new StyledMarker({
         styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-        position: marker.position,
+        position: position,
         map: map,
         title: marker.title
       });
@@ -264,12 +290,14 @@ GmapOverlay.prototype.showWikiInfowindow = function(data, marker) {
   })
 
   function wordCount(text) {
-    if (text.length > 300) {
-      var preview = text.slice(0, 300);
+    if (text.length > 330) {
+      var preview = text.slice(0, 330);
     } else {
       var preview = text;
     }
     return preview + " ... " 
   }
 }
+
+
 
