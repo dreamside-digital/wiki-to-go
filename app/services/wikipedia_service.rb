@@ -4,7 +4,6 @@ class WikipediaService
   attr_accessor :results_array, :results
 
   def search(params)
-
     response = search_coords(params[:location])
     process_response(response)
     return @results
@@ -55,10 +54,20 @@ class WikipediaService
     articles_with_intros = 
     articles.map do |article|
       articleID = article[1][:id]
-      response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
-      article << { intro: response["query"]["pages"][articleID]["extract"] }
+      preview = get_wikipedia_article_preview(articleID)
+      article << { intro: preview }
     end
     return articles_with_intros
+  end
+
+  def get_wikipedia_article_preview(articleID)
+    response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
+    response["query"]["pages"][articleID]["extract"]
+  end
+
+  def get_image_thumbnail(articleID)
+    response = HTTParty.get("http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=300&pageids=" + articleID)
+    response["query"]["pages"][articleID]["thumbnail"]["source"]
   end
 
 end

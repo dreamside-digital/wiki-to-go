@@ -81,8 +81,8 @@ $(function() {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address' : query}, function(response, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var lat = response[0].geometry.location.A
-        var lon = response[0].geometry.location.F
+        var lat = response[0].geometry.location.lat();
+        var lon = response[0].geometry.location.lng();
         var location = lat +'|'+ lon;
         userSearch.searchCoords(location);
         repositionMap(lat,lon);
@@ -111,6 +111,8 @@ $(function() {
 
   GetSearchData.prototype.showResults = function(data) { 
     $(".map-area").removeClass("map-area-intro");
+    $(".map-area").addClass("col-md-9");
+    $(".cover").css({ "border-bottom": "5px solid #147363" })
     $("#results").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
@@ -136,7 +138,7 @@ $(function() {
   };
 
   userSearch = new GetSearchData();
-  var mapOverlay = new GmapOverlay(this.markers);
+  window.mapOverlay = new GmapOverlay(this.markers);
 
 });
 

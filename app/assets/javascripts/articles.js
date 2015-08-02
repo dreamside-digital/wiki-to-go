@@ -8,6 +8,27 @@ var UserSelectedArticles = function() {
 
 UserSelectedArticles.prototype.listeners = function() {
   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
+  $("body").on('click', ".save-article", this.addArticle);
+  $("body").on("click", ".save-article", function(e) {
+    
+    if (window.UserId != undefined) {
+
+      var selectedMarker = _.find(mapOverlay.gmapMarkers, function(marker) {
+        return marker.metadata.id == e.currentTarget.id;
+      });
+
+      selectedMarker.setMap(null);
+      newMarker = new StyledMarker({
+        styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
+        position: selectedMarker.position,
+        map: map,
+        title: selectedMarker.title
+      });
+    } else {
+      alert("We can't save this article for you if you're not logged in!");
+    };
+  })
+
 }
 
 UserSelectedArticles.prototype.showList = function(results) {
@@ -24,22 +45,25 @@ UserSelectedArticles.prototype.showList = function(results) {
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
-  $(".user-selected-articles").show();
-  var articleID = event.currentTarget.classList[2]
-  var article = resultsList.filter(function(element) { 
-    return element["id"] == articleID;
-  })[0];
-  var newListItem = document.createElement("li");
-  var newGlyphicon = document.createElement("span");
-  var self = this
+  if (window.UserId != undefined) {
+    $(".user-selected-articles").show();
+    
+    var articleID = event.currentTarget.id;
+    var article = resultsList.filter(function(element) { 
+      return element["id"] == articleID;
+    })[0];
+    var newListItem = document.createElement("li");
+    var newGlyphicon = document.createElement("span");
+    var self = this
 
-  newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
-  newGlyphicon.setAttribute("aria-hidden", "true");
-  newGlyphicon.setAttribute("id", articleID);
-  newGlyphicon.addEventListener('click', self.removeArticle);
-  newListItem.innerHTML = article.title;
-  $('#selected-results ul').append($(newListItem).append(newGlyphicon));
-  selectedArticles.push(article);
+    newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
+    newGlyphicon.setAttribute("aria-hidden", "true");
+    newGlyphicon.setAttribute("id", articleID);
+    newGlyphicon.addEventListener('click', self.removeArticle);
+    newListItem.innerHTML = article.title;
+    $('#selected-results ul').append($(newListItem).append(newGlyphicon));
+    selectedArticles.push(article);
+  }
 };
 
 UserSelectedArticles.prototype.removeArticle = function(event) { 

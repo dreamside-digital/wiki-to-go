@@ -161,24 +161,18 @@ GmapOverlay.prototype.putMarkers = function(markers) {
   if (this.gmapMarkers === undefined) this.gmapMarkers = [];
   this.clearMarkers();
   this.bounds = new google.maps.LatLngBounds();
-  this.infoWindowContent = [];
-  this.previewInfoWindowContent = [];
+  this.previewInfoWindowContent = []
 
   for( i = 0; i < markers.length; i++ ) {
 
     if (_.findWhere(selectedArticles, { id: markers[i].id }) == undefined) {    
 
       var position = new google.maps.LatLng(markers[i]["lat"], markers[i]["lon"]);
-
+      var infoWindow = new google.maps.InfoWindow(), marker, i;
       var previewContent = 
       '<p>' + markers[i].title + '</p>';
       this.previewInfoWindowContent.push(previewContent);
-
-      var mainContent = 
-        '<input class="save-article btn '+ markers[i].id +' highlight-btn" type="button" value="Save"><br>' +
-        '<h4><a href="https://en.wikipedia.org/?curid=' + markers[i].id +'" target="_blank">' + markers[i].title + '</a></h4>' +
-        '<iframe src="https://en.m.wikipedia.org/?curid=' + markers[i].id + '" width="440px" height="250px" frameborder="0"></iframe>'
-      this.infoWindowContent.push(mainContent);
+      var self = this;
 
       marker = new StyledMarker({
         styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: 'FF960E'}),
@@ -188,29 +182,12 @@ GmapOverlay.prototype.putMarkers = function(markers) {
       });
       marker.metadata = { type: 'point', id: markers[i].id };  
       this.gmapMarkers.push(marker);
-      var infoWindow = new google.maps.InfoWindow(), marker, i;
-      var self = this;
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i, position) { 
+      google.maps.event.addListener(marker, 'click', (function(marker) { 
         return function() {
-          infoWindow.setContent(self.infoWindowContent[i]);
-          infoWindow.open(map, marker); 
-          $(".save-article").on('click', self.selectArticle);
-          $(".save-article").on('click', function() {
-            if (window.UserId != undefined) {
-              marker.setMap(null);
-              marker = new StyledMarker({
-                styleIcon: new StyledIcon(StyledIconTypes.MARKER, {color: '147363'}),
-                position: position,
-                map: map,
-                title: markers[i]["title"]
-              });
-            } else {
-              alert("We can't save this article for you if you're not logged in!");
-            };
-          });
+          self.getWikiPreview(marker, self);
         };
-      })(marker, i, position));
+      })(marker));
 
       google.maps.event.addListener(marker, 'mouseover', (function(marker, i) { 
         return function() {
@@ -222,9 +199,10 @@ GmapOverlay.prototype.putMarkers = function(markers) {
   };
 
   var dragendListener = google.maps.event.addListener(map, 'dragend', function() {
+    console.log("searching again")
     var newCenter = map.getCenter();
-    var lat = newCenter.A
-    var lon = newCenter.F
+    var lat = newCenter.lat();
+    var lon = newCenter.lng();
     var location = lat + '|' + lon;
     userSearch.searchCoords(location);
     google.maps.event.removeListener(dragendListener);
@@ -238,7 +216,67 @@ GmapOverlay.prototype.clearMarkers = function() {
   this.gmapMarkers = [];
 };
 
-GmapOverlay.prototype.selectArticle = function(event) {
-  userArticleList.addArticle(event);
-};
+GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
+
+  console.log("let's get some info!");
+  $("#info-preview").empty();
+  var $loader = $("<div>", { class: "circles-loader", html: "Loading..." });
+  $("#info-preview").append($loader);
+
+
+  var url = '/results'
+  var markerData = {
+    articleID: marker.metadata.id
+  }
+
+  $.ajax( {
+    url: url,
+    data: markerData,
+    type: 'GET',
+    success: function(data){
+      console.log("got response!")
+      gmapOverlayObject.renderWikiInfowindow(data, marker);
+    },
+    error: function(err) {
+      console.log(err)
+    }, 
+    dataType: "json"
+  } );
+}
+
+GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
+  console.log("display preview");
+
+  var $imgContainer = $("<div>", { class: "img-preview" });
+  var $img = $("<img>", { src: response.image });
+  var $title = $("<h4>", { html: marker.title });
+  var $preview = $("<p>", { html: wordCount(response.preview) });
+  var $readMore = $("<a>", { href: "https://en.wikipedia.org/?curid=" + marker.metadata.id, html: "Read more" })
+  var $saveButton = $("<input>", { 
+    class: "save-article btn", 
+    id: marker.metadata.id, 
+    value: "Save article"
+  })
+  $saveButton.attr("data-lat", marker.position.lat());
+  $saveButton.attr("data-lng", marker.position.lng());
+
+  $("#info-preview").empty();
+  $imgContainer.append($img);
+  $("#info-preview").append($imgContainer)
+  $("#info-preview").append($title);
+  $preview.append($readMore);
+  $("#info-preview").append($preview);
+  $("#info-preview").append($saveButton);
+  
+  function wordCount(text) {
+    if (text.length > 330) {
+      var preview = text.slice(0, 330);
+    } else {
+      var preview = text;
+    }
+    return preview + " ... " 
+  }
+}
+
+
 

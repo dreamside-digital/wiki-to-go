@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root 'site#index'
   get '/search', to: 'site#search'
+  get '/results', to: 'site#show_wiki_article'
 
   post   "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
