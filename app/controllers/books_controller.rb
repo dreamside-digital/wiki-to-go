@@ -51,6 +51,7 @@ class BooksController < ApplicationController
 	def export
 		pdfmaker = ArticleCreator.new
 		pdfmaker.make_book_pdf(params)
+		render json: { status: :created }
 	end
 
 	private

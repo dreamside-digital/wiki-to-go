@@ -54,13 +54,16 @@ Book.prototype.makeArticlePdf = function(event) {
 
   $(exportButton).hide();
   $(exportButton).parent().find('.generating-pdf').removeClass('hidden');
+
   $.ajax( {
     url: '/exportpdf', 
     data: { 'pageid' : pageid },
     type: 'GET', 
     success: function() {
+      console.log("making pdf... ");
     },
     error: function() {
+      console.log("pdf failed");
     }
   } );
 }
@@ -91,6 +94,8 @@ Book.prototype.getPdfStatus = function(event) {
 
 Book.prototype.makeBookPdf = function(event) {
 
+  console.log("making book!");
+
   var exportButton = event.currentTarget;
   $(exportButton).hide();
   $(exportButton).parent().find('.generating-pdf').removeClass('hidden');
@@ -101,6 +106,9 @@ Book.prototype.makeBookPdf = function(event) {
     url: url, 
     data: "",
     type: 'GET', 
+    success: function(response) {
+      console.log(response);
+    },
     error: function(error) {
       alert("Sorry, there was an error exporting your pdf. Please try again.")
     }

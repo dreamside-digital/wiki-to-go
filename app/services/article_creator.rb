@@ -31,7 +31,7 @@ class ArticleCreator
       url = ('/'+ pageid +'.pdf')
       articles.each { |article| article.update_attribute(:pdf_path, url) }
     else
-      kit = PDFKit.new('http://en.wikipedia.org/?curid=' + pageid )
+      kit = PDFKit.new('https://en.wikipedia.org/?curid=' + pageid )
       file = kit.to_file('public/'+ pageid +'.pdf')
       url = ('/'+ pageid +'.pdf')
       article.update_attribute(:pdf_path, url)
@@ -46,10 +46,15 @@ class ArticleCreator
   def make_book_pdf(attrib)
     user_id = attrib[:user_id].to_s
     book_id = attrib[:id].to_s
-    url = 'http://www.wikitogo.co/users/' + user_id + '/books/' + book_id + '/preview'
+    if Rails.env.production?
+      host = "http://www.wikitogo.co/"
+    else
+      host = "http://localhost:3000/"
+    end
+    url = host + 'users/' + user_id + '/books/' + book_id + '/preview'
     title = book_id
     kit = PDFKit.new(url)
-    file = kit.to_file('public/'+ title +'.pdf')
+    file = kit.delay.to_file('public/'+ title +'.pdf')
     url = ('/'+ title +'.pdf')
     @book = Book.find(book_id)
     @book.update_attribute(:pdf_path, url)

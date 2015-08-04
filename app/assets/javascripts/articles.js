@@ -10,7 +10,7 @@ UserSelectedArticles.prototype.listeners = function() {
   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
   $('.glyphicon-plus').on('click', this.changeMarkerColour.bind(this));
   $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
-  $("body").off("click").on("click", ".save-article", this.changeMarkerColour.bind(this));
+  $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
 };
 
 UserSelectedArticles.prototype.changeMarkerColour = function(e) {
