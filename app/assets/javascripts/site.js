@@ -39,23 +39,19 @@ $(function() {
 	};
 
 	GetSearchData.prototype.addWikiListeners = function () {
-    $("#get-loc").on("click", this.getLocation.bind(this));
-    $("#search").on("submit", function(event) {
+    $("#get-loc, #get-loc-dropdown").on("click", this.getLocation.bind(this));
+    $("#search, #search-dropdown").on("submit", function(event) {
       $(".map-loader").addClass("circles-loader");
-			event.preventDefault();
-      query = ($('#search-query').val());
+      event.preventDefault();
+      query = $(event.currentTarget).find("input")[1].value
       this.searchAddress(query);
-		}.bind(this));
-    $("#get-loc").on("click", hideMenu);
+      $('.title-area').remove()
+    }.bind(this));
+    $("#get-loc-dropdown").on("click", hideMenu);
     $("#get-loc").on("click", function() {
-      $('.title-area').remove(); 
-      $('.show-search-btn').removeClass('bounce'); 
+      $('.title-area').remove();  
     });
-    $("#search").on("submit", hideMenu);
-    $("#search").on("submit", function() {
-      $('.title-area').remove(); 
-      $('.show-search-btn').removeClass('bounce');
-    });
+    $("#search-dropdown").on("submit", hideMenu);
 
     $(".show-search-btn").on("click", showMenu);
     $(".hide-search-btn").on("click", hideMenu);
