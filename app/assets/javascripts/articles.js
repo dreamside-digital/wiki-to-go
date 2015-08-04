@@ -9,8 +9,8 @@ var UserSelectedArticles = function() {
 UserSelectedArticles.prototype.listeners = function() {
   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
   $('.glyphicon-plus').on('click', this.changeMarkerColour.bind(this));
-  $("body").on('click', ".save-article", this.addArticle.bind(this));
-  $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
+  $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
+  $("body").off("click").on("click", ".save-article", this.changeMarkerColour.bind(this));
 };
 
 UserSelectedArticles.prototype.changeMarkerColour = function(e) {
@@ -36,10 +36,7 @@ UserSelectedArticles.prototype.changeMarkerColour = function(e) {
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
   $("#intro-text").show();
-  $("#intro-text button").on('click', function() {
-    $("#intro-text").remove();
-  });
-  var self = this
+  var self = this;
   $('#make-book').unbind('submit').bind('submit', function(event) {
     event.preventDefault();
     self.makeBook();
