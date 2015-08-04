@@ -7,10 +7,10 @@
 
   <div class="row">
     <div class="search-coords">
-      <%= button_tag id: "get-loc", class: "btn btn-default highlight-btn" do %>
+      <%= button_tag id: "get-loc-dropdown", class: "btn btn-default highlight-btn" do %>
         Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
       <% end %>
-      <%= form_tag("/search", method: "get", id: 'search', class: 'form-inline') do %>
+      <%= form_tag("/search", method: "get", id: 'search-dropdown', class: 'form-inline') do %>
         <%= text_field_tag :query, nil, placeholder: "Search by location", id: 'search-query' %>
       <%end%>
     </div>

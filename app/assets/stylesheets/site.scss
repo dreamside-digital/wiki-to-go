@@ -13,7 +13,7 @@ html{
 }
 
 body {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	height: 100%;
 	font-size: 16px;
@@ -56,6 +56,7 @@ input, button, {
 	top: 55%;
 	transform: translateY(-50%);
 	h1 {
+		font-family: 'Oswald', Helvetica, sans-serif;
 		text-transform: uppercase;
 		font-size: 8em;
 	}
@@ -68,7 +69,7 @@ input, button, {
 		font-weight: 800;
 	}
 	.light {
-		font-weight: 400;
+		font-weight: 800;
 	}
 }
 
@@ -256,7 +257,7 @@ input, button, {
 	z-index: 4;
 	width: 100%;
 	max-width: 400px;
-	border-radius: 0 0 8px 8px;
+	border-radius: 0;
 	span {
 		color: #FFF;
 		padding: 5px;
@@ -288,49 +289,51 @@ input, button, {
 .search-coords {
 	margin: 40px auto;
 	display: table;
-	button, input {
-		width: 250px;
-		line-height: 2;
-		vertical-align: middle;
-		border-radius: 0;
-		font-size: 18px;
-		margin: 10px;
-	}
+	
+		button, input {
+			width: 250px;
+			line-height: 2;
+			vertical-align: middle;
+			border-radius: 0;
+			font-size: 18px;
+			margin: 10px;
+		}
+		
+		input {
+			border: 5px solid #FF960E;
+			background: rgba(0,0,0,0);
+			text-align: center;
+		}
 
-	input {
-		border: 5px solid #FF960E;
-		background: rgba(0,0,0,0);
-		text-align: center;
-	}
+		input:hover, input:focus {
+			background: #fff;
+		}
 
-	input:hover, input:focus {
-		background: #fff;
-	}
+		input:focus {
+			text-align: left;
+			padding-left: 10px;
 
-	input:focus {
-		text-align: left;
-		padding-left: 10px;
+		}
 
-	}
-	::-webkit-input-placeholder {
-   color: #FF960E;
-   font-weight: 400;
-	}
-
-	:-moz-placeholder { /* Firefox 18- */
-	   color: #FF960E;  
+		::-webkit-input-placeholder {
+	   color: #FF960E;
 	   font-weight: 400;
-	}
+		}
 
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color: #FF960E;  
-	   font-weight: 400;
-	}
+		:-moz-placeholder { /* Firefox 18- */
+		   color: #FF960E;  
+		   font-weight: 400;
+		}
 
-	:-ms-input-placeholder {  
-	   color: #FF960E;  
-	   font-weight: 400;
-	}
+		::-moz-placeholder {  /* Firefox 19+ */
+		   color: #FF960E;  
+		   font-weight: 400;
+		}
+
+		:-ms-input-placeholder {  
+		   color: #FF960E;  
+		   font-weight: 400;
+		}
 }
 
 .search-query {
@@ -430,26 +433,39 @@ input, button, {
 		border-style: none;
 		background-color: #FFF;
 		color: #08084D;
-		}
-			::-webkit-input-placeholder {
-		   color: #000;
-		   font-weight: 400;
-			}
+	}
 
-			:-moz-placeholder { /* Firefox 18- */
-			   color: #000;  
-			   font-weight: 400;
-			}
+	button:hover, input:hover {
+		background-color: #F66B34;
+	}
 
-			::-moz-placeholder {  /* Firefox 19+ */
-			   color: #000;  
-			   font-weight: 400;
-			}
+	input:focus {
+		background-color: #fff;
+	}
 
-			:-ms-input-placeholder {  
-			   color: #000;  
-			   font-weight: 400;
-			}
+	input {
+		padding: 6px 12px;
+	}
+
+	::-webkit-input-placeholder {
+   color: #000;
+   font-weight: 400;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: #000;  
+	   font-weight: 400;
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: #000;  
+	   font-weight: 400;
+	}
+
+	:-ms-input-placeholder {  
+	   color: #000;  
+	   font-weight: 400;
+	}
 }
 
 .search-query {
