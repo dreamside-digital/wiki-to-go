@@ -237,9 +237,9 @@ GmapOverlay.prototype.getWikiPreview = function(marker, gmapOverlayObject) {
       console.log("got response!")
       gmapOverlayObject.renderWikiInfowindow(data, marker);
     },
-    error: function(err) {
-      console.log(err)
-    }, 
+    error: function(){
+      gmapOverlayObject.renderNoResults(marker);
+    },
     dataType: "json"
   } );
 }
@@ -279,6 +279,14 @@ GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
     }
     return preview + " ... " 
   }
+}
+
+GmapOverlay.prototype.renderNoResults = function(marker) {
+  var $noResults = $("<h3>", { html: "No preview available" });
+  var $noResultsText = $("<p>", { html: "Guess you'll have to read the full article :(" });
+  var $articleLink = $("<a>", { href: "https://en.wikipedia.org/?curid=" + marker.metadata.id, html: "Full article" })
+  $("#info-preview").empty();
+  $("#info-preview").append($noResults).append($noResultsText).append($articleLink);
 }
 
 
