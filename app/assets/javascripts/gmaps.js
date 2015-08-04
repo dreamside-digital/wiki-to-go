@@ -257,7 +257,8 @@ GmapOverlay.prototype.renderWikiInfowindow = function(response, marker) {
   var $saveButton = $("<input>", { 
     class: "save-article btn highlight-btn", 
     id: marker.metadata.id, 
-    value: "Save article"
+    value: "Save article",
+    type: "button"
   })
   $saveButton.attr("data-lat", marker.position.lat());
   $saveButton.attr("data-lng", marker.position.lng());

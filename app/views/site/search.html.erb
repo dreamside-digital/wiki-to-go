@@ -10,7 +10,7 @@
 	<% title = result[:title] %>
 	<li>
 		<%= link_to(title, link, target: 'blank') %>
-    <%= content_tag :span, class: "glyphicon glyphicon-plus #{pageid}" do%><% end %>
+    <%= content_tag :span, class: "glyphicon glyphicon-plus", id: "#{pageid}" do%><% end %>
   </li>
   <%end%>
 </ul>

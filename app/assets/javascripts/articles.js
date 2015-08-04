@@ -8,10 +8,14 @@ var UserSelectedArticles = function() {
 
 UserSelectedArticles.prototype.listeners = function() {
   $('.glyphicon-plus').on('click', this.addArticle.bind(this));
-  $("body").on('click', ".save-article", this.addArticle);
-  $("body").on("click", ".save-article", function(e) {
-    
-    if (window.UserId != undefined) {
+  $('.glyphicon-plus').on('click', this.changeMarkerColour.bind(this));
+  $("body").on('click', ".save-article", this.addArticle.bind(this));
+  $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
+};
+
+UserSelectedArticles.prototype.changeMarkerColour = function(e) {
+  console.log("changing marker color");
+  if (window.UserId != undefined) {
 
       var selectedMarker = _.find(mapOverlay.gmapMarkers, function(marker) {
         return marker.metadata.id == e.currentTarget.id;
@@ -27,9 +31,7 @@ UserSelectedArticles.prototype.listeners = function() {
     } else {
       alert("We can't save this article for you if you're not logged in!");
     };
-  })
-
-}
+};
 
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
@@ -45,6 +47,8 @@ UserSelectedArticles.prototype.showList = function(results) {
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
+
+  console.log("adding article");
   
   if (window.UserId != undefined) {
     $(".user-selected-articles").show();
@@ -55,7 +59,7 @@ UserSelectedArticles.prototype.addArticle = function(event) {
     })[0];
     var newListItem = document.createElement("li");
     var newGlyphicon = document.createElement("span");
-    var self = this
+    var self = this;
 
     newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
     newGlyphicon.setAttribute("aria-hidden", "true");
@@ -64,7 +68,8 @@ UserSelectedArticles.prototype.addArticle = function(event) {
     newListItem.innerHTML = article.title;
     $('#selected-results ul').append($(newListItem).append(newGlyphicon));
     selectedArticles.push(article);
-  }
+  };
+  console.log("added artilce!")
 };
 
 UserSelectedArticles.prototype.removeArticle = function(event) { 
