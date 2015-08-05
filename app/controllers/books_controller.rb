@@ -49,9 +49,16 @@ class BooksController < ApplicationController
 	end
 
 	def export
-		pdfmaker = ArticleCreator.new
-		pdfmaker.make_book_pdf(params)
-		render json: { status: :created }
+		book_id = params[:id]
+    @book = Book.find book_id
+    @articles = @book.articles
+    respond_to do |format|
+      format.html
+      format.pdf do
+         render pdf: "book-#{book_id}",
+                encoding: "utf-8"
+      end
+    end
 	end
 
 	private

@@ -29,10 +29,10 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'httparty'
 gem 'underscore-rails'
-gem 'pdfkit'
 gem 'delayed_job_active_record'
 gem 'font-awesome-sass'
 gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

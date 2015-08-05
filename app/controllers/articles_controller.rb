@@ -24,4 +24,17 @@ class ArticlesController < ApplicationController
       render json: { status: "FAIL"}
     end
   end
+
+  def show
+    article_id = params[:id]
+    @article = Article.find article_id
+    wiki_url = @article.url
+    pdf = WickedPdf.new.pdf_from_url(wiki_url)
+    save_path = Rails.root.join('public',"article-#{article_id}.pdf")
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
+    redirect_to "/article-#{article_id}.pdf"
+  end
+
 end
