@@ -1,7 +1,5 @@
 $(function() {
 
-  google.maps.event.addDomListener(window, 'load', initialize);
-
     
   function showMenu(e) {
     e.preventDefault();
