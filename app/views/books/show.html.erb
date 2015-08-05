@@ -19,19 +19,7 @@
           <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> 
             Full Article <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
           </a>
-          <% if article.pdf_path %>
-            <%= link_to "/#{article.pageid}.pdf/", class: 'btn open-pdf-btn highlight-btn', target: "blank" do%>
-            Open PDF <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            <% end %>
-          <% else %>
-            <p class="generating-pdf hidden">Just one sec...</p>
-            <%= link_to "/#{article.pageid}.pdf/", class: 'btn open-pdf-btn highlight-btn hidden', target: "blank" do%>
-            Open PDF <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            <% end %>
-            <%= content_tag :button, class: "export-pdf-btn #{article.pageid} btn" do %>
-              PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-            <% end %>
-          <% end %>
+
           <%= link_to user_book_article_path(current_user, @book, article), :method => :delete, class: "btn delete-article-btn" do %>
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           <% end %>
@@ -43,8 +31,8 @@
   <div class="row">
     <div class="col-md-3 col-centered book-btns">
       <%= link_to "Back", user_books_path(current_user.id), class: "btn btn-back" %>
-      <%= link_to book_export_path(:format => "pdf"), { type: "button", class: "export-book-btn #{@book.id} btn"} do %>
-          Get the PDF <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+      <%= link_to book_export_path(:format => "pdf"), { type: "button", class: "export-book-btn #{@book.id} btn highlight-btn"} do %>
+          Open as PDF <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
       <% end %>
     </div>
   </div>

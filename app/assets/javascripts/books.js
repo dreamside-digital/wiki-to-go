@@ -3,8 +3,6 @@
 var Book = function () {
   $('.export-pdf-btn').on('click', this.makeArticlePdf);
   $('.export-pdf-btn').on('click', this.getPdfStatus);
-  $('.export-book-btn').on('click', this.makeBookPdf);
-  $('.export-book-btn').on('click', this.getPdfStatus);
 };
 
 Book.prototype.showWikiExtract = function() {

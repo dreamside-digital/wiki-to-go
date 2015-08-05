@@ -43,11 +43,6 @@ class BooksController < ApplicationController
 		render layout:false
 	end
 
-	def preview
-		@book = Book.find(params[:id])
-		@articles = @book.articles.all
-	end
-
 	def export
 		book_id = params[:id]
     @book = Book.find book_id
