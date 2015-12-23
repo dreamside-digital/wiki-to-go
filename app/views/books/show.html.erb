@@ -2,9 +2,9 @@
   <div class="row">
     <%= content_tag :div, id: "marker-data", data: {markers: @markers_info} do %>
     <% end %>
-    <div id="map-canvas" style="height:400px;"></div>
     <div class="article-list col-md-8 col-centered">
     <h2><%= @book.title %></h2>
+    <div id="map-canvas" stylegig="height:400px; margin-top: 40px"></div>
     	<l class="list-unstyled"><% @articles.each.with_index do |article, i| %>
         <div class="article-item">
           <li><h3><%= link_to "#{i + 1}. #{article.title}", article.url, target: 'blank', class: "#{article.pageid} article-title" %></h3></li>
