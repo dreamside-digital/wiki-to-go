@@ -14,5 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery-readyselector
+//= require jquery-smooth-scroll
 //= require underscore
 //= require_tree .

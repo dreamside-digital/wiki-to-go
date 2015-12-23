@@ -9,6 +9,21 @@ class BooksController < ApplicationController
 	def show
 		@book = Book.find(params[:id])
 		@articles = @book.articles.order(title: :asc)
+		@markers_info = get_marker_info
+	end
+
+	def get_marker_info
+
+		@articles.collect do |article|
+
+			{
+				title: article.title, 
+				lat: article.latitude,
+				lon: article.longitude,
+				id: article.pageid
+			}
+
+		end
 	end
 
 	def new

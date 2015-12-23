@@ -1,5 +1,4 @@
 $(".site.index").ready(function() {
-  console.log("making map...")
 
   function initialize() {
 
