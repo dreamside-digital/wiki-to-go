@@ -33,6 +33,7 @@ gem 'delayed_job_active_record'
 gem 'font-awesome-sass'
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
+gem "figaro"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
