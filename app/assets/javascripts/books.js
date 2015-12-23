@@ -1,5 +1,3 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
 var Book = function () {
   $('.export-pdf-btn').on('click', this.makeArticlePdf);
   $('.export-pdf-btn').on('click', this.getPdfStatus);

@@ -231,14 +231,13 @@ input, button, {
 	float: right;
 	font-weight: bold;
 	color: #FFF;
-	background-color: #147363;
 	border-style: none;
 	margin-bottom: 15px;
 }
 
-.save-article:hover {
-	background-color: #2FA176;
-	color: #FFF;
+.save-article.glyphicon-star:hover {
+	color: #147363;
+	font-size: 110%;
 }
 
 .show-and-hide {
@@ -505,7 +504,7 @@ input, button, {
 	font-weight: bold;
 }
 
-.glyphicon-plus {
+.search-results .glyphicon-star {
 	float: right;
 	color: #2FA176;
 }
