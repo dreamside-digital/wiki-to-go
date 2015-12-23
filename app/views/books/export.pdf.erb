@@ -1,17 +1,15 @@
 <div class="container">
   <div class="article-list col-md-10 col-centered">
+  <img src="<%= @map_image_url %>" alt="google map image" style="display:block; margin: 0 auto;">
   <h2 style="text-align: center;"><%= @book.title %></h2>
-    <ul class="list-unstyled"><% @articles.each do |article| %>
+    <ul class="list-unstyled"><% @articles.each.with_index do |article, i| %>
       <div class="article-item">
-        <h3><%= article.title %></h3>
+        <h3><%= link_to "#{i+1}. #{article.title}", article.url, style: "color: #147363" %></h3>
         <%= content_tag :div, id: article.pageid do %> 
           <%= content_tag :p, class: "article-intro-text" do %>
             <%= article.intro %>
           <% end %>
         <% end %>
-        <a href="<%= article.url %>" class="btn-open-wikipedia btn" target="blank"> 
-          <%= article.url %> <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-        </a>
       </div>
     <% end %>
     </ul>
