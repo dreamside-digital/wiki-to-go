@@ -109,6 +109,10 @@ UserSelectedArticles.prototype.makeBook = function() {
       articles: selectedArticles,
     }
   };
+  var generateBookLink = function(url) {
+    var $bookLink = $("<a>", { href: url, html: bookTitle })
+    return $bookLink
+  }
 
   $.ajax( {
     url: url,
@@ -116,7 +120,7 @@ UserSelectedArticles.prototype.makeBook = function() {
     type: 'POST',
     success: function(data) {
       alert("Your personal wiki has been saved!");
-      $("#selected-articles-list > h3").html(data);
+      $("#selected-articles-list > h3").html(generateBookLink(data.book_path));
       newPersonalWiki = new Book();
     },
     error: function() {

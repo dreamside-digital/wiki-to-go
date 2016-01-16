@@ -1,13 +1,11 @@
 class WikipediaService
 
   include HTTParty
-  attr_accessor :results_array, :results
+  attr_accessor :results
 
   def search(params)
     response = search_coords(params[:location])
     process_response(response)
-    return @results
-
   end
 
   def search_coords(location)
@@ -15,7 +13,6 @@ class WikipediaService
 	end
 
 	def process_response(response)
-
 		results = JSON.parse(response.body)
 
 		if response.code != 200
@@ -24,23 +21,20 @@ class WikipediaService
 			render 'no_results'
 			flash[:search_error] = results["error"]["info"]
 		else
-			@results_array = results["query"]["geosearch"]
-			get_marker_info
-			@results_array
+			get_marker_info results["query"]["geosearch"]
 		end
 	end
  
-	def get_marker_info
+	def get_marker_info(parsed_response)
 
-		@results = []
-		@results_array.each do |place|
+		parsed_response.collect do |place|
 
       title = place["title"]
       lat = place["lat"]
       lon = place["lon"]
       id = place["pageid"]
 
-			@results << {
+			{
 				title: title, 
 				lat: lat,
 				lon: lon,

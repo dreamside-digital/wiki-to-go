@@ -31,7 +31,9 @@ class BooksController < ApplicationController
 
 		if @book.save
 			ArticleCreator.new.create_articles(@book, @articles)
-			render layout:false
+			respond_to do |format|
+				format.json { render json: { book_title: @book.title, book_path: user_book_path(@user, @book) } }
+			end
 		else
 			redirect_to root_path
 		end
@@ -41,7 +43,9 @@ class BooksController < ApplicationController
 		@user = current_user
 		@book = @user.books.find(params[:id])
 		@book.destroy
-		render layout:false
+		respond_to do |format|
+			format.json { render json: { book_id: @book.id } }
+		end
 	end
 
 	def export
