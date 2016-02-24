@@ -1,18 +1,17 @@
 $(function() {
 
     
-  function showMenu(e) {
+  function toggleSearchArea(e) {
     e.preventDefault();
     $('.search-area').slideToggle('slow');
-    $('.show-search-btn').hide();
-    $('.hide-search-btn').show();
   }
 
-  function hideMenu(e) {
+  function toggleResultsView(e) {
     e.preventDefault();
-    $('.search-area').slideToggle('slow');
-    $('.hide-search-btn').hide();
-    $('.show-search-btn').show();
+    $("#map-canvas").toggle();
+    $("#results-list").toggle();
+    $("#list-view-text").toggle();
+    $("#map-view-text").toggle();
   }
 
   var GetSearchData = function () {
@@ -22,8 +21,9 @@ $(function() {
 	GetSearchData.prototype.getLocation = function () {
 
     $(".map-loader").addClass("circles-loader");
+    $('.title-area').remove();  
 
-		if (!navigator.geolocation) throw new Error("Geolocation is not available, just type your location into the search bar instead!");
+		if (!navigator.geolocation) throw new Error("Geolocation is not available, you can type your location into the search bar instead!");
 			
 		var options = {
 			enableHighAccuracy: true,
@@ -38,21 +38,18 @@ $(function() {
 
 	GetSearchData.prototype.addWikiListeners = function () {
     $("#get-loc, #get-loc-dropdown").on("click", this.getLocation.bind(this));
+    $("#get-loc-dropdown").on("click", toggleSearchArea);
     $("#search, #search-dropdown").on("submit", function(event) {
       $(".map-loader").addClass("circles-loader");
       event.preventDefault();
       query = $(event.currentTarget).find("input")[1].value
       this.searchAddress(query);
-      $('.title-area').remove()
+      $('.title-area').remove();
     }.bind(this));
-    $("#get-loc-dropdown").on("click", hideMenu);
-    $("#get-loc").on("click", function() {
-      $('.title-area').remove();  
-    });
-    $("#search-dropdown").on("submit", hideMenu);
+    $("#search-dropdown").on("submit", toggleSearchArea);
 
-    $(".show-search-btn").on("click", showMenu);
-    $(".hide-search-btn").on("click", hideMenu);
+    $("#show-search-btn").on("click", toggleSearchArea);
+    $("#switch-results-view").on("click", toggleResultsView);
 	};
 
   GetSearchData.prototype.searchAddress = function(query) {
@@ -90,13 +87,12 @@ $(function() {
 
   GetSearchData.prototype.showResults = function(data) { 
     $(".map-area").removeClass("map-area-intro");
-    $(".map-area").addClass("col-md-9");
+    $(".map-area").addClass("col-md-9 col-sm-9 col-xs-12");
     $("#info-preview").show();
     $("#search-menu").show();
     $(".search-area").hide();
     $(".map-loader").removeClass("circles-loader");
-    $(".cover").css({ "border-bottom": "5px solid #147363" })
-    $("#results").html(data);
+    $("#results-list").html(data);
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
     userArticleList.showList(this.markers);

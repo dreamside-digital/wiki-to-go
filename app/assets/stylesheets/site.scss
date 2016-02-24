@@ -15,7 +15,7 @@ html{
 body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
-	height: auto;
+	height: 100%;
 	font-size: 16px;
 	padding-bottom: 80px;
 }
@@ -117,7 +117,9 @@ input, button, {
 }
 
 .map-area {
-	height: 500px;
+	height: 100%;
+	position: absolute;
+	margin-top: -50px;
 	margin-left: 0;
 	padding-left: 0;
 }
@@ -146,7 +148,8 @@ input, button, {
 }
 
 #info-preview {
-	max-height: 500px;
+
+	float: right;
 	
 	.img-preview {
 		width: 100%;
@@ -178,10 +181,22 @@ input, button, {
 }
 
 .navbar {
-	background-color: #2FA176;
-	border-bottom: 5px solid #147363;
 	margin-bottom: 0;
+	background-color: #2FA176;
 	z-index: 6;
+	border-bottom: 5px solid #147363;
+}
+
+.navbar-secondary {
+	background-color: #FF960E;
+	border-bottom: none;
+	a {
+		color: #fff;
+	}
+	a:hover {
+		background-color: #FF960E !important;
+		font-weight: 400;
+	}
 }
 
 .icon-bar {
@@ -349,61 +364,6 @@ input, button, {
 	text-align: right;
 }
 
-.bounce {
-	-webkit-animation: bounce 1s infinite;
-	-moz-animation: bounce 1s infinite;
-	-o-animation: bounce 1s infinite;
-	animation: bounce 1s infinite;
-}
-
-@-webkit-keyframes bounce {
-	0% {
-		transform: translateY(0);
-	}
-	60% {
-		transform: translateY(8px);
-	}
-	100% {
-		transform: translateY(0);
-	}
-}
-
-@-moz-keyframes bounce {
-	0% {
-		transform: translateY(0);
-	}
-	60% {
-		transform: translateY(8px);
-	}
-	100% {
-		transform: translateY(0);
-	}
-}
-
-@-o-keyframes bounce {
-	0% {
-		transform: translateY(0);
-	}
-	60% {
-		transform: translateY(8px);
-	}
-	100% {
-		transform: translateY(0);
-	}
-}
-
-@keyframes bounce {
-	0% {
-		transform: translateY(0);
-	}
-	60% {
-		transform: translateY(8px);
-	}
-	100% {
-		transform: translateY(0);
-	}
-}
-
 .search-btn-text {
 	color: #FFF;
 	font-size: 20px !important;
@@ -423,13 +383,9 @@ input, button, {
 }
 
 .search-area {
-	display: none;
 	background: #147363;
 	z-index: 3;
-	position: absolute;
-	width: 100%;
-	max-width: 400px;
-	display: none;
+	left: 0;
 
 	button, input {
 		font-size: 18px;
