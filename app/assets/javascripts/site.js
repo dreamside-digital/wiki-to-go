@@ -47,10 +47,9 @@ $(function() {
       $('.title-area').remove();
     }.bind(this));
     $("#search-dropdown").on("submit", toggleSearchArea);
-
-    $("#show-search-btn").on("click", toggleSearchArea);
+    $("#show-search-btn, #hide-search-btn").on("click", toggleSearchArea);
     $("#switch-results-view").on("click", toggleResultsView);
-	};
+  };
 
   GetSearchData.prototype.searchAddress = function(query) {
     var self = this;
@@ -89,10 +88,11 @@ $(function() {
     $(".map-area").removeClass("map-area-intro");
     $(".map-area").addClass("col-md-9 col-sm-9 col-xs-12");
     $("#info-preview").show();
-    $("#search-menu").show();
+    $(".navbar-secondary").show();
     $(".search-area").hide();
     $(".map-loader").removeClass("circles-loader");
     $("#results-list").html(data);
+    $('#search-menu').show();
     this.markers = $(".results").data("results");
     mapOverlay.putMarkers(this.markers);
     userArticleList.showList(this.markers);
