@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<nav class="navbar-secondary navbar">
+<nav class="navbar-secondary navbar" style="z-index: 4;">
   <div class="container-fluid"> 
     <div class="navbar-header">
       <ul class="nav navbar-nav navbar-left">
@@ -33,6 +33,12 @@
             <span id="map-view-text" style="display: none;">Map view</span>
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
           </a>
+        </li>
+        <li class="dropdown current-collection">
+          <a href="#" class="dropdown-toggle menu-white-text" data-toggle="dropdown" role="button" aria-expanded="false"> Articles (<span id="article-count">0</span>)</a>
+            <ul class="dropdown-menu" role="menu">
+              <li class="placeholder"><a>You haven't added any articles yet</a></li>
+            </ul>
         </li>
       </ul>
     </div>

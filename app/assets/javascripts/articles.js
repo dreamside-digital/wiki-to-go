@@ -52,10 +52,11 @@ UserSelectedArticles.prototype.addArticle = function(event) {
 
     if (!this.articleAlreadySelected(articleID)) {
 
-      $(".user-selected-articles").show();
       var article = resultsList.filter(function(element) { 
         return element["id"] == articleID;
       })[0];
+      selectedArticles.push(article);
+
       var newListItem = document.createElement("li");
       var newGlyphicon = document.createElement("span");
       var self = this;
@@ -64,11 +65,16 @@ UserSelectedArticles.prototype.addArticle = function(event) {
       newGlyphicon.setAttribute("aria-hidden", "true");
       newGlyphicon.setAttribute("id", articleID);
       newGlyphicon.addEventListener('click', self.removeArticle);
-      newListItem.innerHTML = article.title;
-      $('#selected-results ul').append($(newListItem).append(newGlyphicon));
+      var newListContent = $("<a>").html(article.title).append(newGlyphicon)
+      var newListItem = $("<li>").append(newListContent)
+      $('.current-collection ul').append(newListItem);
+      $('#article-count').html("" + selectedArticles.length)
       $(event.currentTarget).closest('li').remove();
 
-      selectedArticles.push(article);
+      if ($('.current-collection ul').find('.placeholder')) {
+        $('.current-collection ul').find('.placeholder').remove()
+      }
+
     }
   };
 };
@@ -96,6 +102,8 @@ UserSelectedArticles.prototype.removeArticle = function(event) {
   } else {
     selectedArticles.pop();
   }
+
+  $('#article-count').html("" + selectedArticles.length)
 };
 
 
