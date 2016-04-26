@@ -9,6 +9,10 @@ var UserSelectedArticles = function() {
 UserSelectedArticles.prototype.listeners = function() {
   $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
   $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
+  $("body").on("click", ".show-preview", function() {
+    // var marker = 
+    previewWindow.getWikiPreview()
+  }
 };
 
 UserSelectedArticles.prototype.changeMarkerColour = function(e) {

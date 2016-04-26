@@ -9,7 +9,8 @@
 	<% link = 'http://en.wikipedia.org/?curid=' + pageid %>
 	<% title = result[:title] %>
 	<li>
-		<%= link_to(title, link, target: 'blank') %>
+		<%= link_to(title, link, target: 'blank', class: "show-preview") %>
+    <%= content_tag :span, class: "glyphicon glyphicon-link open-article", id: "#{pageid}" do%><% end %>
     <%= content_tag :span, class: "glyphicon glyphicon-star save-article", id: "#{pageid}" do%><% end %>
   </li>
   <%end%>
