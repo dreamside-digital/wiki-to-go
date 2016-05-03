@@ -12,16 +12,17 @@ $(".site.index").ready(function() {
     var markerData = {
       articleID: marker.metadata.id
     }
+    var self = this
 
     $.ajax( {
       url: url,
       data: markerData,
       type: 'GET',
       success: function(data){
-        gmapOverlayObject.renderWikiInfowindow(data, marker);
+        self.renderWikiInfowindow(data, marker);
       },
       error: function(){
-        gmapOverlayObject.renderNoResults(marker);
+        self.renderNoResults(marker);
       },
       dataType: "json"
     } );
@@ -70,6 +71,6 @@ $(".site.index").ready(function() {
     $("#info-preview").append($noResults).append($noResultsText).append($articleLink);
   };
 
-  previewWindow = new WikiPreview();
+  window.previewWindow = new WikiPreview();
 
 });

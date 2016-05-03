@@ -3,18 +3,21 @@ $(function() {
   function toggleSearchArea(e) {
     e.preventDefault();
     $('.search-area').slideToggle('slow');
+    console.log("toggling search area")
   }
 
   function toggleResultsView(e) { 
+    e.preventDefault();
     e.stopPropagation();
     $("#list-view-text").toggle();
     $("#map-view-text").toggle();
     $("#map-canvas").toggle();
     $("#results-list").toggle();
+    console.log("toggling results view")
   }
 
   var GetSearchData = function () {
-    this.addWikiListeners();
+    this.addListeners();
   };
 
 	GetSearchData.prototype.getLocation = function () {
@@ -35,20 +38,22 @@ $(function() {
                                              options);
 	};
 
-	GetSearchData.prototype.addWikiListeners = function () {
+	GetSearchData.prototype.addListeners = function () {
     $("#get-loc, #get-loc-dropdown").on("click", this.getLocation.bind(this));
+    $("#search, #search-dropdown").on("submit", this.startSearch.bind(this));
     $("#get-loc-dropdown").on("click", toggleSearchArea);
-    $("#search, #search-dropdown").on("submit", function(event) {
-      $(".map-loader").addClass("circles-loader");
-      event.preventDefault();
-      query = $(event.currentTarget).find("input")[1].value
-      this.searchAddress(query);
-      $('.title-area').remove();
-    }.bind(this));
     $("#search-dropdown").on("submit", toggleSearchArea);
     $("#show-search-btn, #hide-search-btn").on("click", toggleSearchArea);
     $("#switch-results-view").on("click", toggleResultsView);
   };
+
+  GetSearchData.prototype.startSearch = function(event) {
+    event.preventDefault();
+    $(".map-loader").addClass("circles-loader");
+    var query = $(event.currentTarget).find("input")[1].value
+    this.searchAddress(query);
+    $('.title-area').remove();
+  }
 
   GetSearchData.prototype.searchAddress = function(query) {
     var self = this;
@@ -58,7 +63,7 @@ $(function() {
         var lat = response[0].geometry.location.lat();
         var lon = response[0].geometry.location.lng();
         var location = lat +'|'+ lon;
-        userSearch.searchCoords(location);
+        window.userSearch.searchCoords(location);
         repositionMap(lat,lon);
       } else {
         alert("Sorry, there was an error with your search: " + status);
@@ -115,8 +120,8 @@ $(function() {
     alert("Oops, we couldn't detect your location. ", error);
   };
 
-  userSearch = new GetSearchData();
-  window.mapOverlay = new GmapOverlay(this.markers);
+  window.userSearch = new GetSearchData();
+  window.mapOverlay = new GmapOverlay();
 
 });
 

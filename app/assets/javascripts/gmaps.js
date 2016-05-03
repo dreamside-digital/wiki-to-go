@@ -211,7 +211,7 @@ $(".site.index").ready(function() {
       var lat = newCenter.lat();
       var lon = newCenter.lng();
       var location = lat + '|' + lon;
-      userSearch.searchCoords(location);
+      window.userSearch.searchCoords(location);
       google.maps.event.removeListener(dragendListener);
     });
   };
