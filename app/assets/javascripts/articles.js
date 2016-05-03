@@ -12,7 +12,7 @@ UserSelectedArticles.prototype.listeners = function() {
   $("body").on("click", ".show-preview", function() {
     // var marker = 
     previewWindow.getWikiPreview()
-  }
+  })
 };
 
 UserSelectedArticles.prototype.changeMarkerColour = function(e) {

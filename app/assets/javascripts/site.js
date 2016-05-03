@@ -1,17 +1,16 @@
 $(function() {
 
-    
   function toggleSearchArea(e) {
     e.preventDefault();
     $('.search-area').slideToggle('slow');
   }
 
-  function toggleResultsView(e) {
-    e.preventDefault();
-    $("#map-canvas").toggle();
-    $("#results-list").toggle();
+  function toggleResultsView(e) { 
+    e.stopPropagation();
     $("#list-view-text").toggle();
     $("#map-view-text").toggle();
+    $("#map-canvas").toggle();
+    $("#results-list").toggle();
   }
 
   var GetSearchData = function () {

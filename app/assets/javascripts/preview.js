@@ -71,4 +71,5 @@ $(".site.index").ready(function() {
   };
 
   previewWindow = new WikiPreview();
-}
+
+});
