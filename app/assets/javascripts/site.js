@@ -3,17 +3,16 @@ $(function() {
   function toggleSearchArea(e) {
     e.preventDefault();
     $('.search-area').slideToggle('slow');
-    console.log("toggling search area")
+    return false
   }
 
   function toggleResultsView(e) { 
     e.preventDefault();
-    e.stopPropagation();
     $("#list-view-text").toggle();
     $("#map-view-text").toggle();
     $("#map-canvas").toggle();
     $("#results-list").toggle();
-    console.log("toggling results view")
+    return false
   }
 
   var GetSearchData = function () {
@@ -98,7 +97,7 @@ $(function() {
     $("#results-list").html(data);
     $('#search-menu').show();
     this.markers = $(".results").data("results");
-    mapOverlay.putMarkers(this.markers);
+    window.mapOverlay.putMarkers(this.markers);
     userArticleList.showList(this.markers);
     userArticleList.listeners();
   };

@@ -491,8 +491,29 @@ input, button, {
 	padding: 20px 0 20px 20px;
 }
 
-.current-collection .glyphicon-remove {
-	float: right;
+.current-collection {
+
+	ul {
+		min-width: 260px !important;
+	}
+
+	.glyphicon-remove {
+		float: right;
+		line-height: inherit;
+	}
+	.selected-article {
+		padding: 3px 20px;
+		a {
+			color: #000;
+			font-size: 14px;
+			text-decoration: none;
+		}
+		a:hover {
+			background-color: none;
+		}
+	}
 }
+
+
 
 

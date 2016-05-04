@@ -1,4 +1,4 @@
-class SiteController < ApplicationController
+class SiteController < ApplicationController 
 
   attr_accessor :results
   before_action :disable_footer, only: [:index]

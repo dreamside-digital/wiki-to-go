@@ -9,9 +9,12 @@ var UserSelectedArticles = function() {
 UserSelectedArticles.prototype.listeners = function() {
   $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
   $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
-  $("body").on("click", ".show-preview", function() {
-    // var marker = 
-    previewWindow.getWikiPreview()
+  $("body").on("click", ".show-preview", function(e) {
+    var pageid = $(e.currentTarget).data("pageid")
+    var gmapMarker = window.mapOverlay.gmapMarkers.filter(function(element) {
+      return element.metadata.id == pageid
+    })[0]
+    previewWindow.getWikiPreview(gmapMarker)
   })
 };
 
@@ -59,29 +62,29 @@ UserSelectedArticles.prototype.addArticle = function(event) {
       var article = resultsList.filter(function(element) { 
         return element["id"] == articleID;
       })[0];
+      var newListItem = this.makeArticleListItem(article)
       selectedArticles.push(article);
-
-      var newListItem = document.createElement("li");
-      var newGlyphicon = document.createElement("span");
-      var self = this;
-
-      newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
-      newGlyphicon.setAttribute("aria-hidden", "true");
-      newGlyphicon.setAttribute("id", articleID);
-      newGlyphicon.addEventListener('click', self.removeArticle);
-      var newListContent = $("<a>").html(article.title).append(newGlyphicon)
-      var newListItem = $("<li>").append(newListContent)
-      $('.current-collection ul').append(newListItem);
+      $('.current-collection ul').prepend(newListItem);
       $('#article-count').html("" + selectedArticles.length)
       $(event.currentTarget).closest('li').remove();
 
-      if ($('.current-collection ul').find('.placeholder')) {
-        $('.current-collection ul').find('.placeholder').remove()
+      if ($('.current-collection ul').find('#placeholder')) {
+        $('#placeholder').hide()
+        $('#save-articles-collection').show()
       }
 
     }
   };
 };
+
+UserSelectedArticles.prototype.makeArticleListItem = function(article) {
+  var link = $("<span>", { class: "col-xs-11" })
+              .append($("<a>", { href: "#", style: "font-size: 14px, color: #000", text: article.title }))
+  var glyphicon = $("<span>", { class: "glyphicon glyphicon-remove col-xs-1", click: this.removeArticle })
+  var listItem = $("<li>", { class: "selected-article row" }).data("articleID", article.id)
+  return listItem.append(link).append(glyphicon)
+
+}
 
 UserSelectedArticles.prototype.articleAlreadySelected = function(articleID) {
   var existingArticle = _.find(selectedArticles, function(article) { 
@@ -95,7 +98,8 @@ UserSelectedArticles.prototype.articleAlreadySelected = function(articleID) {
 }
 
 UserSelectedArticles.prototype.removeArticle = function(event) { 
-  var articleID = event.currentTarget.id;
+  event.preventDefault();
+  var articleID = $(event.currentTarget).closest(".selected-article").data("articleID")
   var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
   })[0];
@@ -108,6 +112,10 @@ UserSelectedArticles.prototype.removeArticle = function(event) {
   }
 
   $('#article-count').html("" + selectedArticles.length)
+  if (selectedArticles.length < 1) {
+    $('#placeholder').show()
+    $('#save-articles-collection').hide()
+  }
 };
 
 
