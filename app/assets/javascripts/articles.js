@@ -9,6 +9,7 @@ var UserSelectedArticles = function() {
 UserSelectedArticles.prototype.listeners = function() {
   $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
   $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
+  $("body").on("click", "#make-book", this.makeBook.bind(this));
   $("body").on("click", ".show-preview", function(e) {
     var pageid = $(e.currentTarget).data("pageid")
     var gmapMarker = window.mapOverlay.gmapMarkers.filter(function(element) {
@@ -44,11 +45,6 @@ UserSelectedArticles.prototype.resetMarkerColour = function(e) {
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
   $("#intro-text").show();
-  var self = this;
-  $('#make-book').unbind('submit').bind('submit', function(event) {
-    event.preventDefault();
-    self.makeBook();
-  });
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {

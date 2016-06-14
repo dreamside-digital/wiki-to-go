@@ -5,6 +5,7 @@ class SiteController < ApplicationController
 
 	def index
 		@results
+    @book = Book.new
     if current_user
       @user = current_user
       @user_wikis = @user.books.order(updated_at: :desc).limit(5)
