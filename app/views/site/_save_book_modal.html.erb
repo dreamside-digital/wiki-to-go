@@ -6,13 +6,11 @@
         <h4 class="modal-title">Save your articles</h4>
       </div>
       <div class="modal-body">
-        <%= form_for [@user, @book] do |f| %>
-        <%= f.label :title, "Choose a title for this collection" %>
-        <%= f.text_field :title, id: "book-title", class: "form-control", placeholder: "Location" %>
+        <p>Choose a title for this collection</p>
+        <input type="text" id="book-title"class="form-control" placeholder="Location">
       </div>
       <div class="modal-footer">
-        <%= f.submit %>
-        <% end %>
+        <button type="button" class="btn btn-primary" id="make-book">Save</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

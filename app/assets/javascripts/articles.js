@@ -137,7 +137,7 @@ UserSelectedArticles.prototype.makeBook = function() {
     success: function(data) {
       alert("Your personal wiki has been saved!");
       $("#selected-articles-list > h3").html(generateBookLink(data.book_path));
-      newPersonalWiki = new Book();
+      $("#save-book-modal").modal('hide')
     },
     error: function() {
       alert("Your personal wiki was not saved. Try again.")
