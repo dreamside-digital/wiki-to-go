@@ -36,7 +36,7 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
   config.consider_all_requests_local = false
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

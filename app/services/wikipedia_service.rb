@@ -2,15 +2,26 @@ class WikipediaService
 
   include HTTParty
   attr_accessor :results
+  ROOT_URL = 'http://en.wikipedia.org/w/api.php'
+  COMMON_PARAMS = '?action=query&format=json'
+  HEADER = {'Api-User-Agent' => 'WikiToGo (sharon.peishan.kennedy@gmail.com)'}
 
-  def search(params)
-    response = search_coords(params[:location])
+  def search_by_location(location)
+    url = ROOT_URL + COMMON_PARAMS + "&list=geosearch&gslimit=50&gsradius=10000&gscoord=#{CGI::escape(location)}"
+    response = HTTParty.get(url, headers: HEADER)
     process_response(response)
   end
 
-  def search_coords(location)
-		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gscoord=' + CGI::escape(location) )
-	end
+  def get_article_preview(article_id)
+    {
+      article_id: article_id,
+      text: get_wikipedia_article_preview(article_id),
+      image: get_image_thumbnail(article_id)
+    }
+  end
+
+
+  private
 
 	def process_response(response)
 		results = JSON.parse(response.body)

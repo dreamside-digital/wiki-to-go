@@ -18,4 +18,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api, defaults: { format: :json }, constraints: { subdomain: 'api' }, path: '/' do
+    get 'search', to: 'wikipedia#search'
+    get 'preview', to: 'wikipedia#article_preview'
+  end
+
+
 end
