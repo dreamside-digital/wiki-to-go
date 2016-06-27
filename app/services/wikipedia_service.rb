@@ -28,40 +28,6 @@ class WikipediaService
     end
   end
 
-
-  private
-
-	def process_response(response)
-    wiki_error("bad request", "The query failed, please try again.") if response.code != 200
-		results = JSON.parse(response.body)
-		if results["error"].present?
-			wiki_error(results["error"]["code"], results["error"]["info"])
-    elsif results["query"]["geosearch"].present?
-      get_marker_info results["query"]["geosearch"]
-		else
-			wiki_error
-		end
-	end
- 
-	def get_marker_info(parsed_response)
-
-		parsed_response.collect do |place|
-
-      title = place["title"]
-      lat = place["lat"]
-      lon = place["lon"]
-      id = place["pageid"]
-
-			{
-				title: title, 
-				lat: lat,
-				lon: lon,
-				id: id
-			}
-
-		end
-	end
-
   def get_article_content(articles)
     articles_with_intros = 
     articles.map do |article|
@@ -71,6 +37,40 @@ class WikipediaService
     end
     return articles_with_intros
   end
+
+  private
+
+  def process_response(response)
+    wiki_error("bad request", "The query failed, please try again.") if response.code != 200
+    results = JSON.parse(response.body)
+    if results["error"].present?
+      wiki_error(results["error"]["code"], results["error"]["info"])
+    elsif results["query"]["geosearch"].present?
+      get_marker_info results["query"]["geosearch"]
+    else
+      wiki_error
+    end
+  end
+ 
+  def get_marker_info(parsed_response)
+
+    parsed_response.collect do |place|
+
+      title = place["title"]
+      lat = place["lat"]
+      lon = place["lon"]
+      id = place["pageid"]
+
+      {
+        title: title, 
+        lat: lat,
+        lon: lon,
+        id: id
+      }
+
+    end
+  end
+
 
   def get_wikipedia_article_preview(article_id)
     begin
