@@ -26,4 +26,35 @@ RSpec.describe Api::WikipediaController, :type => :controller do
     end
   end
 
+  context "invalid data presented" do
+
+    describe 'GET #search' do
+      it "returns error message without breaking" do
+        coordinates = "|"
+        get :search, { "location" => coordinates }, format: :json
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
+        expect(JSON.parse(response.body)["results"]["error_message"]).to eq("Invalid coordinate provided")
+      end 
+    end
+
+    describe 'GET #article_preview' do
+      it "returns error message without breaking" do
+        article_id = "0000"
+        get :article_preview, { "article_id" => article_id }, format: :json
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
+        expect(JSON.parse(response.body)["preview"]["error_message"]).to eq("No preview available")
+      end
+
+      it "returns error message without breaking" do
+        article_id = ""
+        get :article_preview, { "article_id" => article_id }, format: :json
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
+        expect(JSON.parse(response.body)["preview"]["error_message"]).to eq("No preview available")
+      end
+    end
+  end
+
 end
