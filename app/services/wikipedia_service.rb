@@ -28,16 +28,7 @@ class WikipediaService
     end
   end
 
-  def get_article_content(articles)
-    articles_with_intros = 
-    articles.map do |article|
-      article_id = article[1][:id]
-      preview = get_wikipedia_article_preview(article_id)
-      article << { intro: preview }
-    end
-    return articles_with_intros
-  end
-
+  
   private
 
   def process_response(response)

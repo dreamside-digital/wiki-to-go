@@ -20,7 +20,7 @@ class Api::BooksController < ApplicationController
     articles = params[:book][:articles]
 
     if book.save
-      # ArticleCreator.new.create_articles(book, articles)
+      book.add_articles(articles)
       render json: { status: :success, book: { id: book.id, title: book.title, path: user_book_path(current_user, book) }}
     else
       render json: { status: :error, error_messages: book.errors.full_messages }
@@ -32,7 +32,7 @@ class Api::BooksController < ApplicationController
     book.update_attributes(book_params)
     articles = params[:book][:articles]
     if book.save
-      # ArticleCreator.new.create_articles(book, articles)
+      book.add_articles(articles)
       render json: { status: :success, book: { id: book.id, title: book.title, path: user_book_path(current_user, book) }}
     else
       render json: { status: :error, error_messages: book.errors.full_messages }
