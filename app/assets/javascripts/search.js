@@ -3,10 +3,11 @@ var Search = function () {
   this.addListeners();
 };
 
-Search.prototype.getCurrentLocation = function () {
-
+Search.prototype.getCurrentLocation = function (e) {
+  e.preventDefault()
   var geolocationError = function(error) {
-    alert("Oops, we couldn't detect your location. ", error);
+    new FlashMessage("We couldn't detect your location. Please make sure geolocation is enabled and try again.", 4000)
+    setup.reset()
   }
 
   var geolocationSuccess = function(position) {
@@ -16,9 +17,12 @@ Search.prototype.getCurrentLocation = function () {
   }
 
   $(".map-loader").addClass("circles-loader");
-  $('.title-area').remove();
+  $('.title-area').hide();
 
-  if (!navigator.geolocation) throw new Error("Geolocation is not available, you can type your location into the search bar instead!");
+  if (!navigator.geolocation) {
+    new FlashMessage("Geolocation is not available on your device. You can type in your location and search that way.", 5000)
+    setup.reset()
+  }
     
   var options = {
     enableHighAccuracy: true,
@@ -26,14 +30,14 @@ Search.prototype.getCurrentLocation = function () {
     timeout: 60000
   };
 
-  navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, options);
+  navigator.geolocation.getCurrentPosition(geolocationSuccess.bind(this), geolocationError.bind(this), options);
 };
 
 
 Search.prototype.getCoordsFromAddress = function(e) {
   event.preventDefault();
   $(".map-loader").addClass("circles-loader");
-  $('.title-area').remove();
+  $('.title-area').hide();
   var query = $(event.currentTarget).find("input")[1].value
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode( { 'address' : query}, function(response, status) {
@@ -42,38 +46,41 @@ Search.prototype.getCoordsFromAddress = function(e) {
       var lon = response[0].geometry.location.lng();
       window.userSearch.startSearch(lat, lon);
     } else {
-      alert("Sorry, there was an error with your search: " + status);
+      new FlashMessage("Sorry, there was an error with your search: " + status, 4000)
+      setup.reset()
     }
   });
 }
 
 Search.prototype.startSearch = function(lat, lon) {
+  window.mapOverlay = new MapOverlay();
+  window.mapOverlay.repositionMap(lat, lon);
+  window.mapOverlay.placeUserMarker(lat, lon);
 
   var location = lat+'|'+lon;
-  var url = 'api.' + window.location.host + '/search'
-  repositionMap(lat, lon);
-  putUserMarker(lat, lon);
 
   $.ajax( {
-     url: url,
+     url: /search/,
      data: { 'location' : location },
      dataType:'json',
      type:'GET',
      success: function(data) {
-       window.searchResults = new Results(data);
-       window.searchResults.showResults()
+       if (data.status == "success") {
+         window.searchResults = new Results(data.results)
+         window.searchResults.showResults()
+       } else {
+        new FlashMessage("We were unable to get any results. Please try again", 4000)
+        setup.reset()
+       }
      }.bind(this),
-     error: this.showError
+     error: function() {
+      new FlashMessage("We were unable to get any results. Please try again", 4000)
+      setup.reset()
+     }
   } );
 };
 
-Search.prototype.showError = function() {
-  alert('boo error');
-};
-
 Search.prototype.addListeners = function () {
-  $('body').on("#get-loc, #get-loc-dropdown", "click", this.getCurrentLocation.bind(this));
-  $('body').on("#search, #search-dropdown", "submit", this.getCoordsFromAddress.bind(this));
+  $("#get-loc, #get-loc-dropdown").on("click", this.getCurrentLocation.bind(this));
+  $("#search, #search-dropdown").on("submit", this.getCoordsFromAddress.bind(this));
 };
-
-window.userSearch = new Search();

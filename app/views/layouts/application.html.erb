@@ -34,7 +34,7 @@
     </div>
   </nav>
 
-
+    <div id="js-flash-message" class="col-md-12 flash-messages hidden"></div>
     <% flash.map do |key, msg| %>
       <%= content_tag :div, msg, id: key, class: 'flash-messages'%>
     <% end %>

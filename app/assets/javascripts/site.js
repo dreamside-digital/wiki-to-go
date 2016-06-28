@@ -154,22 +154,35 @@ var HomePageSetup = function() {
   }
 
   var addListeners = function() {
-    $('body').on("#get-loc-dropdown, #search-dropdown, #show-search-btn, #hide-search-btn", "click", toggleSearchArea);
-    $('body').on("#switch-results-view", "click", toggleResultsView);
+    $('body').delegate("#get-loc-dropdown, #search-dropdown, #show-search-btn, #hide-search-btn", "click", toggleSearchArea);
+    $('body').delegate("#switch-results-view", "click", toggleResultsView);
+  }
+
+  var resetHomePage = function() {
+    $(".map-loader").removeClass("circles-loader");
+    initializeMap()
+    $(".map-area").addClass("map-area-intro");
+    $(".map-area").addClass("col-md-12");
+    $("#info-preview").hide();
+    $(".navbar-secondary").hide();
+    $(".search-area").hide();
+    $('#search-menu').hide();
+    $('.title-area').show();
   }
 
   return {
     addListeners: addListeners,
-    initializeMap: initializeMap
+    initializeMap: initializeMap,
+    reset: resetHomePage
   }
   
 }
 
 $(".site.index").ready(function() {
-  init = new HomePageSetup()
-  init.initializeMap()
-  init.addListeners()
-
+  setup = new HomePageSetup()
+  setup.initializeMap()
+  setup.addListeners()
+  userSearch = new Search();
 });
 
 

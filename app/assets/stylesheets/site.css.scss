@@ -446,7 +446,7 @@ input, button, {
 
 .flash-messages {
 	background: #FF960E;
-	z-index: 5;
+	z-index: 10;
 	color: #FFF;
 	font-size: 16px;
 	text-align: center;
@@ -512,6 +512,10 @@ input, button, {
 			background-color: none;
 		}
 	}
+}
+
+.hidden {
+	display: none !important;
 }
 
 

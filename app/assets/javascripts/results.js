@@ -1,6 +1,6 @@
-var Results = function(data) {
-  this.resultsList = data
-  showResults();
+var Results = function(results) {
+  this.results = results
+  window.userArticleList = new UserSelectedArticles();
 }
 
 Results.prototype.showResults = function() { 
@@ -11,7 +11,10 @@ Results.prototype.showResults = function() {
   $(".search-area").hide();
   $(".map-loader").removeClass("circles-loader");
   $('#search-menu').show();
-  window.mapOverlay = new GmapOverlay();
-  window.mapOverlay.putMarkers(this.resultsList);
-  window.userArticleList = new UserSelectedArticles();
+  window.mapOverlay.putMarkers(this.results);
+  this.generateListView();
 };
+
+Results.prototype.generateListView = function() {
+  
+}
