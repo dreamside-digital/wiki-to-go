@@ -4,6 +4,8 @@
 var UserSelectedArticles = function() {
   resultsList = [];
   selectedArticles = [];
+  userArticleList.listeners();
+  userArticleList.showList(this.markers);
 };
 
 UserSelectedArticles.prototype.listeners = function() {
