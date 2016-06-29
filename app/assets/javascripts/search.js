@@ -13,6 +13,7 @@ Search.prototype.getCurrentLocation = function (e) {
   var geolocationSuccess = function(position) {
     this.lat = position.coords.latitude;
     this.lon = position.coords.longitude;
+    this.preSearch(this.lat, this.lon);
     this.startSearch(this.lat, this.lon);
   }
 
@@ -44,12 +45,16 @@ Search.prototype.getCoordsFromAddress = function(e) {
     if (status == google.maps.GeocoderStatus.OK) {
       var lat = response[0].geometry.location.lat();
       var lon = response[0].geometry.location.lng();
+      window.userSearch.preSearch(lat, lon);
       window.userSearch.startSearch(lat, lon);
     } else {
       new FlashMessage("Sorry, there was an error with your search: " + status, 4000)
       setup.reset()
     }
   });
+}
+
+Search.prototype.preSearch = function(lat, lon) {
 }
 
 Search.prototype.startSearch = function(lat, lon) {

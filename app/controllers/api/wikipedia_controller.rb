@@ -14,7 +14,11 @@ class Api::WikipediaController < ApplicationController
     begin
       wiki_service = WikipediaService.new
       preview = wiki_service.get_article_preview(params[:article_id])
-      render json: { status: :success, :preview => preview }
+      if preview[:error].present?
+        render json: { status: :error, info: preview }
+      else
+        render json: { status: :success, preview: preview }
+      end
     rescue
       render json: { status: :error }
     end
