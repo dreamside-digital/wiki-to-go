@@ -13,6 +13,7 @@ Search.prototype.getCurrentLocation = function (e) {
   var geolocationSuccess = function(position) {
     this.lat = position.coords.latitude;
     this.lon = position.coords.longitude;
+    this.preSearch(this.lat, this.lon);
     this.startSearch(this.lat, this.lon);
   }
 
@@ -44,6 +45,7 @@ Search.prototype.getCoordsFromAddress = function(e) {
     if (status == google.maps.GeocoderStatus.OK) {
       var lat = response[0].geometry.location.lat();
       var lon = response[0].geometry.location.lng();
+      window.userSearch.preSearch(lat, lon);
       window.userSearch.startSearch(lat, lon);
     } else {
       new FlashMessage("Sorry, there was an error with your search: " + status, 4000)
@@ -52,10 +54,13 @@ Search.prototype.getCoordsFromAddress = function(e) {
   });
 }
 
-Search.prototype.startSearch = function(lat, lon) {
+Search.prototype.preSearch = function(lat, lon) {
   window.mapOverlay = new MapOverlay();
   window.mapOverlay.repositionMap(lat, lon);
   window.mapOverlay.placeUserMarker(lat, lon);
+}
+
+Search.prototype.startSearch = function(lat, lon) {
 
   var location = lat+'|'+lon;
 
@@ -66,7 +71,7 @@ Search.prototype.startSearch = function(lat, lon) {
      type:'GET',
      success: function(data) {
        if (data.status == "success") {
-         window.searchResults = new Results(data.results)
+         window.searchResults = new Results(data.results, window.mapOverlay)
          window.searchResults.showResults()
        } else {
         new FlashMessage("We were unable to get any results. Please try again", 4000)

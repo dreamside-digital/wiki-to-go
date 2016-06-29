@@ -1,5 +1,6 @@
 
-var MapOverlay = function() {};
+var MapOverlay = function() {
+};
 
 MapOverlay.prototype.putMarkers = function(markers) {
   if (this.gmapMarkers === undefined) this.gmapMarkers = [];
@@ -47,14 +48,13 @@ MapOverlay.prototype.putMarkers = function(markers) {
     var newCenter = map.getCenter();
     var lat = newCenter.lat();
     var lon = newCenter.lng();
-    var location = lat + '|' + lon;
-    window.userSearch.searchCoords(location);
-    google.maps.event.removeListener(dragendListener);
+    window.userSearch.startSearch(lat, lon)
+    google.maps.event.removeListener(dragendListener)
   });
 };
 
 MapOverlay.prototype.clearMarkers = function() {
-    for (var i = 0; i < this.gmapMarkers.length; i++ ) {
+  for (var i = 0; i < this.gmapMarkers.length; i++ ) {
     this.gmapMarkers[i].setMap(null);
   };
   this.gmapMarkers = [];
