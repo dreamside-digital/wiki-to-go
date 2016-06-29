@@ -130,11 +130,18 @@ UserSelectedArticles.prototype.makeBook = function() {
 
   $.ajax( {
     url: url,
-    data: bookData,
+    data: JSON.stringify(bookData),
+    dataType: 'json',
+    contentType: 'application/json',
     type: 'POST',
     success: function(data) {
-      $("#save-book-modal").modal('hide')
-      new FlashMessage("Your articles have been saved!", 4000)
+      if (data.status == "success") {
+        $("#save-book-modal").modal('hide')
+        new FlashMessage("Your articles have been saved!", 4000)
+      } else {
+        $("#save-book-modal").modal('hide')
+        new FlashMessage("We were unable to save your articles, please try again.", 4000)
+      }
       // $("#selected-articles-list > h3").html(generateBookLink(data.book_path));
     },
     error: function() {

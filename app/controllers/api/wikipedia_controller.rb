@@ -3,7 +3,7 @@ class Api::WikipediaController < ApplicationController
   def search
     begin
       wiki_service = WikipediaService.new
-      results = wiki_service.search_by_location(params[:location])
+      results = wiki_service.search_by_location(params[:location], params[:limit])
       render json: { status: :success, results: results }
     rescue
       render json: { status: :error }

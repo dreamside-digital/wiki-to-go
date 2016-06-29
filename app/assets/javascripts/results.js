@@ -1,7 +1,7 @@
 var Results = function(results, overlay) {
   this.results = results
   this.overlay = overlay
-  window.selectedArticles = new UserSelectedArticles(results)
+  window.userSelectedArticles = new UserSelectedArticles(results)
 }
 
 Results.prototype.showResults = function() { 

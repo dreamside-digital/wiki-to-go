@@ -60,13 +60,13 @@ Search.prototype.preSearch = function(lat, lon) {
   window.mapOverlay.placeUserMarker(lat, lon);
 }
 
-Search.prototype.startSearch = function(lat, lon) {
+Search.prototype.startSearch = function(lat, lon, limit=50) {
 
   var location = lat+'|'+lon;
 
   $.ajax( {
      url: /search/,
-     data: { 'location' : location },
+     data: { 'location' : location, 'limit' : limit },
      dataType:'json',
      type:'GET',
      success: function(data) {

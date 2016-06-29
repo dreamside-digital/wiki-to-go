@@ -16,25 +16,27 @@ class Api::BooksController < ApplicationController
   end
 
   def create
-    book = current_user.books.new(book_params)
-    articles = params[:book][:articles]
-
-    if book.save
+    begin
+      book = current_user.books.create(title: book_params[:title])
+      articles = book_params[:articles]
       book.add_articles(articles)
+      book.save!
       render json: { status: :success, book: { id: book.id, title: book.title, path: user_book_path(current_user, book) }}
-    else
+    rescue
+      book.destroy
       render json: { status: :error, error_messages: book.errors.full_messages }
     end
   end
 
   def update
-    book = current_user.books.find(params[:id])
-    book.update_attributes(book_params)
-    articles = params[:book][:articles]
-    if book.save
+    begin
+      book = current_user.books.find(params[:id])
+      book.update_attributes(title: book_params[:title])
+      articles = book_params[:articles]
       book.add_articles(articles)
+      book.save!
       render json: { status: :success, book: { id: book.id, title: book.title, path: user_book_path(current_user, book) }}
-    else
+    rescue
       render json: { status: :error, error_messages: book.errors.full_messages }
     end
   end
@@ -63,7 +65,7 @@ class Api::BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title)
+    params.require(:book).permit(:title, :articles => [:title, :lat, :lon, :id])
   end
 
   def get_marker_info(articles)

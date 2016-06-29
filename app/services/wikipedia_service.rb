@@ -6,9 +6,9 @@ class WikipediaService
   COMMON_PARAMS = '?action=query&format=json'
   HEADER = {'Api-User-Agent' => 'WikiToGo (sharon.peishan.kennedy@gmail.com)'}
 
-  def search_by_location(location)
+  def search_by_location(location, limit=50)
     begin
-      url = ROOT_URL + COMMON_PARAMS + "&list=geosearch&gslimit=50&gsradius=10000&gscoord=#{CGI::escape(location)}"
+      url = ROOT_URL + COMMON_PARAMS + "&list=geosearch&gslimit=#{limit||50}&gsradius=10000&gscoord=#{CGI::escape(location)}"
       response = HTTParty.get(url, headers: HEADER)
     rescue
       wiki_error
