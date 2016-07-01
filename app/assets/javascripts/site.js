@@ -1,5 +1,11 @@
 var HomePageSetup = function() {
 
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   var initializeMap = function() {
 
     var styles = [

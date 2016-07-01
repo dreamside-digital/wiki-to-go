@@ -25,7 +25,7 @@
       </div>
 
       <div class="collapse navbar-collapse" id="navbar-collapse">
-        <%if session[:name] %>
+        <%if user_signed_in? %>
           <%= render 'sessions/logout' %>
         <% else %>
           <%= render 'sessions/login' %>
@@ -45,7 +45,7 @@
 
 <%= render 'footer' unless @disable_footer%>
 
-<%if current_user %>
+<%if user_signed_in? %>
   <script>
       window.UserId = <%= current_user.id %>
   </script>

@@ -3,13 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   before_action :set_user_books
   protect_from_forgery with: :null_session
-  helper_method :current_user
-
-  def current_user
-  	if session[:user_id]
-  	  @current_user ||= User.find session[:user_id]
-  	end
-  end
 
   def set_user_books
     if current_user

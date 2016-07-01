@@ -58,7 +58,7 @@
   </div>
   <div id="info-preview" class="col-md-3 col-sm-3 col-xs-12 intro-text" style="display: none;">
     <h3>See something interesting?</h3>
-    <% if current_user %>
+    <% if user_signed_in? %>
     <%= render 'intro_loggedin' %>
     <% else %>
     <%= render 'intro_loggedout' %>
