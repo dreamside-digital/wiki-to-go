@@ -13,10 +13,10 @@ RSpec.describe RegistrationsController, :type => :controller do
 
     it "creates a new user when the corrent data is entered" do
       @request.env["devise.mapping"] = Devise.mappings[:user]
-      user_data = { user: {first_name: "David", last_name: "Bowie", email: "d@bowie.com", password: "password", password_confirmation: "password" }}
+      user_data = { user: FactoryGirl.attributes_for(:user) }
       post :create, user_data, format: :json
-      binding.pry
-      expect(User.last.first_name).to eq "David"
+      expect(response.content_type).to be('application/json')
+      expect(User.last.first_name).to eq user_data[:user][:first_name]
       expect(JSON.parse(response.body)["id"]).to be_present
       # new_user = User.last
       # expect(new_user.last_name).to eq("Bowie")

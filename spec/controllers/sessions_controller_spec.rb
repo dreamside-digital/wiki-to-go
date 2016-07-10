@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe SessionsController, :type => :controller do
 
   describe '#create' do
-    before :each do
-      User.make(:name => 'user', :email => 'user@email.com', :password => 'password', :password_confirmation => 'password')
-    end
+    
+    let(:user) { FactoryGirl.create(:user) }
 
     it "should set a session when a user registers" do
       expect(session[:name]).to not_be nil

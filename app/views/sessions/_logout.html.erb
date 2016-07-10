@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav navbar-right">
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle menu-white-text" data-toggle="dropdown" aria-expanded="false"> <%= current_user.name %>'s Wiki Collections <span class="caret"></span></a>
+    <a href="#" class="dropdown-toggle menu-white-text" data-toggle="dropdown" aria-expanded="false"> <%= current_user.first_name %>'s Wiki Collections <span class="caret"></span></a>
       <ul class="dropdown-menu"><% @user_wikis.each do |wiki| %>
           <li>
             <a href="<%= user_book_path(@user, wiki) %>">
@@ -19,5 +19,5 @@
         <li><%= link_to "Edit my profile", root_path %></li>
       </ul>
   </li>
-  <li><%= link_to "Logout", logout_path, method: :delete, class: "menu-white-text" %></li>
+  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, remote: true, class: "menu-white-text", id: 'logout' %></li>
 </ul>

@@ -188,6 +188,7 @@ $(".site.index").ready(function() {
   setup = new HomePageSetup()
   setup.initializeMap()
   setup.addListeners()
+  userAccount = new UserAccount()
   userSearch = new Search();
 });
 
