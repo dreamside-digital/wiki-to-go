@@ -18,7 +18,7 @@
           </div>
 
           <div class="user-profile-registration-form-fields">
-            <%= form_for @user, id: "registration-form", remote: true do |f| %>
+            <%= form_for "user", :url => user_registration_path, method: "POST", id: "registration-form", remote: true do |f| %>
               <div class="form-group">
                 <%= f.text_field :first_name, placeholder: "First name", class: "form-control" %>
               </div>
