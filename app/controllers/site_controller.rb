@@ -6,10 +6,8 @@ class SiteController < ApplicationController
 	def index
 		@results
     @book = Book.new
-    if current_user
-      @user = current_user
-      @user_wikis = @user.books.order(updated_at: :desc).limit(5)
-    end
+    @user = user_signed_in? ? current_user : User.new
+    @user_wikis = current_user.books.order(updated_at: :desc).limit(5) if user_signed_in?
 	end
 
 end

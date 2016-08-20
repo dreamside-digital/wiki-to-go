@@ -35,5 +35,7 @@ module Wikitogo
         g.helper = false
       end
     config.autoload_paths += %W(\#{config.root}/lib)
+
+    config.to_prepare { DeviseController.respond_to :html, :json }
   end
 end

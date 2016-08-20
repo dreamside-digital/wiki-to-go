@@ -1,5 +1,11 @@
 var HomePageSetup = function() {
 
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   var initializeMap = function() {
 
     var styles = [
@@ -182,6 +188,7 @@ $(".site.index").ready(function() {
   setup = new HomePageSetup()
   setup.initializeMap()
   setup.addListeners()
+  userAccount = new UserAccount()
   userSearch = new Search();
 });
 

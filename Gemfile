@@ -34,6 +34,7 @@ gem 'font-awesome-sass'
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
 gem "figaro"
+gem 'devise'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

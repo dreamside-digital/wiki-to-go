@@ -1,22 +1,22 @@
-class SessionsController < ApplicationController
+class SessionsController < Devise::SessionsController
+	respond_to :json
+	prepend_before_action :require_no_authentication, only: [:create, :new]
 
 	def create
-
-		user = User.find_by(email: params[:email])
-
-		if user && user.authenticate(params[:password])
-			session[:user_id] = user.id
-			session[:name] = user.name
-			redirect_to root_path
-		else
-			flash[:error] = "Login was not successful."
-			redirect_to root_path
-		end
+    self.resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
+    sign_in(resource_name, resource)
+    yield resource if block_given?
+    render json: { status: :success, user: resource }, status: 200
 	end
 
 	def destroy
-		session.clear
-		redirect_to root_path
+		signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+    yield if block_given?
+  	render json: signed_out ? {status: :success} : {status: :unprocessable_entity}
+	end
+
+	def failure
+		render json: { message: "Unable to log in" }, status: 401
 	end
 
 end
