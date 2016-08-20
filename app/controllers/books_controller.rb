@@ -18,7 +18,7 @@ class BooksController < ApplicationController
 	end
 
 	def create
-		@user = User.find params[:user_id]
+		@user = current_user
 
 		if @user.books.find_by(title: params[:book][:title]) != nil
 			@book = @user.books.find_by(title: params[:book][:title])

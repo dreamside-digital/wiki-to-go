@@ -9,6 +9,14 @@ var UserSelectedArticles = function() {
 UserSelectedArticles.prototype.listeners = function() {
   $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
   $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
+  $("body").on("click", "#make-book", this.makeBook.bind(this));
+  $("body").on("click", ".show-preview", function(e) {
+    var pageid = $(e.currentTarget).data("pageid")
+    var gmapMarker = window.mapOverlay.gmapMarkers.filter(function(element) {
+      return element.metadata.id == pageid
+    })[0]
+    previewWindow.getWikiPreview(gmapMarker)
+  })
 };
 
 UserSelectedArticles.prototype.changeMarkerColour = function(e) {
@@ -37,11 +45,6 @@ UserSelectedArticles.prototype.resetMarkerColour = function(e) {
 UserSelectedArticles.prototype.showList = function(results) {
   resultsList = results;
   $("#intro-text").show();
-  var self = this;
-  $('#make-book').unbind('submit').bind('submit', function(event) {
-    event.preventDefault();
-    self.makeBook();
-  });
 };
 
 UserSelectedArticles.prototype.addArticle = function(event) {
@@ -52,26 +55,32 @@ UserSelectedArticles.prototype.addArticle = function(event) {
 
     if (!this.articleAlreadySelected(articleID)) {
 
-      $(".user-selected-articles").show();
       var article = resultsList.filter(function(element) { 
         return element["id"] == articleID;
       })[0];
-      var newListItem = document.createElement("li");
-      var newGlyphicon = document.createElement("span");
-      var self = this;
-
-      newGlyphicon.setAttribute("class", "glyphicon glyphicon-remove");
-      newGlyphicon.setAttribute("aria-hidden", "true");
-      newGlyphicon.setAttribute("id", articleID);
-      newGlyphicon.addEventListener('click', self.removeArticle);
-      newListItem.innerHTML = article.title;
-      $('#selected-results ul').append($(newListItem).append(newGlyphicon));
+      var newListItem = this.makeArticleListItem(article)
+      selectedArticles.push(article);
+      $('.current-collection ul').prepend(newListItem);
+      $('#article-count').html("" + selectedArticles.length)
       $(event.currentTarget).closest('li').remove();
 
-      selectedArticles.push(article);
+      if ($('.current-collection ul').find('#placeholder')) {
+        $('#placeholder').hide()
+        $('#save-articles-collection').show()
+      }
+
     }
   };
 };
+
+UserSelectedArticles.prototype.makeArticleListItem = function(article) {
+  var link = $("<span>", { class: "col-xs-11" })
+              .append($("<a>", { href: "#", style: "font-size: 14px, color: #000", text: article.title }))
+  var glyphicon = $("<span>", { class: "glyphicon glyphicon-remove col-xs-1", click: this.removeArticle })
+  var listItem = $("<li>", { class: "selected-article row" }).data("articleID", article.id)
+  return listItem.append(link).append(glyphicon)
+
+}
 
 UserSelectedArticles.prototype.articleAlreadySelected = function(articleID) {
   var existingArticle = _.find(selectedArticles, function(article) { 
@@ -85,7 +94,8 @@ UserSelectedArticles.prototype.articleAlreadySelected = function(articleID) {
 }
 
 UserSelectedArticles.prototype.removeArticle = function(event) { 
-  var articleID = event.currentTarget.id;
+  event.preventDefault();
+  var articleID = $(event.currentTarget).closest(".selected-article").data("articleID")
   var article = resultsList.filter(function(element) { 
     return element["id"] == articleID;
   })[0];
@@ -95,6 +105,12 @@ UserSelectedArticles.prototype.removeArticle = function(event) {
       selectedArticles.splice(index, 1);
   } else {
     selectedArticles.pop();
+  }
+
+  $('#article-count').html("" + selectedArticles.length)
+  if (selectedArticles.length < 1) {
+    $('#placeholder').show()
+    $('#save-articles-collection').hide()
   }
 };
 
@@ -121,7 +137,7 @@ UserSelectedArticles.prototype.makeBook = function() {
     success: function(data) {
       alert("Your personal wiki has been saved!");
       $("#selected-articles-list > h3").html(generateBookLink(data.book_path));
-      newPersonalWiki = new Book();
+      $("#save-book-modal").modal('hide')
     },
     error: function() {
       alert("Your personal wiki was not saved. Try again.")
