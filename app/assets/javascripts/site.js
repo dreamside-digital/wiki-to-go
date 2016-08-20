@@ -1,4 +1,142 @@
-$(function() {
+var HomePageSetup = function() {
+
+  var initializeMap = function() {
+
+    var styles = [
+      {
+          "featureType": "administrative",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              },
+              {
+                  "hue": "#0066ff"
+              },
+              {
+                  "saturation": 74
+              },
+              {
+                  "lightness": 80
+              }
+          ]
+      },
+      {
+          "featureType": "poi",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              }
+          ]
+      },
+      {
+          "featureType": "road",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              }
+          ]
+      },
+      {
+          "featureType": "road.highway",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              },
+              {
+                  "weight": 0.6
+              },
+              {
+                  "saturation": -81
+              },
+              {
+                  "lightness": 41
+              }
+          ]
+      },
+      {
+          "featureType": "road.highway",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "visibility": "on"
+              }
+          ]
+      },
+      {
+          "featureType": "road.arterial",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "off"
+              }
+          ]
+      },
+      {
+          "featureType": "road.local",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "on"
+              }
+          ]
+      },
+      {
+          "featureType": "transit",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              }
+          ]
+      },
+      {
+          "featureType": "water",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              },
+              {
+                  "color": "#5f94ff"
+              },
+              {
+                  "lightness": 26
+              },
+              {
+                  "gamma": 2.6
+              }
+          ]
+      }
+    ]
+
+    var mapOptions = {
+      center: new google.maps.LatLng(41.38,2.18),
+      zoom: 3,
+      scrollwheel: false, 
+      zoomControl: true,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.SMALL,
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+      },
+    };
+
+    window.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    window.map.setOptions({styles: styles});
+
+  };
 
   function toggleSearchArea(e) {
     e.preventDefault();
@@ -15,113 +153,36 @@ $(function() {
     return false
   }
 
-  var GetSearchData = function () {
-    this.addListeners();
-  };
-
-	GetSearchData.prototype.getLocation = function () {
-
-    $(".map-loader").addClass("circles-loader");
-    $('.title-area').remove();  
-
-		if (!navigator.geolocation) throw new Error("Geolocation is not available, you can type your location into the search bar instead!");
-			
-		var options = {
-			enableHighAccuracy: true,
-			maximumAge: 30000,
-			timeout: 60000
-		};
-
-		navigator.geolocation.getCurrentPosition(this.geolocateSuccess.bind(this),
-                                             this.geolocateError.bind(this),
-                                             options);
-	};
-
-	GetSearchData.prototype.addListeners = function () {
-    $("#get-loc, #get-loc-dropdown").on("click", this.getLocation.bind(this));
-    $("#search, #search-dropdown").on("submit", this.startSearch.bind(this));
-    $("#get-loc-dropdown").on("click", toggleSearchArea);
-    $("#search-dropdown").on("submit", toggleSearchArea);
-    $("#show-search-btn, #hide-search-btn").on("click", toggleSearchArea);
-    $("#switch-results-view").on("click", toggleResultsView);
-  };
-
-  GetSearchData.prototype.startSearch = function(event) {
-    event.preventDefault();
-    $(".map-loader").addClass("circles-loader");
-    var query = $(event.currentTarget).find("input")[1].value
-    this.searchAddress(query);
-    $('.title-area').remove();
+  var addListeners = function() {
+    $('body').delegate("#get-loc-dropdown, #search-dropdown, #show-search-btn, #hide-search-btn", "click", toggleSearchArea);
+    $('body').delegate("#switch-results-view", "click", toggleResultsView);
   }
 
-  GetSearchData.prototype.searchAddress = function(query) {
-    var self = this;
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode( { 'address' : query}, function(response, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var lat = response[0].geometry.location.lat();
-        var lon = response[0].geometry.location.lng();
-        var location = lat +'|'+ lon;
-        window.userSearch.searchCoords(location);
-        repositionMap(lat,lon);
-      } else {
-        alert("Sorry, there was an error with your search: " + status);
-      }
-    });
-  }
-
-  GetSearchData.prototype.searchCoords = function(location) {
-
-    var userLoc = { 'location' : location };
-
-    $.ajax( {
-       url: /search/,
-       data: userLoc,
-       dataType:'html',
-       type:'GET',
-       headers: { 'Api-User-Agent': 'WikiToGo (sharon.peishan.kennedy@gmail.com)' },
-       success: function(data) {
-         this.showResults(data);
-       }.bind(this),
-       error: this.showError
-    } );
-  };
-
-  GetSearchData.prototype.showResults = function(data) { 
-    $(".map-area").removeClass("map-area-intro");
-    $(".map-area").addClass("col-md-9 col-sm-9 col-xs-12");
-    $("#info-preview").show();
-    $(".navbar-secondary").show();
-    $(".search-area").hide();
+  var resetHomePage = function() {
     $(".map-loader").removeClass("circles-loader");
-    $("#results-list").html(data);
-    $('#search-menu').show();
-    this.markers = $(".results").data("results");
-    window.mapOverlay.putMarkers(this.markers);
-    userArticleList.showList(this.markers);
-    userArticleList.listeners();
-  };
+    initializeMap()
+    $(".map-area").addClass("map-area-intro");
+    $(".map-area").addClass("col-md-12");
+    $("#info-preview").hide();
+    $(".navbar-secondary").hide();
+    $(".search-area").hide();
+    $('#search-menu').hide();
+    $('.title-area').show();
+  }
 
-  GetSearchData.prototype.showError = function() {
-    alert('boo error');
-  };
+  return {
+    addListeners: addListeners,
+    initializeMap: initializeMap,
+    reset: resetHomePage
+  }
+  
+}
 
-  GetSearchData.prototype.geolocateSuccess = function(position) {
-    this.lat = position.coords.latitude;
-    this.lon = position.coords.longitude;
-    var location = this.lat+'|'+this.lon;
-    this.searchCoords(location);
-    repositionMap(this.lat, this.lon);
-    putUserMarker(this.lat, this.lon);
-  };
-
-  GetSearchData.prototype.geolocateError = function(error) {
-    alert("Oops, we couldn't detect your location. ", error);
-  };
-
-  window.userSearch = new GetSearchData();
-  window.mapOverlay = new GmapOverlay();
-
+$(".site.index").ready(function() {
+  setup = new HomePageSetup()
+  setup.initializeMap()
+  setup.addListeners()
+  userSearch = new Search();
 });
 
 

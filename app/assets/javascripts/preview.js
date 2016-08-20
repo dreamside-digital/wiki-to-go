@@ -8,9 +8,9 @@ $(".site.index").ready(function() {
     var $loader = $("<div>", { class: "circles-loader", html: "Loading..." });
     $("#info-preview").append($loader);
 
-    var url = '/results'
+    var url = /preview/
     var markerData = {
-      articleID: marker.metadata.id
+      article_id: marker.metadata.id
     }
     var self = this
 
@@ -18,8 +18,12 @@ $(".site.index").ready(function() {
       url: url,
       data: markerData,
       type: 'GET',
-      success: function(data){
-        self.renderWikiInfowindow(data, marker);
+      success: function(response){
+        if (response.status == "success") {
+          self.renderWikiInfowindow(response.preview, marker);
+        } else {
+          self.renderNoResults(marker)
+        }
       },
       error: function(){
         self.renderNoResults(marker);
@@ -28,13 +32,12 @@ $(".site.index").ready(function() {
     } );
   };
 
-  WikiPreview.prototype.renderWikiInfowindow = function(response, marker) {
+  WikiPreview.prototype.renderWikiInfowindow = function(preview, marker) {
     $("#info-preview").removeClass("intro-text");
-
     var $imgContainer = $("<div>", { class: "img-preview" });
-    var $img = $("<img>", { src: response.image });
+    var $img = $("<img>", { src: preview.image });
     var $title = $("<h4>", { html: marker.title });
-    var $preview = $("<p>", { html: wordCount(response.preview) });
+    var $preview = $("<p>", { html: wordCount(preview.text) });
     var $readMore = $("<a>", { href: "https://en.wikipedia.org/?curid=" + marker.metadata.id, html: "Read more" })
     var $saveButton = $("<input>", { 
       class: "save-article btn highlight-btn", 

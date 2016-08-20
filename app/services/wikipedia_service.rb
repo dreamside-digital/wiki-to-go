@@ -2,66 +2,91 @@ class WikipediaService
 
   include HTTParty
   attr_accessor :results
+  ROOT_URL = 'http://en.wikipedia.org/w/api.php'
+  COMMON_PARAMS = '?action=query&format=json'
+  HEADER = {'Api-User-Agent' => 'WikiToGo (sharon.peishan.kennedy@gmail.com)'}
 
-  def search(params)
-    response = search_coords(params[:location])
+  def search_by_location(location, limit=50)
+    begin
+      url = ROOT_URL + COMMON_PARAMS + "&list=geosearch&gslimit=#{limit||50}&gsradius=10000&gscoord=#{CGI::escape(location)}"
+      response = HTTParty.get(url, headers: HEADER)
+    rescue
+      wiki_error
+    end
     process_response(response)
   end
 
-  def search_coords(location)
-		response = HTTParty.get('http://en.wikipedia.org/w/api.php?action=query&format=json&list=geosearch&gslimit=50&gsradius=10000&gscoord=' + CGI::escape(location) )
-	end
+  def get_article_preview(article_id)
+    begin
+      {
+        article_id: article_id,
+        text: get_wikipedia_article_preview(article_id),
+        image: get_image_thumbnail(article_id)
+      }
+    rescue
+      wiki_error("Invalid page id", "No preview available")
+    end
+  end
 
-	def process_response(response)
-		results = JSON.parse(response.body)
+  
+  private
 
-		if response.code != 200
-			render 'no_results'
-		elsif results["error"].present?
-			render 'no_results'
-			flash[:search_error] = results["error"]["info"]
-		else
-			get_marker_info results["query"]["geosearch"]
-		end
-	end
+  def process_response(response)
+    wiki_error("bad request", "The query failed, please try again.") if response.code != 200
+    results = JSON.parse(response.body)
+    if results["error"].present?
+      wiki_error(results["error"]["code"], results["error"]["info"])
+    elsif results["query"]["geosearch"].present?
+      get_marker_info results["query"]["geosearch"]
+    else
+      wiki_error
+    end
+  end
  
-	def get_marker_info(parsed_response)
+  def get_marker_info(parsed_response)
 
-		parsed_response.collect do |place|
+    parsed_response.collect do |place|
 
       title = place["title"]
       lat = place["lat"]
       lon = place["lon"]
       id = place["pageid"]
 
-			{
-				title: title, 
-				lat: lat,
-				lon: lon,
-				id: id
-			}
+      {
+        title: title, 
+        lat: lat,
+        lon: lon,
+        id: id
+      }
 
-		end
-	end
-
-  def get_article_content(articles)
-    articles_with_intros = 
-    articles.map do |article|
-      articleID = article[1][:id]
-      preview = get_wikipedia_article_preview(articleID)
-      article << { intro: preview }
     end
-    return articles_with_intros
   end
 
-  def get_wikipedia_article_preview(articleID)
-    response = HTTParty.get('http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids=' + articleID)
-    response["query"]["pages"][articleID]["extract"]
+
+  def get_wikipedia_article_preview(article_id)
+    begin
+      url = ROOT_URL + COMMON_PARAMS + "&prop=extracts&exintro=&explaintext=&pageids=#{article_id}"
+      response = HTTParty.get(url, headers: HEADER)
+      response["query"]["pages"][article_id]["extract"]
+    rescue
+      raise
+    end
   end
 
-  def get_image_thumbnail(articleID)
-    response = HTTParty.get("http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&pithumbsize=300&pageids=" + articleID)
-    response["query"]["pages"][articleID]["thumbnail"]["source"]
+  def get_image_thumbnail(article_id)
+    begin
+      url = ROOT_URL + COMMON_PARAMS + "&prop=pageimages&pithumbsize=300&pageids=#{article_id}"
+      response = HTTParty.get(url, headers: HEADER)
+      response["query"]["pages"][article_id]["thumbnail"]["source"]
+    rescue
+      raise
+    end
+  end
+
+  def wiki_error(error="Unknown error", message="The query failed, please try again.")
+    caller = caller_locations(1,1)[0].label
+    { error: "#{error} from #{caller}", error_message: message }
   end
 
 end
+

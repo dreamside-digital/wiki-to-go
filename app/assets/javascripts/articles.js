@@ -1,16 +1,17 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-var UserSelectedArticles = function() {
-  resultsList = [];
+var UserSelectedArticles = function(results) {
+  resultsList = results;
   selectedArticles = [];
+  this.listeners();
 };
 
 UserSelectedArticles.prototype.listeners = function() {
-  $("body").off("click").on('click', ".save-article", this.addArticle.bind(this));
-  $("body").on("click", ".save-article", this.changeMarkerColour.bind(this));
-  $("body").on("click", "#make-book", this.makeBook.bind(this));
-  $("body").on("click", ".show-preview", function(e) {
+  $("body").delegate(".save-article", "click", this.addArticle.bind(this));
+  $("body").delegate(".save-article", "click", this.changeMarkerColour.bind(this));
+  $("body").delegate("#make-book", "click", this.makeBook.bind(this));
+  $("body").delegate(".show-preview", "click", function(e) {
     var pageid = $(e.currentTarget).data("pageid")
     var gmapMarker = window.mapOverlay.gmapMarkers.filter(function(element) {
       return element.metadata.id == pageid
@@ -71,6 +72,7 @@ UserSelectedArticles.prototype.addArticle = function(event) {
 
     }
   };
+  return false
 };
 
 UserSelectedArticles.prototype.makeArticleListItem = function(article) {
@@ -86,11 +88,7 @@ UserSelectedArticles.prototype.articleAlreadySelected = function(articleID) {
   var existingArticle = _.find(selectedArticles, function(article) { 
     return article.id == articleID 
   })
-  if (existingArticle) {
-    return true
-  } else {
-    return false
-  }
+  return existingArticle !== undefined
 }
 
 UserSelectedArticles.prototype.removeArticle = function(event) { 
@@ -132,18 +130,24 @@ UserSelectedArticles.prototype.makeBook = function() {
 
   $.ajax( {
     url: url,
-    data: bookData,
+    data: JSON.stringify(bookData),
+    dataType: 'json',
+    contentType: 'application/json',
     type: 'POST',
     success: function(data) {
-      alert("Your personal wiki has been saved!");
-      $("#selected-articles-list > h3").html(generateBookLink(data.book_path));
-      $("#save-book-modal").modal('hide')
+      if (data.status == "success") {
+        $("#save-book-modal").modal('hide')
+        new FlashMessage("Your articles have been saved!", 4000)
+      } else {
+        $("#save-book-modal").modal('hide')
+        new FlashMessage("We were unable to save your articles, please try again.", 4000)
+      }
+      // $("#selected-articles-list > h3").html(generateBookLink(data.book_path));
     },
     error: function() {
-      alert("Your personal wiki was not saved. Try again.")
+      $("#save-book-modal").modal('hide')
+      new FlashMessage("We were unable to save your articles, please try again.", 4000)
     }
   } );
 
 }
-
-userArticleList = new UserSelectedArticles();
