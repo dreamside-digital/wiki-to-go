@@ -9,33 +9,32 @@ RSpec.describe RegistrationsController, :type => :controller do
   before(:each) do 
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
-    
-
-  describe "GET #new" do
-    it "renders the registration form" do
-      get :new
-      expect(response).to render_template("new")
-    end
-  end
 
   describe "POST #create" do
 
-    it "creates a new user when valid params are provided" do
+    it "creates a new user and sets a user session when valid params are provided" do
       user_data = { user: user_attrs }
       post :create, user_data, format: :json
 
-      expect(response.content_type).to eq('application/json')
-      expect(User.last.first_name).to eq user_data[:user][:first_name]
-      expect(JSON.parse(response.body)["user"]["id"]).to be_present
+      expected_status = 200
+      expected_user_name = user_data[:user][:first_name]
+      expected_email = user_attrs[:email]
+
+      assert response.success?
+      assert_equal expected_status, response.status
+      assert_equal expected_user_name, User.last.first_name
+      assert_equal expected_email, @controller.current_user.email
+      assert JSON.parse(response.body)["user"]["id"]
     end
 
     it 'returns an error if params are invalid' do
       user_data = { user: user_attrs.except(:email) }
       post :create, user_data, format: :json
 
-      expect(response.content_type).to eq('application/json')
-      expect(JSON.parse(response.body)["user"]["id"]).to be_nil
-      expect(JSON.parse(response.body)["status"]).to eq("unprocessable_entity")
+      expected_status = 500
+
+      assert_equal expected_status, response.status
+      assert (JSON.parse(response.body)["user"]["id"]).nil?
     end
 
     it 'returns a message if user is inactive for authentication' do
@@ -43,7 +42,11 @@ RSpec.describe RegistrationsController, :type => :controller do
       allow_any_instance_of(User).to receive(:active_for_authentication?).and_return(false)
       post :create, user_data, format: :json
 
-      expect(JSON.parse(response.body)["message"]).to eq("inactive")
+      expected_status = 200
+      expected_message = "inactive"
+
+      assert_equal expected_status, response.status
+      assert_equal expected_message, JSON.parse(response.body)["message"]
     end
   end
 
@@ -83,7 +86,7 @@ RSpec.describe RegistrationsController, :type => :controller do
       put :update, user: user_data, format: :json
 
       expected_error = 'You need to sign in or sign up before continuing.'
-      expect(JSON.parse(response.body)["error"]).to eq(expected_error)
+      assert_equal expected_error, JSON.parse(response.body)["error"]
     end
   end
 
@@ -106,7 +109,7 @@ RSpec.describe RegistrationsController, :type => :controller do
       delete :destroy, format: :json
 
       expected_error = 'You need to sign in or sign up before continuing.'
-      expect(JSON.parse(response.body)["error"]).to eq(expected_error)
+      assert_equal expected_error, JSON.parse(response.body)["error"]
     end
   end
 

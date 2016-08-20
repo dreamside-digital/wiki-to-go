@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.persisted?
       if resource.active_for_authentication?
         sign_up(resource_name, resource)
-        render json: { user: resource, status: :success }
+        render json: { user: resource, status: :success }, status: 200
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!
@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords resource
       set_minimum_password_length
-      render json: { user: resource, status: :unprocessable_entity }
+      render json: { user: resource, status: :unprocessable_entity }, status: 500
     end
   end
 
@@ -30,14 +30,14 @@ class RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     if resource_updated
       # bypass_sign_in resource, scope: resource_name
-      render json: { user: resource, status: :success }
+      render json: { user: resource, status: :success }, status: 200
     else
       clean_up_passwords resource
       render json: { 
         user: resource, 
         status: :unprocessable_entity, 
         message: resource.errors.full_messages 
-      }
+      }, status: 500
     end
   end
 
@@ -46,8 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
     resource.destroy
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
     yield resource if block_given?
-    # respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
-    render json: { user: resource, status: :success }
+    render json: { user: resource, status: :success }, status: 200
   end
 
   private
