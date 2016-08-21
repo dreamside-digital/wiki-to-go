@@ -13,7 +13,6 @@
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
 
-  <% current_session = user_signed_in? ? current_user : false %>
   <%= react_component('App') %>
 
   <div id="js-flash-message" class="col-md-12 flash-messages hidden"></div>

@@ -11,6 +11,7 @@ class RegistrationModal extends React.Component {
         password_confirmation: $('#passwordConfirmation').val(),
       }
     }
+    const component = this;
 
     $.ajax({
       url: 'users',
@@ -21,7 +22,7 @@ class RegistrationModal extends React.Component {
       success: function(data) {
         if (data.status == 'success') {
           $('#registration-modal').modal('hide');
-          this.props.updateUser(data.user);
+          component.props.updateUser(data.user);
           new FlashMessage("Welcome to WikiToGo!", 4000);
         } else {
           $('#registration-modal').modal('hide');
@@ -74,7 +75,7 @@ class RegistrationModal extends React.Component {
               </div>
               </div> 
             <div className="modal-footer">
-              <button className="btn" onClick={this._handleSubmitRegistration}>Save</button>
+              <button className="btn" onClick={this._handleSubmitRegistration.bind(this)}>Save</button>
             </div>
           </div>
         </div>
