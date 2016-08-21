@@ -16,4 +16,7 @@
 //= require jquery-readyselector
 //= require jquery-smooth-scroll
 //= require underscore
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

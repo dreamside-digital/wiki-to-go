@@ -12,45 +12,21 @@
   <link href='https://fonts.googleapis.com/css?family=Oswald:300,700' rel='stylesheet' type='text/css'>
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
-    
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">Wiki To Go</a>
-      </div>
 
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <%if user_signed_in? %>
-          <%= render 'sessions/logout' %>
-        <% else %>
-          <%= render 'sessions/login' %>
-        <% end %>
-      </div>
-    </div>
-  </nav>
+  <% current_session = user_signed_in? ? current_user : false %>
+  <%= react_component('App') %>
 
-    <div id="js-flash-message" class="col-md-12 flash-messages hidden"></div>
-    <% flash.map do |key, msg| %>
-      <%= content_tag :div, msg, id: key, class: 'flash-messages'%>
-    <% end %>
+  <div id="js-flash-message" class="col-md-12 flash-messages hidden"></div>
+  <% flash.map do |key, msg| %>
+    <%= content_tag :div, msg, id: key, class: 'flash-messages'%>
+  <% end %>
 
-    <%= yield %>
+  <%= yield %>
 
 </body>
 
 <%= render 'footer' unless @disable_footer%>
 
-<%if user_signed_in? %>
-  <script>
-      window.UserId = <%= current_user.id %>
-  </script>
-<% end %>
 
  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
