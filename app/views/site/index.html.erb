@@ -1,24 +1,4 @@
-
-<div class="initial-search col-md-12">
-  <div class="title-area">
-    <h1><span class="light">Wiki </span><span class="heavy">To Go</span></h1>
-    <ul class="list-unstyled">
-      <li><h3>search wikipedia by location</h3></li>
-      <li><h3>save your favourite articles</h3></li>
-      <li><h3>export your saved articles to take with you</h3></li>
-    </ul>
-
-    <div class="search-coords">
-
-      <%= button_tag id: "get-loc", class: "btn btn-default highlight-btn" do %>
-        Search near you <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-      <% end %>
-      <%= form_tag("/search", method: "get", id: 'search', class: 'form-inline') do %>
-        <%= text_field_tag :query, nil, placeholder: "Search by location", id: 'search-query' %>
-      <%end%>
-    </div>
-  </div>
-</div>
+<%= react_component('SecondaryNavbar') %>
 
 <div id="search-menu">
   <%= render 'search_menu' %>

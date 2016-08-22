@@ -20,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
       render json: { user: resource, 
         status: :unprocessable_entity,
         errors: resource.errors.full_messages,
-      }
+      }, status: 500
     end
   end
 

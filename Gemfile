@@ -54,7 +54,8 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'capybara'
-
+  gem 'poltergeist'
+  gem 'capybara-screenshot'
 end
 
 

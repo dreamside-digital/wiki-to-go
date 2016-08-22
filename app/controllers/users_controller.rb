@@ -6,23 +6,6 @@ class UsersController < ApplicationController
 		@user = User.find params[:id]
 	end
 
-	def new
-		@user = User.new
-	end
-
-	def create
-		@user = User.new(user_params)
-
-		if @user.save
-			flash[:welcome] = "Welcome to Wiki to Go!"
-			session[:user_id] = @user.id
-			session[:name] = @user.name
-			redirect_to user_path(@user)
-		else
-			render 'new'
-		end
-	end
-
 	def edit
 		@user = User.find session[:user_id]
 	end

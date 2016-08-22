@@ -31,7 +31,9 @@ class RegistrationModal extends React.Component {
         }
       },
       error: function(err) {
-        new FlashMessage(err.responseJSON.error, 4000);
+        $('#registration-modal').modal('hide');
+        const errMessage = err.responseJSON.errors.join(', ');
+        new FlashMessage(errMessage, 4000);
       }
     });
   };

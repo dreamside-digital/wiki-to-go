@@ -4,6 +4,8 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
+require 'capybara/poltergeist'
+require 'capybara-screenshot/rspec'
 require 'devise'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -25,6 +27,8 @@ require 'devise'
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
+Capybara.javascript_driver = :poltergeist
+Capybara::Screenshot.autosave_on_failure = false
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -50,4 +54,12 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
   config.include Devise::TestHelpers, :type => :controller
+  config.before(:each) do |example|
+    if [:request, :feature].include? example.metadata[:type]
+      Capybara.current_driver = :poltergeist
+    else
+      Capybara.use_default_driver
+    end
+  end
 end
+

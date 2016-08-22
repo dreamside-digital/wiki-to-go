@@ -11,14 +11,10 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,900' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Oswald:300,700' rel='stylesheet' type='text/css'>
 </head>
+
 <body class="<%= controller_name %> <%= action_name %>">
 
   <%= react_component('App') %>
-
-  <div id="js-flash-message" class="col-md-12 flash-messages hidden"></div>
-  <% flash.map do |key, msg| %>
-    <%= content_tag :div, msg, id: key, class: 'flash-messages'%>
-  <% end %>
 
   <%= yield %>
 
