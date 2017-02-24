@@ -14,9 +14,11 @@ class App extends React.Component {
     return (
       <div>
         <Navbar updateUser={this._updateUser} current_user={this.state.current_user} {...this.props} />
-        <RegistrationModal updateUser={this._updateUser} {...this.props} />
-        <div id="js-flash-message" className="col-md-12 flash-messages hidden"></div>
+        <SecondaryNavbar />
+        <Notification />
+        <Map />
         <InitialSearch />
+        <RegistrationModal updateUser={this._updateUser} {...this.props} />
       </div>
     )
   }
@@ -27,5 +29,5 @@ class App extends React.Component {
     });
   };
 
-  
+
 };
