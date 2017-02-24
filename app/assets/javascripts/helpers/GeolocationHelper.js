@@ -1,4 +1,4 @@
-export default class GeolocationHelper {
+class GeolocationHelper {
 
   static currentLocation() {
     $(".map-loader").addClass("circles-loader");
@@ -31,3 +31,5 @@ export default class GeolocationHelper {
     return false
   };
 };
+
+module.exports = GeolocationHelper;

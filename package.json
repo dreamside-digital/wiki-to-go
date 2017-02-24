@@ -1,0 +1,24 @@
+{
+  "name": "wiki-to-go",
+  "version": "1.0.0",
+  "description": "Search wikipedia by location",
+  "main": "index.js",
+  "dependencies": {
+    "browserify": "^14.1.0",
+    "browserify-incremental": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-kennedy/wiki-to-go.git"
+  },
+  "author": "Sharon Kennedy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s-kennedy/wiki-to-go/issues"
+  },
+  "homepage": "https://github.com/s-kennedy/wiki-to-go#readme"
+}

@@ -40,7 +40,7 @@ class RegistrationModal extends React.Component {
 
   render() {
     return (
-      <div className="modal fade" id="registration-modal" tabindex="-1" role="dialog">
+      <div className="modal fade" id="registration-modal" tabIndex="-1" role="dialog">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -53,29 +53,29 @@ class RegistrationModal extends React.Component {
                 <div className="user-profile-registration-form-fields">
                   <form id="registration-form">
                     <div className="form-group">
-                      <label for="firstName">First name</label>
+                      <label htmlFor="firstName">First name</label>
                       <input type="text" id="firstName" placeholder="First name" className="form-control"/>
                     </div>
                     <div className="form-group">
-                      <label for="lastName">Last name</label>
+                      <label htmlFor="lastName">Last name</label>
                       <input type="text" id="lastName" placeholder="Last name" className="form-control"/>
                     </div>
                     <div className="form-group">
-                      <label for="email">Email</label>
+                      <label htmlFor="email">Email</label>
                       <input type="text" id="email" placeholder="Email" className="form-control"/>
                     </div>
                     <div className="form-group">
-                      <label for="password">Password</label>
+                      <label htmlFor="password">Password</label>
                       <input type="password" id="password" className="form-control"/>
                     </div>
                     <div className="form-group">
-                      <label for="passwordConfirmation">Password Confirmation</label>
+                      <label htmlFor="passwordConfirmation">Password Confirmation</label>
                       <input type="password" id="passwordConfirmation" className="form-control"/>
                     </div>
                   </form>
                 </div>
               </div>
-              </div> 
+              </div>
             <div className="modal-footer">
               <button className="btn" onClick={this._handleSubmitRegistration.bind(this)}>Save</button>
             </div>

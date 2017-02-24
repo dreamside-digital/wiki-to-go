@@ -61,6 +61,10 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    browserify-rails (3.3.0)
+      addressable (>= 2.4.0)
+      railties (>= 4.0.0, < 5.1)
+      sprockets (>= 3.5.2)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.12.1)
@@ -260,6 +264,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.3)
+  browserify-rails
   byebug
   capybara
   capybara-screenshot

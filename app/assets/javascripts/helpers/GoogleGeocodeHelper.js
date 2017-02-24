@@ -1,12 +1,12 @@
-export default class GoogleGeocodeHelper {
+class GoogleGeocodeHelper {
 
   static geocodeAddress() {
-    
+
   }
 
   $(".map-loader").addClass("circles-loader");
   $('.title-area').hide();
-} 
+}
   event.preventDefault();
   var query = $(event.currentTarget).find("input")[1].value
   var geocoder = new google.maps.Geocoder();
@@ -22,3 +22,5 @@ export default class GoogleGeocodeHelper {
     }
   });
 }
+
+module.exports = GoogleGeocodeHelper;
