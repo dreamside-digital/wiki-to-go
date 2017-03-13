@@ -25,8 +25,7 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf', github: 'mileszs/wicked_pdf'
 gem "figaro"
 gem 'devise'
-gem 'react-rails'
-gem 'browserify-rails'
+gem 'react_on_rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
