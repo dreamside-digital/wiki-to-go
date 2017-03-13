@@ -6,8 +6,6 @@ class Search {
   }
 }
 
-
-
 Search.prototype.preSearch = function(lat, lon) {
   window.mapOverlay = new MapOverlay();
   window.mapOverlay.repositionMap(lat, lon);

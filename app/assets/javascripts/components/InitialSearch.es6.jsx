@@ -1,4 +1,13 @@
+var GeolocationHelper = require('../helpers/GeolocationHelper.js');
+
 class InitialSearch extends React.Component {
+
+  getLocation () {
+    console.log('getting location');
+    const location = GeolocationHelper.currentLocation();
+    console.log(location);
+  }
+
   render() {
     return (
       <div className="initial-search col-md-12">
@@ -11,7 +20,7 @@ class InitialSearch extends React.Component {
           </ul>
 
           <div className="search-coords">
-            <button id="get-loc" className="btn btn-default highlight-btn">
+            <button onClick={ this.getLocation } id="get-loc" className="btn btn-default highlight-btn">
               Search near you <span className="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
             </button>
             <input type="text" name="query" id="search-query" placeholder="Search by location" />
