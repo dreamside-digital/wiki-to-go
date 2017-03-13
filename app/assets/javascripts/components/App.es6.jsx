@@ -28,6 +28,4 @@ class App extends React.Component {
       current_user: user,
     });
   };
-
-
 };

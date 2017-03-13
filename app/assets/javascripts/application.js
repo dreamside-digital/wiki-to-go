@@ -1,3 +1,5 @@
+//= require webpack-bundle
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -16,7 +18,4 @@
 //= require jquery-readyselector
 //= require jquery-smooth-scroll
 //= require underscore
-//= require react
-//= require react_ujs
-//= require components
 //= require_tree .

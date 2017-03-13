@@ -1,4 +1,4 @@
-var GeolocationHelper = require('../helpers/GeolocationHelper.js');
+import GeolocationHelper from '../../../helpers/GeolocationHelper';
 
 class InitialSearch extends React.Component {
 

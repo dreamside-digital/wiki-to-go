@@ -48,7 +48,7 @@ group :development, :test do
   gem 'spring'
 
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 3.1.0'
+  gem 'rspec-rails'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -59,3 +59,5 @@ group :development, :test do
 end
 
 
+
+gem 'mini_racer', platforms: :ruby
