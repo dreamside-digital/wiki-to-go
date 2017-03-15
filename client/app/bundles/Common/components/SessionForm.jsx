@@ -6,7 +6,7 @@ import LogoutForm from './LogoutForm';
 export default class SessionForm extends React.Component {
 
   render() {
-    if (this.props.current_user) {
+    if (this.props.currentUser) {
       return (
         <LogoutForm {...this.props}/>
       );

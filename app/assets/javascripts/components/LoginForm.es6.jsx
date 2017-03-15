@@ -1,3 +1,5 @@
+import NotificationHelper from './NotificationHelper';
+
 class LoginForm extends React.Component {
   render() {
     return (
@@ -32,6 +34,7 @@ class LoginForm extends React.Component {
        type:'POST',
        success: function(data) {
         component.props.updateUser(data.user);
+
          new FlashMessage(`Welcome back, ${data.user.first_name}!`, 4000);
        },
        error: function(err) {

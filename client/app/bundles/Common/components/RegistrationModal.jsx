@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import NotificationHelper from '../../../helpers/NotificationHelper';
+
 export default class RegistrationModal extends React.Component {
 
   _handleSubmitRegistration(event) {
@@ -25,17 +27,17 @@ export default class RegistrationModal extends React.Component {
         if (data.status == 'success') {
           $('#registration-modal').modal('hide');
           component.props.updateUser(data.user);
-          new FlashMessage("Welcome to WikiToGo!", 4000);
+          NotificationHelper.notify("Welcome to WikiToGo!", 4000);
         } else {
           $('#registration-modal').modal('hide');
           const errMessage = data.errors.join(', ');
-          new FlashMessage(`We were unable to register your account: ${errMessage}`, 4000);
+          NotificationHelper.notify(`We were unable to register your account: ${errMessage}`, 4000);
         }
       },
       error: function(err) {
         $('#registration-modal').modal('hide');
         const errMessage = err.responseJSON.errors.join(', ');
-        new FlashMessage(errMessage, 4000);
+        NotificationHelper.notify(errMessage, 4000);
       }
     });
   };

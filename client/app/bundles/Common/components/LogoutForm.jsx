@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import NotificationHelper from '../../../helpers/NotificationHelper';
+
 export default class LogoutForm extends React.Component {
   render() {
     return (
@@ -25,10 +27,10 @@ export default class LogoutForm extends React.Component {
       type:'DELETE',
       success: function(data) {
         component.props.updateUser(false);
-        new FlashMessage(`You have been logged out.`, 4000);
+        NotificationHelper.notify(`You have been logged out.`, 4000);
       },
       error: function(err) {
-        new FlashMessage(`There was an error in logging out you, please try again.`, 4000);
+        NotificationHelper.notify(`There was an error in logging out you, please try again.`, 4000);
       }
     });
   };

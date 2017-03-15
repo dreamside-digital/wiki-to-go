@@ -1,20 +1,22 @@
+import NotificationHelper from './NotificationHelper';
+
 export default class GeolocationHelper {
 
   static currentLocation() {
-    $(".map-loader").addClass("circles-loader");
-    $('.title-area').hide();
+    // $(".map-loader").addClass("circles-loader");
+    // $('.title-area').hide();
     if (!navigator.geolocation) {
-      new FlashMessage("Geolocation is not available on your device. Please type your location into the search field.", 5000)
+      NotificationHelper.notify("Geolocation is not available on your device. Please type your location into the search field.", 5000)
       setup.reset()
     }
 
-    var options = {
+    const options = {
       enableHighAccuracy: true,
       maximumAge: 30000,
       timeout: 60000
     };
 
-    const result = navigator.geolocation.getCurrentPosition(this._geolocationSuccess, this._geolocationError, options);
+    const result = navigator.geolocation.getCurrentPosition((position) => { console.log(position) }, (error) => { console.log(error) }, options);
 
     return result;
   };

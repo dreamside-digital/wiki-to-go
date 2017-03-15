@@ -1,8 +1,16 @@
 import React, { PropTypes } from 'react';
 
+import GeolocationHelper from '../../../helpers/GeolocationHelper';
+import GoogleGeocodeHelper from '../../../helpers/GoogleGeocodeHelper';
+
+
 export default class InitialSearch extends React.Component {
-  getLocation () {
-    console.log('getting location');
+  getCurrentLocation () {
+    GeolocationHelper.currentLocation().then(this.parent);
+  }
+
+  getLocationFromQuery (input) {
+    GoogleGeocodeHelper.geocodeAddress(input);
   }
 
   render() {
@@ -17,7 +25,7 @@ export default class InitialSearch extends React.Component {
           </ul>
 
           <div className="search-coords">
-            <button onClick={ this.getLocation } id="get-loc" className="btn btn-default highlight-btn">
+            <button onClick={ this.searchByCurrentLocation } id="get-loc" className="btn btn-default highlight-btn">
               Search near you <span className="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
             </button>
             <input type="text" name="query" id="search-query" placeholder="Search by location" />
